@@ -19,6 +19,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
+	@include('flash-message')
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-dropdown')
 

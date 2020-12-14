@@ -23,6 +23,11 @@
 			Your registered email is: {{ auth()->user()->email }}
 		</h2>
 	</x-slot>
+@if ( Session::has('warning') )
+    <div class="alert alert-danger alert-block">
+       {{Session::get('warning')}}
+    </div>
+@endif
 	<div class="py-12">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -33,8 +38,8 @@
 				@csrf
 				@method('POST')
 				<div class="flex">
-					<div class="flex-auto text-xl mb-4">Email ID:</div>
-					<input type="text" class="form-control" name="email" id="email">
+					<div class="text-xl mb-4">Email ID:</div>
+					<input type="text" class="form-input" name="email" id="email">
 					<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				</div>
 				<div class="flex">

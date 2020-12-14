@@ -40,15 +40,15 @@
                                 </div>
 			        <div class="flex form-group text-lg mb-4">
 			                <label>Item Name:</label>
-			                <input type="text" class="max-w-7xl mx-auto sm:px-6 lg:px-8 form-control" name="name" id="name" value="{{ request()->name }}">
-		               </div>
-			        <div class="flex form-group text-lg">
-			                <label>Item Details:</label>
-			                <input type="text" class="form-control" name="description" id="description" value="{{ request()->description }}">
+			                <input type="text" class="max-w-7xl mx-auto sm:px-6 lg:px-8 form-input" name="name" id="name" value="{{ request()->name }}">
 		               </div>
 			        <div class="form-group flex text-lg">
 			                <label>Item Link:</label>
-			                <input type="text" class="form-control" name="url" id="url" value="{{ request()->url }}">
+			                <input type="text" class="form-input" name="url" id="url" value="{{ request()->url }}">
+		               </div>
+			        <div class="flex form-group text-lg">
+			                <label>Item Details:</label>
+			                <textarea class="form-textarea" name="description" id="description" value="{{ request()->description }}"></textarea>
 		               </div>
                                 <div class="flex">
 					@if ( request()->is_update == True )
