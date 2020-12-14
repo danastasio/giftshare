@@ -66,7 +66,7 @@
                         @endif
 
 			@if (auth()->user()->is_admin)
-			    <x-jet-dropdown-link href="https://google.com">
+			    <x-jet-dropdown-link href="{{ route('admin.index') }}">
 				{{ __('Admin Panel') }}
 			    </x-jet-dropdown-link> 
 			@endif

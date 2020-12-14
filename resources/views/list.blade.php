@@ -38,15 +38,15 @@
                                 <div class="flex">
                                         <div class="flex-auto text-2xl mb-4">Add a new item</div>
                                 </div>
-			        <div class="flex form-group text-lg mb-4">
-			                <label>Item Name:</label>
-			                <input type="text" class="max-w-7xl mx-auto sm:px-6 lg:px-8 form-input" name="name" id="name" value="{{ request()->name }}">
-		               </div>
-			        <div class="form-group flex text-lg">
+				<div class="form-inline text-lg">
+					<label>Item Name:</label>
+					<input type="text" class="form-input" name="name" id="name" value="{{ request()->name }}">
+				</div>
+			        <div class="form-inline text-lg">
 			                <label>Item Link:</label>
 			                <input type="text" class="form-input" name="url" id="url" value="{{ request()->url }}">
 		               </div>
-			        <div class="flex form-group text-lg">
+			        <div class="form-inline text-lg">
 			                <label>Item Details:</label>
 			                <textarea class="form-textarea" name="description" id="description" value="{{ request()->description }}"></textarea>
 		               </div>

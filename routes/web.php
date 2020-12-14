@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SharingController;
 use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\AdminPanel;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 	Route::post('/unclaim', [ItemsController::class, 'unclaim'])->name('unclaim');
 	Route::get('/sharing', [SharingController::class, 'index'])->name('sharing');
 	Route::get('/list', [ItemsController::class, 'list'])->name('list');
+	Route::resource('admin', AdminPanel::class);
 });
 
