@@ -33,8 +33,21 @@ WHERE user__items.user_id IN (
         WHERE sharee_id = ?
 )
 ORDER BY person_name', [auth()->user()->id] );
+
 ?>
 
+@if ( empty($access_users) )
+<div class="py-12">
+	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<div class="flex">
+				<div class="flex-auto text-2xl mb-4 text-center">No one has shared a list with you</div>
+			</div>
+			<div class="flex-auto text-lg mb-4 text-center">Have someone add you to their sharing center to view their list here</div>
+		</div>
+	</div>
+</div>
+@endif
 @foreach ( $access_users as $person )
 <?php
 $shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user__items.claimed, user__items.claimant_id
