@@ -65,6 +65,12 @@
                             </x-jet-dropdown-link>
                         @endif
 
+			@if (auth()->user()->is_admin)
+			    <x-jet-dropdown-link href="https://google.com">
+				{{ __('Admin Panel') }}
+			    </x-jet-dropdown-link> 
+			@endif
+
                         <div class="border-t border-gray-100"></div>
 
                         <!-- Team Management -->
