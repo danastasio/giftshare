@@ -107,7 +107,7 @@ class ItemsController extends Controller {
 		$item->url = $request->url;
 		$item->save();	   
 		$request->is_update = False;
-		return view('list');
+		return redirect('list');
 	}
 	public function claim() {
 		$request = request();
@@ -119,7 +119,7 @@ class ItemsController extends Controller {
 		$user_item->claimed = 1;
 		$user_item->claimant_id = $user_id;
 		$user_item->save();
-		return view('dashboard');
+		return redirect('/');
 	}
 	public function unclaim() {
 		$request = request();
@@ -131,7 +131,7 @@ class ItemsController extends Controller {
 		$user_item->claimed = 0;
 		$user_item->claimant_id = NULL;
 		$user_item->save();
-		return view('dashboard');
+		return redirect('/');
 	}
 	public function list() {
 		return view('list');

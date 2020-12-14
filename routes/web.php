@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 	Route::get('/dashboard',[ItemsController::class, 'index'])->name('dashboard');
+	Route::get('/',[ItemsController::class, 'index'])->name('index');
 
 	Route::resource('items', ItemsController::class);
 	Route::resource('sharecontrol', SharingController::class);
