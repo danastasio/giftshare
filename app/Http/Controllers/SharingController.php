@@ -37,10 +37,17 @@ class SharingController extends Controller
 		$request = request();
 	        $usershare = new User_User;
 		$sharee_id = DB::table('users')->where('email','=',$request->email)->value('id');
-	        $usershare->owner_id = $request->user_id;
-	        $usershare->sharee_id = $sharee_id;
-	        $usershare->save();
-	        return view('sharing');
+		
+		// prevent users from sharing with themselves
+		if ($request->user_id == $sharee_id) {
+			return redirect('sharing')->withWarning('You cannot add yourself 😉');
+			//return redirect('sharing');
+		} else {
+		        $usershare->owner_id = $request->user_id;
+		        $usershare->sharee_id = $sharee_id;
+		        $usershare->save();
+		        return redirect('sharing');
+		}
 	}
 	public function show($id) {
 		echo 'show';
