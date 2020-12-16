@@ -22,6 +22,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User_User;
+use App\Models\User;
 use DB;
 
 class SharingController extends Controller
@@ -40,13 +41,28 @@ class SharingController extends Controller
 		
 		// prevent users from sharing with themselves
 		if ($request->user_id == $sharee_id) {
-			return redirect('sharing')->withWarning('You cannot add yourself 😉');
+			return redirect('sharing')->withInfo('You cannot add yourself. Nice try though 😉');
 			//return redirect('sharing');
+		}
+
+		// check to see if share exists
+		$exists = DB::table('user__users')
+			->where('owner_id','=',$request->user_id)
+			->where('sharee_id','=',$sharee_id)
+			->get();
+		if($exists->count() > 0) {
+			return redirect('sharing')->withInfo('Share already exists between you');
+		} 
+
+		// check to see if user exists
+		$exists = User::find($sharee_id);
+		if(!$exists) {
+			return redirect('sharing')->withError('User does not exist');
 		} else {
 		        $usershare->owner_id = $request->user_id;
 		        $usershare->sharee_id = $sharee_id;
 		        $usershare->save();
-		        return redirect('sharing');
+			return redirect('sharing')->withSuccess('List shared with user');
 		}
 	}
 	public function show($id) {
@@ -61,6 +77,6 @@ class SharingController extends Controller
 	public function destroy($id) {
 	     $share = User_User::find($id);
 	     $share->delete();
-	     return view('sharing');
+	     return redirect('sharing')->withInfo('List revoked from user');
 	}
 }

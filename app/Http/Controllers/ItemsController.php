@@ -61,7 +61,7 @@ class ItemsController extends Controller {
 		$useritem->user_id = $request->user_id;
 		$useritem->item_id = $item->id;
 		$useritem->save();
-		return view('list'); //Redirect::to('dashboard');
+		return redirect('list')->withSuccess('Item added'); //Redirect::to('dashboard');
 	}
 	public function destroy($id) {
 		$item = Item::find($id);
@@ -69,7 +69,7 @@ class ItemsController extends Controller {
 		$user_link = User_Item::find($user_link_find);
 		$item->delete();
 		$user_link->delete();
-		return view('list');
+		return redirect('list')->withInfo('Item deleted');
 	}
 	/**
 		* Display the specified resource.
@@ -107,7 +107,7 @@ class ItemsController extends Controller {
 		$item->url = $request->url;
 		$item->save();	   
 		$request->is_update = False;
-		return redirect('list');
+		return redirect('list')->withSuccess('Item updated');
 	}
 	public function claim() {
 		$request = request();
