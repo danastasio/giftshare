@@ -25,7 +25,7 @@ use App\Models\User_User;
 use App\Models\User;
 use DB;
 
-class SharingController extends Controller
+class ShareController extends Controller
 {
 	public function index() {
 		return view('sharing');

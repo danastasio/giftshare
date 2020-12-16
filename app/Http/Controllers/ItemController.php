@@ -25,7 +25,7 @@ use App\Models\Item;
 use App\Models\User_Item;
 use DB;
 
-class ItemsController extends Controller {
+class ItemController extends Controller {
 	/**
 		* Display a listing of the resource.
 		*
