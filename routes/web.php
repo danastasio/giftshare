@@ -6,9 +6,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 // controllers go here
-use App\Http\Controllers\SharingController;
-use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\ShareController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminPanel;
+use App\Http\Controllers\ClaimController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +27,13 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-	Route::get('/dashboard',[ItemsController::class, 'index'])->name('dashboard');
-	Route::get('/',[ItemsController::class, 'index'])->name('index');
+	Route::get('/dashboard',[ItemController::class, 'index'])->name('dashboard');
+	Route::get('/',[ItemController::class, 'index'])->name('index');
 
-	Route::resource('items', ItemsController::class);
-	Route::resource('sharecontrol', SharingController::class);
-	Route::post('/claim', [ItemsController::class, 'claim'])->name('claim');
-	Route::post('/unclaim', [ItemsController::class, 'unclaim'])->name('unclaim');
-	Route::get('/sharing', [SharingController::class, 'index'])->name('sharing');
-	Route::get('/list', [ItemsController::class, 'list'])->name('list');
+	Route::resource('item', ItemController::class);
+	Route::resource('share', ShareController::class);
+	Route::resource('claim', ClaimController::class);
+	Route::get('/list', [ItemController::class, 'list'])->name('list');
 	Route::resource('admin', AdminPanel::class);
 });
 
