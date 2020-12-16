@@ -23,7 +23,7 @@
 			Your registered email is: {{ auth()->user()->email }}
 		</h2>
 	</x-slot>
-	@if ( Session::has('warning') || Session::has('info') || Session::has('error') || Session::has('success') )
+	@if ( Session::has('warning') || Session::has('info') || Session::has('error') || Session::has('success') || $errors->any())
 		<div class="py-3">
 	@else
 		<div class="py-8">

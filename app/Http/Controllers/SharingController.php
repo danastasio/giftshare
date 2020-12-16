@@ -35,7 +35,10 @@ class SharingController extends Controller
 	}
 	public function store() {
 		
+		// validate data
+		
 		$request = request();
+		$validated = $request->validate(['email' => 'bail|required|max:255']);
 	        $usershare = new User_User;
 		$sharee_id = DB::table('users')->where('email','=',$request->email)->value('id');
 		
