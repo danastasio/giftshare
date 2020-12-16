@@ -51,11 +51,12 @@ class ItemsController extends Controller {
 		*/
 	public function store() {
 		$request = request();
-		$item = Item::create([
-			'name' => $request->name,
-			'description' => $request->description,
-			'url' => $request->url
-		]);
+		//$item = Item::create(['name' => $request->name,	'description' => $request->description,	'url' => $request->url]);
+		$item = new Item;
+		$item->name = $request->name;
+		@$item->description = $request->description;
+		@$item->url = $request->url;
+		$item->save();
 
 		$useritem = new User_Item;
 		$useritem->user_id = $request->user_id;
