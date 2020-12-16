@@ -21,7 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 	// v1
-		// Route::resource('v1', ApiControllerv1::class);
 		Route::post('/v1/hello', [ApiControllerv1::class, 'hello'])->name('hello');
 		Route::post('/v1/item/create', [ApiControllerv1::class, 'item_create'])->name('item_create');
 		Route::post('/v1/item/read', [ApiControllerv1::class, 'item_read'])->name('item_read');
@@ -30,8 +29,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 		Route::post('/v1/item/claim', [ApiControllerv1::class, 'item_claim'])->name('item_claim');
 		Route::post('/v1/item/unclaim', [ApiControllerv1::class, 'item_unclaim'])->name('item_unclaim');
 		Route::post('/v1/share/create', [ApiControllerv1::class, 'share_create'])->name('share_create');
+		Route::post('/v1/share/read', [ApiControllerv1::class, 'share_read'])->name('share_read');
 		Route::post('/v1/share/delete', [ApiControllerv1::class, 'share_delete'])->name('share_delete');
-
-
-	// v2
 });
