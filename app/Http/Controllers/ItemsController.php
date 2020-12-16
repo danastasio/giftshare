@@ -51,6 +51,10 @@ class ItemsController extends Controller {
 		*/
 	public function store() {
 		$request = request();
+	
+		// validate input
+		$validated = $request->validate(['name' => 'bail|required|max:255']);
+
 		$item = new Item;
 		$item->name = $request->name;
 		@$item->description = $request->description;
