@@ -31,10 +31,10 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 				@if ( request()->is_update == True )
-					<form action="{{ route('items.update', request()->item_id) }}" method="post">
+					<form action="{{ route('item.update', request()->item_id) }}" method="post">
 					@method('PUT')
 				@else
-					<form action="{{ route('items.store') }}" method="post">
+					<form action="{{ route('item.store') }}" method="post">
 				@endif
 				<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				<!-- CROSS Site Request Forgery Protection -->
@@ -60,7 +60,7 @@
 		               </div>
                                 <div class="flex">
 					@if ( request()->is_update == True )
-						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="item-update" formaction="{{ route('items.update', request()->item_id) }}">
+						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
 					@else
 						<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
 					@endif
@@ -104,11 +104,11 @@
 								<div class="flex-auto text-left mt-2"> <a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a> </div>
 							</td>
 							<td>
-								<form action="{{ route('items.destroy', $item->id) }}" method="post">
+								<form action="{{ route('item.destroy', $item->id) }}" method="post">
 								@csrf
 								@method('DELETE')
 								<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-								<input type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('items.destroy', $item->id) }}">
+								<input type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
 							</td>
 						</tr>
 					@endforeach

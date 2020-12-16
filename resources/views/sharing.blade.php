@@ -42,7 +42,7 @@
 					<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				</div>
 				<div class="flex">
-					<input type=submit value="Share" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="share-create" formaction="{{ route('sharecontrol.store') }}">
+					<input type=submit value="Share" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="share-create" formaction="{{ route('share.store') }}">
 				</div>
 				</form>
 			</div>
@@ -74,10 +74,10 @@
 						<tr>
 							<td>{{ $user->name }}</td>
 							<td>
-								<form action="{{ route('sharecontrol.destroy', $user->id) }}" method="post">
+								<form action="{{ route('share.destroy', $user->id) }}" method="post">
 								@csrf
 								@method('DELETE')
-								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="share-delete-{{ $user->id }}" formaction="{{ route('sharecontrol.destroy', $user->share_id) }}">
+								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="share-delete-{{ $user->id }}" formaction="{{ route('share.destroy', $user->share_id) }}">
 								</form>
 							</td>
 						</tr>

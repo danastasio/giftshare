@@ -88,15 +88,16 @@ ORDER BY person_name', [auth()->user()->id,$person->id] );
 				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">Link</a></td>
 				<td>
 				@if ( $item->claimed == 0 )
-					<form action="{{ route('claim') }}" method="post">
+					<form action="{{ route('claim.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
                                         <input type="submit" value="Claim" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 					</form>
 				@elseif ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-					<form action="{{ route('unclaim') }}" method="post">
+					<form action="{{ route('claim.destroy', $item->id) }}" method="post">
                                         @csrf
+					@method('DELETE')
                                         <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
                                         <input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
