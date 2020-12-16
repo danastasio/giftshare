@@ -1,6 +1,11 @@
 <?php
 
+// uncomment the next three items if you're disabling email verification
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+
+// controllers go here
 use App\Http\Controllers\SharingController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\AdminPanel;
@@ -33,9 +38,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 	Route::resource('admin', AdminPanel::class);
 });
 
+// below routes are for email verification
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/home');
+    return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::get('/email/verify', function () {
