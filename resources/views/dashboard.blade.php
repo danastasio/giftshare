@@ -80,6 +80,7 @@ ORDER BY person_name', [auth()->user()->id,$person->id] );
 				</thead>
 				<tbody>
 		@foreach ($shared_items as $item)
+			@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 			<tr>
 				<td> {{$item->person_name}} </td>
 				<td> {{$item->name}} </td>
@@ -100,13 +101,13 @@ ORDER BY person_name', [auth()->user()->id,$person->id] );
 					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
                                         <input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
 					</form>
-				@elseif ($item->claimed == 1 && $item->claimant_id != auth()->user()->id)
-					<form>
+				@else					<form>
 					<input type="submit" class="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" value="Item Claimed">
 					</form>
 				@endif
 				</td>
 			</tr>
+			@endif
 		@endforeach
 				</tbody>
 			</table>
