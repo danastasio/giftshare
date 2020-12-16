@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://davidanastasio.com/giftshare'),
+    'url' => env('APP_URL', 'http://danastas.io/giftshare'),
 
     'asset_url' => env('ASSET_URL', NULL),
 

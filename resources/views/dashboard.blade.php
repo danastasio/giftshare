@@ -33,9 +33,7 @@ WHERE user__items.user_id IN (
         WHERE sharee_id = ?
 )
 ORDER BY person_name', [auth()->user()->id] );
-
 ?>
-
 @if ( empty($access_users) )
 <div class="py-12">
 	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -48,6 +46,7 @@ ORDER BY person_name', [auth()->user()->id] );
 	</div>
 </div>
 @endif
+
 @foreach ( $access_users as $person )
 <?php
 $shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user__items.claimed, user__items.claimant_id
@@ -62,7 +61,7 @@ WHERE user__items.user_id IN (
 )
 ORDER BY person_name', [auth()->user()->id,$person->id] );
 ?>
-<div class="py-12">
+<div class="py-8">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="flex">

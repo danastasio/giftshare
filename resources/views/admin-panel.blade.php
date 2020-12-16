@@ -23,20 +23,48 @@
 	</h2>
 </x-slot>
 <?php
- // query for users goes here
+$user_list = DB::select('SELECT users.name,users.email from users');
 ?>
 
 @if ( empty($access_users) )
 <div class="py-12">
-	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="flex">
 				<div class="flex-auto text-2xl mb-4 text-center">Users</div>
 			</div>
 			<div class="flex-auto text-lg mb-4 text-center">
-				users will go here
+                        	<table class="w-full text-md rounded mb-4">
+	                                <thead>
+	        	                        <tr class="border-b">
+		                                        <th class="text-left p-3 px-5">Name</th>
+		                                        <th class="text-left p-3 px-5">Email</th>
+		                                        <th class="text-left p-3 px-5">Role</th>
+		                                        <th class="text-left p-3 px-5">Delete</th>
+	                                	</tr>
+        	                        </thead>
+	                                <tbody>
+						@foreach ( $user_list as $user )
+						<tr>
+							<td>{{ $user->name }}</td>
+							<td>{{ $user->email }}</td>
+							<td>
+								<form action="{{ route('admin.update', 5) }}" method="post">
+									<input type="hidden" id="user_id" value="CHANGEME">
+									<input type="submit" value="Make Admin" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="user-promote" formaction="{{ route('admin.update', 5) }}">
+								</form>
+							</td>
+							<td>
+                                                                <form action="{{ route('admin.update', 5) }}" method="post">
+                                                                        <input type="hidden" id="user_id" value="CHANGEME">
+                                                                        <input type="submit" value="Delete User" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="user-delete" formaction="{{ route('admin.update', 5) }}">
+                                                                </form>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
 			</div>
-		</div>
+		</div>	
 	</div>
 </div>
 @endif
