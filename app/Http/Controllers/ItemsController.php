@@ -116,10 +116,14 @@ class ItemsController extends Controller {
 
 		$user_item_find = DB::table('user__items')->where('item_id','=',$item_id)->value('id');
 		$user_item = User_Item::find($user_item_find);
-		$user_item->claimed = 1;
-		$user_item->claimant_id = $user_id;
-		$user_item->save();
-		return redirect('/');
+		if($user_item->claimed == 1) {
+			return redirect('/')->withError("Item was claimed while you were on this page");
+		} else {
+			$user_item->claimed = 1;
+			$user_item->claimant_id = $user_id;
+			$user_item->save();
+			return redirect('/');
+		}
 	}
 	public function unclaim() {
 		$request = request();
