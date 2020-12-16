@@ -44,7 +44,7 @@ class ShareController extends Controller
 		
 		// prevent users from sharing with themselves
 		if ($request->user_id == $sharee_id) {
-			return redirect('sharing')->withInfo('You cannot add yourself. Nice try though 😉');
+			return redirect('share')->withInfo('You cannot add yourself. Nice try though 😉');
 			//return redirect('sharing');
 		}
 
@@ -54,18 +54,18 @@ class ShareController extends Controller
 			->where('sharee_id','=',$sharee_id)
 			->get();
 		if($exists->count() > 0) {
-			return redirect('sharing')->withInfo('Share already exists between you');
+			return redirect('share')->withInfo('Share already exists between you');
 		} 
 
 		// check to see if user exists
 		$exists = User::find($sharee_id);
 		if(!$exists) {
-			return redirect('sharing')->withError('User does not exist');
+			return redirect('share')->withError('User does not exist');
 		} else {
 		        $usershare->owner_id = $request->user_id;
 		        $usershare->sharee_id = $sharee_id;
 		        $usershare->save();
-			return redirect('sharing')->withSuccess('List shared with user');
+			return redirect('share')->withSuccess('List shared with user');
 		}
 	}
 	public function show($id) {
@@ -80,6 +80,6 @@ class ShareController extends Controller
 	public function destroy($id) {
 	     $share = User_User::find($id);
 	     $share->delete();
-	     return redirect('sharing')->withInfo('List revoked from user');
+	     return redirect('share')->withInfo('List revoked from user');
 	}
 }
