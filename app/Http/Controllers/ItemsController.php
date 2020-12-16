@@ -51,7 +51,6 @@ class ItemsController extends Controller {
 		*/
 	public function store() {
 		$request = request();
-		//$item = Item::create(['name' => $request->name,	'description' => $request->description,	'url' => $request->url]);
 		$item = new Item;
 		$item->name = $request->name;
 		@$item->description = $request->description;
@@ -104,8 +103,8 @@ class ItemsController extends Controller {
 		$item_find = DB::table('items')->where('id','=',$id)->value('id');
 		$item = Item::find($item_find);
 		$item->name = $request->name;
-		$item->description = $request->description;
-		$item->url = $request->url;
+		@$item->description = $request->description;
+		@$item->url = $request->url;
 		$item->save();	   
 		$request->is_update = False;
 		return redirect('list')->withSuccess('Item updated');
