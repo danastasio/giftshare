@@ -40,7 +40,11 @@
 				<!-- CROSS Site Request Forgery Protection -->
 				@csrf
                                 <div class="flex">
-                                        <div class="flex-auto text-2xl mb-4">Add a new item</div>
+					@if ( request()->is_update == True )
+						<div class="flex-auto text-2xl mb-4">Update an item</div>
+					@else
+	                                        <div class="flex-auto text-2xl mb-4">Add a new item</div>
+					@endif
                                 </div>
 				<div class="form-inline text-lg">
 					<label>Item Name:</label>
