@@ -22,12 +22,12 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('list')">
+                    <x-jet-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('claim.index')">
                         {{ __('My Claims') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('sharing')">
+                    <x-jet-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('share.index')">
                         {{ __('Sharing Center') }}
                     </x-jet-nav-link>
                 </div>
