@@ -18,8 +18,7 @@ class CreateUserItemTable extends Migration
 	    $table->integer('user_id');
 	    $table->integer('item_id');
 	    $table->boolean('claimed');
-	    $table->integer('claimant_id');
-	    $table->boolean('current');
+	    $table->integer('claimant_id')->nullable();
             $table->timestamps();
         });
     }

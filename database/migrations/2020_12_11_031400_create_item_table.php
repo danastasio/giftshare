@@ -13,10 +13,10 @@ class CreateItemTable extends Migration
      */
     public function up()
     {
-        Schema::create('item', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-	    $table->string('itemname');
-	    $table->string('itemdescription')->nullable();
+	    $table->string('name');
+	    $table->string('description')->nullable();
 	    $table->string('url')->nullable();
             $table->timestamps();
         });
