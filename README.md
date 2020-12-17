@@ -12,7 +12,9 @@ WIP
 
 ## Screenshots
 
-WIP
+![Dashboard](https://gifts.danastas.io/images/dashboard.png)
+![Sharing Center](https://gifts.danastas.io/images/sharing_center.png)
+![My List](https://gifts.danastas.io/images/mylist.png)
 
 ## Tech/framework used
 
