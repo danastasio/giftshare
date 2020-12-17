@@ -28,7 +28,22 @@ This is a minimal project. No app installs required but are optional through API
 
 ## Installation
 
-WIP
+01. cd to the directory that will host the projet
+02. git clone https://github.com/danastasio/giftshare.git
+03. sudo chown apache:apache storage/ -R
+04. composer install
+05. php artisan key:generate
+06. touch database/database.db
+07. cp .env.example .env
+08. Modify .env accordingly
+09. Move apache giftshare.conf to /etc/httpd/conf.d/giftshare.conf
+10. Reload apache
+11. sudo certbot --expand -d giftshare.server.com
+12. sudo chcon -R -t httpd_sys_rw_content_t database/database.db
+13. sudo chcon -R -t httpd_sys_rw_content_t storage
+14. sudo chmod 775 storage/ -R
+15. change app/Models/User.php line 30 from ```class User extends Authenticatable implements MustVerifyEmail``` to ```class User extends Authenticatable``` to disable email verification
+16. npm install && npm run dev
 
 ## API Reference
 
