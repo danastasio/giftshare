@@ -37,8 +37,12 @@
 				@csrf
 				@method('POST')
 				<div class="flex">
-					<div class="text-xl mb-4">Email ID:</div>
-					<input type="text" class="form-input" name="email" id="email">
+				<table>
+					<tr>
+						<td><div class="text-xl mb-4">Email ID:</div></td>
+						<td><input type="text" class="form-input" name="email" id="email" placeholder="example@email.com"></td>
+					</tr>
+				</table>
 					<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				</div>
 				<div class="flex">

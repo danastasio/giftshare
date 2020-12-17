@@ -36,9 +36,12 @@
 				@else
 					<form action="{{ route('item.store') }}" method="post">
 				@endif
+				
+
 				<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				<!-- CROSS Site Request Forgery Protection -->
 				@csrf
+
                                 <div class="flex">
 					@if ( request()->is_update == True )
 						<div class="flex-auto text-2xl mb-4">Update an item</div>
@@ -46,18 +49,21 @@
 	                                        <div class="flex-auto text-2xl mb-4">Add a new item</div>
 					@endif
                                 </div>
-				<div class="form-inline text-lg">
-					<label>Item Name:</label>
-					<input type="text" class="form-input" name="name" id="name" value="{{ request()->name }}">
-				</div>
-			        <div class="form-inline text-lg">
-			                <label>Item Link:</label>
-			                <input type="text" class="form-input" name="url" id="url" value="{{ request()->url }}">
-		               </div>
-			        <div class="form-inline text-lg">
-			                <label>Item Details:</label>
-			                <textarea class="form-textarea" name="description" id="description" value="{{ request()->description }}"></textarea>
-		               </div>
+				
+				<table>
+					<tr>
+							<td><label>Item Name:</label></td>
+							<td><input type="text" class="form-input" name="name" id="name" value="{{ request()->name }}"></td>
+					</tr>
+					<tr>
+					                <td><label>Item Link:</label></td>
+					                <td><input type="text" class="form-input" name="url" id="url" value="{{ request()->url }}"></td>
+					</tr>
+					<tr>
+					                <td><label>Item Details:</label></td>
+					                <td><textarea class="form-textarea" name="description" id="description" value="{{ request()->description }}"></textarea></td>
+				        </tr>
+				</table>
                                 <div class="flex">
 					@if ( request()->is_update == True )
 						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
@@ -96,6 +102,13 @@
                                         </thead>
                                         <tbody>
 					@foreach (  $own_items as $item )
+			                        <?php // this is only here if I decide to use pretty links on this page in the future.
+						      // to use, change line 115 from "{{$item->url}} to {{$text}}
+							if (isset(parse_url($item->url)['host'])) {
+			                                $text = parse_url($item->url)['host'];
+			                                } else {
+			                                $text = parse_url($item->url)['path'];
+			                        }?>
 						<tr>
 							<td> {{$item->name}} </td>
 							<td> {{$item->description}}</td>
