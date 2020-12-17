@@ -53,7 +53,10 @@ class ItemController extends Controller {
 		$request = request();
 	
 		// validate input
-		$validated = $request->validate(['name' => 'bail|required|max:255']);
+		$validated = $request->validate([
+			'name' => 'bail|required|max:255',
+			'url' => 'nullable|url'
+		]);
 
 		$item = new Item;
 		$item->name = $request->name;
