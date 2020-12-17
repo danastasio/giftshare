@@ -61,7 +61,7 @@
 					</tr>
 					<tr>
 					                <td><label>Item Details:</label></td>
-					                <td><textarea class="form-textarea" name="description" id="description" value="{{ request()->description }}"></textarea></td>
+					                <td><textarea class="form-textarea" name="description" id="description">{{ request()->description }}</textarea></td>
 				        </tr>
 				</table>
                                 <div class="flex">
