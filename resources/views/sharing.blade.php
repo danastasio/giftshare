@@ -60,10 +60,10 @@
 					<div class="flex-auto text-2xl mb-4">Users you're currently sharing with</div>
 				</div>
 				<?php
-			        $shared_users = DB::table('user__users')
-		                    ->join('users', 'users.id', '=', 'user__users.sharee_id')
-		                    ->select('users.name','users.id','user__users.id AS share_id')
-		                    ->where('user__users.owner_id','=',auth()->user()->id)
+			        $shared_users = DB::table('user_users')
+		                    ->join('users', 'users.id', '=', 'user_users.sharee_id')
+		                    ->select('users.name','users.id','user_users.id AS share_id')
+		                    ->where('user_users.owner_id','=',auth()->user()->id)
 		                    ->get();
 				?>
 				<table class="w-full text-md rounded mb-4">

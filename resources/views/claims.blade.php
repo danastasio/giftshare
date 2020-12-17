@@ -1,19 +1,19 @@
 <?php
 /*
-    Copyright (C) 2020  David D. Anastasio
+	Copyright (C) 2020  David D. Anastasio
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Affero General Public License as published
+	by the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-    GNU Affero General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+	GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU Affero General Public License
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 ?>
 <x-app-layout>
@@ -24,13 +24,13 @@
 </x-slot>
 <?php
 $access_users = DB::select('SELECT distinct(users.name) as person_name,users.id
-FROM user__items
-JOIN items ON items.id = user__items.item_id
-JOIN users ON users.id = user__items.user_id
-WHERE user__items.user_id IN (
-        SELECT owner_id
-        FROM user__users
-        WHERE sharee_id = ?
+FROM user_items
+JOIN items ON items.id = user_items.item_id
+JOIN users ON users.id = user_items.user_id
+WHERE user_items.user_id IN (
+		SELECT owner_id
+		FROM user_users
+		WHERE sharee_id = ?
 )
 AND claimed = 1
 AND claimant_id = ?
@@ -51,13 +51,13 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 
 @foreach ( $access_users as $person )
 <?php
-$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user__items.claimed, user__items.claimant_id
-FROM user__items
-JOIN items ON items.id = user__items.item_id
-JOIN users ON users.id = user__items.user_id
-WHERE user__items.user_id IN (
+$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user_items.claimed, user_items.claimant_id
+FROM user_items
+JOIN items ON items.id = user_items.item_id
+JOIN users ON users.id = user_items.user_id
+WHERE user_items.user_id IN (
 	SELECT owner_id
-	FROM user__users
+	FROM user_users
 	WHERE sharee_id = ?
 	AND owner_id = ?
 )
@@ -92,12 +92,12 @@ ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
 				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">Link</a></td>
 				<td>
 					<form id="share-delete" method="post">
-                                        @csrf
+										@csrf
 					@method('DELETE')
-                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
+										<input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
 					<input type="hidden" name="page" id="page_name" value="claims">
-                                        <input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
+										<input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
 					</form>
 				</td>
 			</tr>

@@ -22,7 +22,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Item;
-use App\Models\User_Item;
+use App\Models\UserItems;
 use DB;
 
 class ClaimController extends Controller {
@@ -54,8 +54,8 @@ class ClaimController extends Controller {
                 $item_id = $request->item;
                 $user_id = $request->user;
 
-                $user_item_find = DB::table('user__items')->where('item_id','=',$item_id)->value('id');
-                $user_item = User_Item::find($user_item_find);
+                $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+                $user_item = UserItems::find($user_item_find);
                 if($user_item->claimed == 1) {
                         return redirect('claims')->withError("Item was claimed while you were on this page");
                 } else {
@@ -70,8 +70,8 @@ class ClaimController extends Controller {
                 $item_id = $request->item;
                 $user_id = $request->user;
 
-                $user_item_find = DB::table('user__items')->where('item_id','=',$item_id)->value('id');
-                $user_item = User_Item::find($user_item_find);
+                $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+                $user_item = UserItems::find($user_item_find);
                 $user_item->claimed = 0;
                 $user_item->claimant_id = NULL;
                 $user_item->save();

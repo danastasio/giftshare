@@ -13,11 +13,11 @@ class CreateUserItemTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_item', function (Blueprint $table) {
+        Schema::create('user_items', function (Blueprint $table) {
             $table->id();
 	    $table->integer('user_id');
 	    $table->integer('item_id');
-	    $table->boolean('claimed');
+	    $table->boolean('claimed')->default(0);
 	    $table->integer('claimant_id')->nullable();
             $table->timestamps();
         });

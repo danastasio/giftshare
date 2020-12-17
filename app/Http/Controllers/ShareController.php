@@ -21,7 +21,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User_User;
+use App\Models\UserUsers;
 use App\Models\User;
 use DB;
 
@@ -39,7 +39,7 @@ class ShareController extends Controller
 		
 		$request = request();
 		$validated = $request->validate(['email' => 'bail|required|max:255']);
-	        $usershare = new User_User;
+	        $usershare = new UserUsers;
 		$sharee_id = DB::table('users')->where('email','=',$request->email)->value('id');
 		
 		// prevent users from sharing with themselves
@@ -49,7 +49,7 @@ class ShareController extends Controller
 		}
 
 		// check to see if share exists
-		$exists = DB::table('user__users')
+		$exists = DB::table('user_users')
 			->where('owner_id','=',$request->user_id)
 			->where('sharee_id','=',$sharee_id)
 			->get();
@@ -78,7 +78,7 @@ class ShareController extends Controller
 		echo 'update';
 	}
 	public function destroy($id) {
-	     $share = User_User::find($id);
+	     $share = UserUsers::find($id);
 	     $share->delete();
 	     return redirect('share')->withInfo('List revoked from user');
 	}

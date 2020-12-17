@@ -76,10 +76,10 @@
                 </div>
         </div>
 	<?php
-	$own_items = DB::table('user__items')
-	            ->join('items', 'items.id', '=', 'user__items.item_id')
-	            ->select('items.name', 'items.description', 'items.url','items.id', 'user__items.user_id AS user_link')
-		    ->where('user__items.user_id','=',auth()->user()->id)
+	$own_items = DB::table('user_items')
+	            ->join('items', 'items.id', '=', 'user_items.item_id')
+	            ->select('items.name', 'items.description', 'items.url','items.id', 'user_items.user_id AS user_link')
+		    ->where('user_items.user_id','=',auth()->user()->id)
 	            ->get();
 	?>
         <div class="py-12">

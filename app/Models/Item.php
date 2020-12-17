@@ -25,4 +25,9 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
 	protected $fillable = ['name','description','url'];
+
+	public function useritem() {
+		return $this->hasOne(User_Items::class);
+	}
+	
 }

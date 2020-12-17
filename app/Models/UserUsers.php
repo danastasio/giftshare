@@ -22,7 +22,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User_Item extends Model
+class UserUsers extends Model
 {
-
+	public function owner() {
+		return $this->hasOne(User::class);
+	}
+	public function sharee() {
+		return $this->hasOne(User::class);
+	}
 }

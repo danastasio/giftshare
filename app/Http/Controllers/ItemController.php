@@ -22,7 +22,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Item;
-use App\Models\User_Item;
+use App\Models\UserItems;
 use DB;
 
 class ItemController extends Controller {
@@ -64,16 +64,16 @@ class ItemController extends Controller {
 		@$item->url = $request->url;
 		$item->save();
 
-		$useritem = new User_Item;
+		$useritem = new UserItems;
 		$useritem->user_id = $request->user_id;
 		$useritem->item_id = $item->id;
 		$useritem->save();
-		return redirect('list')->withSuccess('Item added'); //Redirect::to('dashboard');
+		return redirect('list')->withSuccess('Item added');
 	}
 	public function destroy($id) {
 		$item = Item::find($id);
-		$user_link_find = DB::table('user__items')->where('item_id','=',$id)->value('id');
-		$user_link = User_Item::find($user_link_find);
+		$user_link_find = DB::table('user_items')->where('item_id','=',$id)->value('id');
+		$user_link = UserItems::find($user_link_find);
 		$item->delete();
 		$user_link->delete();
 		return redirect('list')->withInfo('Item deleted');
@@ -121,8 +121,8 @@ class ItemController extends Controller {
 		$item_id = $request->item;
 		$user_id = $request->user;
 
-		$user_item_find = DB::table('user__items')->where('item_id','=',$item_id)->value('id');
-		$user_item = User_Item::find($user_item_find);
+		$user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+		$user_item = UserItems::find($user_item_find);
 		if($user_item->claimed == 1) {
 			return redirect('/')->withError("Item was claimed while you were on this page");
 		} else {
@@ -137,8 +137,8 @@ class ItemController extends Controller {
 		$item_id = $request->item;
 		$user_id = $request->user;
 
-		$user_item_find = DB::table('user__items')->where('item_id','=',$item_id)->value('id');
-		$user_item = User_Item::find($user_item_find);
+		$user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+		$user_item = UserItems::find($user_item_find);
 		$user_item->claimed = 0;
 		$user_item->claimant_id = NULL;
 		$user_item->save();

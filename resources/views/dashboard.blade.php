@@ -24,12 +24,12 @@
 </x-slot>
 <?php
 $access_users = DB::select('SELECT distinct(users.name) as person_name,users.id
-FROM user__items
-JOIN items ON items.id = user__items.item_id
-JOIN users ON users.id = user__items.user_id
-WHERE user__items.user_id IN (
+FROM user_items
+JOIN items ON items.id = user_items.item_id
+JOIN users ON users.id = user_items.user_id
+WHERE user_items.user_id IN (
         SELECT owner_id
-        FROM user__users
+        FROM user_users
         WHERE sharee_id = ?
 )
 ORDER BY person_name', [auth()->user()->id] );
@@ -49,13 +49,13 @@ ORDER BY person_name', [auth()->user()->id] );
 
 @foreach ( $access_users as $person )
 <?php
-$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user__items.claimed, user__items.claimant_id
-FROM user__items
-JOIN items ON items.id = user__items.item_id
-JOIN users ON users.id = user__items.user_id
-WHERE user__items.user_id IN (
+$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user_items.claimed, user_items.claimant_id
+FROM user_items
+JOIN items ON items.id = user_items.item_id
+JOIN users ON users.id = user_items.user_id
+WHERE user_items.user_id IN (
 	SELECT owner_id
-	FROM user__users
+	FROM user_users
 	WHERE sharee_id = ?
 	AND owner_id = ?
 )
