@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 .*.un*
 .*.swp
+public/images/dashboard.png
+public/images/sharing_center.png
+public/images/mylist.png
