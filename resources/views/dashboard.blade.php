@@ -78,7 +78,6 @@ ORDER BY person_name', [auth()->user()->id,$person->id] );
 					<th></th>
 				</tr>
 				</thead>
-				<tbody>
 		@foreach ($shared_items as $item)
 			<?php if (isset(parse_url($item->url)['host'])) {
 				$text = parse_url($item->url)['host'];
@@ -90,7 +89,7 @@ ORDER BY person_name', [auth()->user()->id,$person->id] );
 				<td> {{$item->person_name}} </td>
 				<td> {{$item->name}} </td>
 				<td> {{$item->description}}</td>
-				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}} </a></td>
+				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
 				<td>
 				@if ( $item->claimed == 0 )
 					<form action="{{ route('claim.store') }}" method="post">
