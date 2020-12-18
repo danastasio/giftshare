@@ -51,25 +51,23 @@
                                 </div>
 				
 				<!-- columns go claim|item|link|details -->
-				<table>
-					<tr>
-							<td><label>Item Name: *</label></td>
-							<td><input type="text" class="form-input" name="name" id="name" value="{{ request()->name }}"></td>
-					</tr>
-					<tr>
-					                <td><label>Item Link:</label></td>
-					                <td><input type="text" class="form-input" name="url" id="url" value="{{ request()->url }}"></td>
-					</tr>
-					<tr>
-					                <td><label>Item Details:</label></td>
-					                <td><textarea class="form-textarea" name="description" id="description">{{ request()->description }}</textarea></td>
-				        </tr>
-				</table>
+				<div>
+					<label for="name" required>Item Name:</label>
+					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="name" id="name" value="{{ request()->name }}">
+				</div>
+				<div class="mt-4">
+					                <label for="url">Item Link:</label>
+					                <input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="url" id="url" value="{{ request()->url }}">
+				</div>
+				<div class="mt-4">
+					                <label for="description">Item Details</label>
+					                <textarea class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="description" id="description">{{ request()->description }}</textarea>
+				</div>
                                 <div class="flex">
 					@if ( request()->is_update == True )
 						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
 					@else
-						<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+						<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
 					@endif
                                 </div>
 				</form>
