@@ -88,4 +88,34 @@
 			</div>
 		</div>
 	</div>
+		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="flex">
+					<div class="flex-auto text-2xl mb-4">Users who are currently sharing with you</div>
+				</div>
+				<?php
+			        $shared_users = DB::table('user_users')
+		                    ->select('users.name','users.id','user_users.id AS share_id')
+		                    ->join('users', 'users.id', '=', 'user_users.owner_id')
+				    ->where('user_users.sharee_id','=',auth()->user()->id)
+		                    ->get();
+				?>
+				<table class="w-full text-md rounded mb-4">
+					<thead>
+					<tr class="border-b">
+						<th class="text-left p-3 px-5">Name</th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach ( $shared_users as $user )
+						<tr>
+							<td>{{ $user->name }}</td>
+						</tr>
+					@endforeach
+					</tbody>
+				</table>
+					
+			</div>
+		</div>
+	</div>
 </x-app-layout>
