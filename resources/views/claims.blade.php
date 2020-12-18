@@ -37,82 +37,83 @@ AND claimant_id = ?
 ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 ?>
 @if ( empty($access_users) )
-<div class="py-12">
-	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-			<div class="flex">
-				<div class="flex-auto text-2xl mb-4 text-center">You do not have any claims yet</div>
+	<div class="py-8">
+		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="flex">
+					<div class="flex-auto text-2xl mb-4 text-center">You do not have any claims yet</div>
+				</div>
+				<div class="flex-auto text-lg mb-4 text-center">Once you start claiming items, they will show up here.</div>
 			</div>
-			<div class="flex-auto text-lg mb-4 text-center">Once you start claiming items, they will show up here.</div>
 		</div>
 	</div>
+@else
+	<div class="py-4">
+		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="flex">
+					<div class="flex-auto text-2xl mb-4">My claimed items</div>
+				</div>
+				<table class="w-full text-md rounded mb-4">
+					<thead>
+					<tr class="border-b">
+						<th class="text-left p-3 px-5">Name</th>
+						<th class="text-left p-3 px-5">Item Name</th>
+						<th class="text-left p-3 px-5">Item Details</th>
+						<th class="text-left p-3 px-5">Item Link</th>
+						<th class="text-left p-3 px-5">Claim</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+				@foreach ( $access_users as $person )
+					<?php
+						$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user_items.claimed, user_items.claimant_id
+							FROM user_items
+							JOIN items ON items.id = user_items.item_id
+							JOIN users ON users.id = user_items.user_id
+							WHERE user_items.user_id IN (
+								SELECT owner_id
+								FROM user_users
+								WHERE sharee_id = ?
+								AND owner_id = ?)
+							AND claimed = 1
+							AND claimant_id = ?
+							ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
+	
+	// show a message if user exists and is shared with current user but does not have any items left
+	
+	// one page to rule them all
+					?>
+					@foreach ($shared_items as $item)
+					<?php
+			                        if (isset(parse_url($item->url)['host'])) {
+		        	                        $text = parse_url($item->url)['host'];
+		                                } else {
+			                                $text = parse_url($item->url)['path'];
+		                        }?>
+					@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+						<tr>
+							<td> {{$item->person_name}} </td>
+							<td style="word-break: break-word"> {{$item->name}} </td>
+							<td style="word-break: break-word"> {{$item->description}}</td>
+							<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
+							<td>
+								<form id="share-delete" method="post">
+									@csrf
+									@method('DELETE')
+									<input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
+									<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
+									<input type="hidden" name="page" id="page_name" value="claims">
+									<input type="submit" value="Un-claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
+								</form>
+							</td>
+						</tr>
+					@endif
+				@endforeach
+			@endforeach
+		</tbody>
+	</table>			
 </div>
 @endif
-
-@foreach ( $access_users as $person )
-<?php
-$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user_items.claimed, user_items.claimant_id
-FROM user_items
-JOIN items ON items.id = user_items.item_id
-JOIN users ON users.id = user_items.user_id
-WHERE user_items.user_id IN (
-	SELECT owner_id
-	FROM user_users
-	WHERE sharee_id = ?
-	AND owner_id = ?
-)
-AND claimed = 1
-AND claimant_id = ?
-ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
-?>
-<div class="py-8">
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-			<div class="flex">
-				<div class="flex-auto text-2xl mb-4">{{$person->person_name}}</div>
-			</div>
-			<table class="w-full text-md rounded mb-4">
-				<thead>
-				<tr class="border-b">
-					<th class="text-left p-3 px-5">Name</th>
-					<th class="text-left p-3 px-5">Item Name</th>
-					<th class="text-left p-3 px-5">Item Details</th>
-					<th class="text-left p-3 px-5">Item Link</th>
-					<th class="text-left p-3 px-5">Claim</th>
-					<th></th>
-				</tr>
-				</thead>
-				<tbody>
-		@foreach ($shared_items as $item)
-                        <?php if (isset(parse_url($item->url)['host'])) {
-                                $text = parse_url($item->url)['host'];
-                                } else {
-                                $text = parse_url($item->url)['path'];
-                        }?>
-			@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-			<tr>
-				<td> {{$item->person_name}} </td>
-				<td> {{$item->name}} </td>
-				<td> {{$item->description}}</td>
-				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
-				<td>
-					<form id="share-delete" method="post">
-										@csrf
-					@method('DELETE')
-										<input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
-					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-					<input type="hidden" name="page" id="page_name" value="claims">
-										<input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
-					</form>
-				</td>
-			</tr>
-			@endif
-		@endforeach
-				</tbody>
-			</table>
-			
-		</div>
-	</div>
-</div>
-@endforeach
 </x-app-layout>

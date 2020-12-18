@@ -20,13 +20,13 @@
 <x-app-layout>
         <x-slot name="header">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        This is your list
+                        View and update your current list below.
                 </h2>
         </x-slot>
 	@if ( Session::has('warning') || Session::has('info') || Session::has('error') || Session::has('success') || $errors->any() )
 		<div class="py-5">
 	@else
-	        <div class="py-12">
+	        <div class="py-8">
 	@endif
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -50,9 +50,10 @@
 					@endif
                                 </div>
 				
+				<!-- columns go claim|item|link|details -->
 				<table>
 					<tr>
-							<td><label>Item Name:</label></td>
+							<td><label>Item Name: *</label></td>
 							<td><input type="text" class="form-input" name="name" id="name" value="{{ request()->name }}"></td>
 					</tr>
 					<tr>
@@ -82,7 +83,7 @@
 		    ->where('user_items.user_id','=',auth()->user()->id)
 	            ->get();
 	?>
-        <div class="py-12">
+        <div >
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
                                 <div class="flex">
@@ -102,16 +103,15 @@
                                         </thead>
                                         <tbody>
 					@foreach (  $own_items as $item )
-			                        <?php // this is only here if I decide to use pretty links on this page in the future.
-						      // to use, change line 115 from "{{$item->url}} to {{$text}}
+			                        <?php
 							if (isset(parse_url($item->url)['host'])) {
 			                                $text = parse_url($item->url)['host'];
 			                                } else {
 			                                $text = parse_url($item->url)['path'];
 			                        }?>
 						<tr>
-							<td> {{$item->name}} </td>
-							<td> {{$item->description}}</td>
+							<td style="word-break: break-word"> {{$item->name}} </td>
+							<td style="word-break: break-word"> {{$item->description}}</td>
 							<td> {{$item->url}}</td>
 							<td>
 								<div class="flex-auto text-left mt-2"> <a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a> </div>

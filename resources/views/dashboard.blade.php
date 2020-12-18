@@ -60,62 +60,81 @@ WHERE user_items.user_id IN (
 	AND owner_id = ?
 )
 ORDER BY person_name', [auth()->user()->id,$person->id] );
+$item_count = 0;
 ?>
-<div class="py-8">
+<!-- card spacing good. More space before first card though -->
+<!-- display message to user when all items are claimed or there are no items -->
+<div class="py-4">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="flex">
 				<div class="flex-auto text-2xl mb-4">{{$person->person_name}}</div>
 			</div>
-			<table class="w-full text-md rounded mb-4">
-				<thead>
-				<tr class="border-b">
-					<th class="text-left p-3 px-5">Name</th>
-					<th class="text-left p-3 px-5">Item Name</th>
-					<th class="text-left p-3 px-5">Item Details</th>
-					<th class="text-left p-3 px-5">Item Link</th>
-					<th class="text-left p-3 px-5">Claim</th>
-					<th></th>
-				</tr>
-				</thead>
-		@foreach ($shared_items as $item)
-			<?php if (isset(parse_url($item->url)['host'])) {
-				$text = parse_url($item->url)['host'];
-				} else {
-				$text = parse_url($item->url)['path'];
-			}?>
-			@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-			<tr>
-				<td> {{$item->person_name}} </td>
-				<td> {{$item->name}} </td>
-				<td> {{$item->description}}</td>
-				<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
-				<td>
-				@if ( $item->claimed == 0 )
-					<form action="{{ route('claim.store') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
-					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-                                        <input type="submit" value="Claim" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-					</form>
-				@elseif ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-					<form action="{{ route('claim.destroy', $item->id) }}" method="post">
-                                        @csrf
-					@method('DELETE')
-                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
-					<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-                                        <input type="submit" value="Un-Claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-					</form>
-				@else					<form>
-					<input type="submit" class="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" value="Item Claimed">
-					</form>
+			@foreach ($shared_items as $item)
+				@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+					<?php $item_count += 1 ?>
 				@endif
-				</td>
-			</tr>
-			@endif
-		@endforeach
-				</tbody>
-			</table>
+			@endforeach
+			
+			@if ($item_count == 0)
+				<div class="flex-auto text-lg mb-4 text-center">This person has not added any items to their list or they have all been claimed.</div>
+			@else
+				<table class="w-full text-md rounded mb-4">
+					<thead>
+					<!-- hover on current line -->
+					<tr class="border-b">
+						<th class="text-left p-3 px-5">Name</th>
+						<th class="text-left p-3 px-5">Item Name</th>
+						<th class="text-left p-3 px-5">Item Details</th>
+						<th class="text-left p-3 px-5">Item Link</th>
+						<th class="text-left p-3 px-5">Claim</th>
+						<th></th>
+					</tr>
+					</thead>
+			@foreach ($shared_items as $item)
+				<?php if (isset(parse_url($item->url)['host'])) {
+					$text = parse_url($item->url)['host'];
+					} else {
+					$text = parse_url($item->url)['path'];
+				}?>
+				@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+				<tr class="hover:bg-gray-100">
+					<td> {{$item->person_name}} </td>
+					<td style="word-break: break-word"> {{$item->name}} </td>
+					<td style="word-break: break-word"> {{$item->description}}</td>
+					@if ( !empty($text) )
+						<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
+					@else
+						<td></td>
+					@endif
+					<td>
+					@if ( $item->claimed == 0 )
+						<form action="{{ route('claim.store') }}" method="post">
+	                                        @csrf
+	                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
+						<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
+	                                        <input type="submit" value="Claim" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+						</form>
+					@elseif ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+						<form action="{{ route('claim.destroy', $item->id) }}" method="post">
+	                                        @csrf
+						@method('DELETE')
+	                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
+						<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
+	                                        <input type="submit" value="Un-claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+						</form>
+					@else					
+						<form>
+						<input type="submit" class="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" value="Item Claimed">
+						</form>
+					@endif
+					</td>
+				</tr>
+				@endif
+			@endforeach
+		</tbody>
+	</table>
+	@endif
 			
 		</div>
 	</div>

@@ -20,7 +20,7 @@
 <x-app-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-			Your registered email is: {{ auth()->user()->email }}
+			Your registered email is: {{ auth()->user()->email }}.
 		</h2>
 	</x-slot>
 	@if ( Session::has('warning') || Session::has('info') || Session::has('error') || Session::has('success') || $errors->any())
@@ -31,21 +31,21 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex">
-					<div class="flex-auto text-2xl mb-4">Enter someone elses registered email here to share your list with that user</div>
+					<div class="flex-auto text-2xl mb-4">Enter a registered email here to share your list with that user.</div>
 				</div>
 				<form  method="post" id="share-create">
 				@csrf
 				@method('POST')
 				<div class="flex">
-				<table>
-					<tr>
-						<td><div class="text-xl mb-4">Email ID:</div></td>
-						<td><input type="text" class="form-input" name="email" id="email" placeholder="example@email.com"></td>
-					</tr>
-				</table>
+					<table>
+						<tr>
+							<td><div class="text-xl mb-4">Email:</div></td>
+							<td><input type="text" class="form-input" name="email" id="email" placeholder="example@email.com"></td>
+						</tr>
+					</table>
 					<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				</div>
-				<div class="flex">
+				<div class="flex pt-4">
 					<input type=submit value="Share" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="share-create" formaction="{{ route('share.store') }}">
 				</div>
 				</form>
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 
-	<div class="py-8">
+	<div>
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex">
