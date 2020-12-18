@@ -57,7 +57,7 @@ class ClaimController extends Controller {
                 $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
                 $user_item = UserItems::find($user_item_find);
                 if($user_item->claimed == 1) {
-                        return redirect('claims')->withError("Item was claimed while you were on this page");
+                        return redirect('/')->withError("Item was claimed while you were on this page");
                 } else {
                         $user_item->claimed = 1;
                         $user_item->claimant_id = $user_id;
