@@ -97,7 +97,11 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 							<td> {{$item->person_name}} </td>
 							<td style="word-break: break-word"> {{$item->name}} </td>
 							<td style="word-break: break-word"> {{$item->description}}</td>
-							<td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
+		                                        @if ( !empty($text) )
+		                                                <td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
+		                                        @else
+		                                                <td></td>
+		                                        @endif
 							<td>
 								<form id="share-delete" method="post">
 									@csrf
