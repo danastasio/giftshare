@@ -36,15 +36,11 @@
 				<form  method="post" id="share-create">
 				@csrf
 				@method('POST')
-				<div class="flex">
-					<table>
-						<tr>
-							<td><div class="text-xl mb-4">Email:</div></td>
-							<td><input type="text" class="form-input" name="email" id="email" placeholder="example@email.com"></td>
-						</tr>
-					</table>
-					<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+				<div>
+					<label for="email">Email:</label>
+					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="email" id="email" placeholder="example@email.com">
 				</div>
+				<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				<div class="flex pt-4">
 					<input type=submit value="Share" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="share-create" formaction="{{ route('share.store') }}">
 				</div>

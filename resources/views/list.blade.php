@@ -52,16 +52,16 @@
 				
 				<!-- columns go claim|item|link|details -->
 				<div>
-					<label for="name" required>Item Name:</label>
+					<label for="name" required>Item Name: *</label>
 					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="name" id="name" value="{{ request()->name }}">
 				</div>
 				<div class="mt-4">
-					                <label for="url">Item Link:</label>
-					                <input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="url" id="url" value="{{ request()->url }}">
+					<label for="url">Item Link:</label>
+					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="url" id="url" value="{{ request()->url }}">
 				</div>
 				<div class="mt-4">
-					                <label for="description">Item Details</label>
-					                <textarea class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="description" id="description">{{ request()->description }}</textarea>
+					<label for="description">Item Details</label>
+					<textarea class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="description" id="description">{{ request()->description }}</textarea>
 				</div>
                                 <div class="flex">
 					@if ( request()->is_update == True )
