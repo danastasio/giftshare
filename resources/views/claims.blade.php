@@ -93,7 +93,7 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 			                                $text = parse_url($item->url)['path'];
 		                        }?>
 					@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-						<tr>
+						<tr class="hover:bg-gray-100">
 							<td> {{$item->person_name}} </td>
 							<td style="word-break: break-word"> {{$item->name}} </td>
 							<td style="word-break: break-word"> {{$item->description}}</td>
