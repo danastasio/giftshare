@@ -142,6 +142,21 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('claim.index')">
+                {{ __('My Claims') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('list') }}" :active="request()->routeIs('list')">
+                {{ __('My List') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('share.index')">
+                {{ __('Sharing Center') }}
+            </x-jet-responsive-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
