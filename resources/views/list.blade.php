@@ -52,7 +52,7 @@
 				
 				<!-- columns go claim|item|link|details -->
 				<div>
-					<label for="name" required>Item Name: *</label>
+					<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
 					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="name" id="name" value="{{ request()->name }}">
 				</div>
 				<div class="mt-4">
