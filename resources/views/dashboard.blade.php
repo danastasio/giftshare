@@ -74,6 +74,24 @@ ORDER BY person_name', [auth()->user()->id] );
 							<div class="flex-auto text-2xl mb-4">> {{$person->person_name}}</div>
 						</div>
 					</button>
+					<div id="header-card" class="md:flex hidden">
+						<div class='w-1/5'>
+							<strong>Person Name</strong>
+						</div>
+						<div class='w-1/5'>
+							<strong>Item Name</strong>
+						</div>
+						<div class='w-1/5'>
+							<strong>Item Description</strong>
+						</div>
+						<div class='w-1/5'>
+							<strong>Item Link</strong>
+						</div>
+						<div class='w-1/5'>
+							<strong>Claim Button</strong>
+						</div>
+					</div>
+				<hr>
 				<div x-show="show">
 					@foreach ($shared_items as $item)
 						@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
@@ -109,7 +127,7 @@ ORDER BY person_name', [auth()->user()->id] );
 									<div class="md:w-1/5 w-full pb-2">
 										@if ( !empty($text))
 										<form target="_blank">
-											<input type="submit" formaction="{{$item->url}}" class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg" value="{{$text}}">
+											<input type="submit" formaction="{{$item->url}}" class="w-full md:w-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg" value="{{$text}}">
 										</form>
 										@endif
 									</div>
@@ -119,7 +137,7 @@ ORDER BY person_name', [auth()->user()->id] );
 							                                        @csrf
 							                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 												<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-							                                        <input type="submit" value="Claim" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl md:rounded-lg">
+							                                        <input type="submit" value="Claim" class="md:ml-2 w-full md:w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl md:rounded-lg">
 											</form>
 										@elseif ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 											<form action="{{ route('claim.destroy', $item->id) }}" method="post">
@@ -127,7 +145,7 @@ ORDER BY person_name', [auth()->user()->id] );
 												@method('DELETE')
 							                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 												<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-							                                        <input type="submit" value="Un-claim" class="w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg">
+							                                        <input type="submit" value="Un-claim" class="md:ml-2 w-full md:w-1/2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg">
 											</form>
 										@endif
 									</div>
