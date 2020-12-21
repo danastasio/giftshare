@@ -38,7 +38,7 @@
 				@method('POST')
 				<div>
 					<label for="email">Email:</label>
-					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="email" id="email" placeholder="example@email.com">
+					<input type="email" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-50" name="email" id="email" placeholder="example@email.com">
 				</div>
 				<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				<div class="flex pt-4">
@@ -87,7 +87,6 @@
 					
 			</div>
 		</div>
-	</div>
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex">

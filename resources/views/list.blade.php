@@ -53,19 +53,19 @@
 				<!-- columns go claim|item|link|details -->
 				<div>
 					<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
-					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="name" id="name" value="{{ request()->name }}">
+					<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="name" id="name" value="{{ request()->name }}">
 				</div>
 				<div class="mt-4">
 					<label for="url">Item Link:</label>
-					<input type="text" class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="url" id="url" value="{{ request()->url }}">
+					<input type="url" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="url" id="url" value="{{ request()->url }}">
 				</div>
 				<div class="mt-4">
 					<label for="description">Item Details</label>
-					<textarea class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
+					<textarea class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
 				</div>
                                 <div class="flex">
 					@if ( request()->is_update == True )
-						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
+						<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-4" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
 					@else
 						<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
 					@endif
@@ -92,11 +92,11 @@
                                 <table class="w-full text-md rounded mb-4">
                                         <thead>
                                         <tr class="border-b">
-                                                <th class="text-left p-3 px-5">Item Name</th>
-                                                <th class="text-left p-3 px-5">Item Details</th>
-						<th class="text-left p-3 px-5">Item Link</th>
-						<th class="text-left p-3 px-5">Edit Item</th>
-						<th class="text-left p-3 px-5">Delete Item</th>
+                                                <th class="text-left pb-3">Item Name</th>
+                                                <th class="text-left pb-3">Item Details</th>
+						<th class="text-left pb-3">Item Link</th>
+						<th class="text-left pb-3">Edit Item</th>
+						<th class="text-left pb-3">Delete Item</th>
                                         </tr>
                                         </thead>
                                         <tbody>

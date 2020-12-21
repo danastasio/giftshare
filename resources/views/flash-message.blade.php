@@ -10,7 +10,7 @@
 
 @if (Session::has('error') || $errors->any())
 	@if ( $errors->any() )
-<div class="py-5">
+		<div class="py-5">
 		        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		                <div style="color: #fed7d7;background-color: #c53030;position: relative;border-radius: 0.5rem;padding-top: 0.75rem; padding-bottom: 0.75rem;padding-right: 0.75rem; padding-left: 0.75rem;">
 					<ul>

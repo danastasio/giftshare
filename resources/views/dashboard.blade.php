@@ -67,9 +67,13 @@ $item_count = 0;
 <div class="py-4">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+<div x-data={show:true}>
+<button  @click="show=!show" type="button">
 			<div class="flex">
 				<div class="flex-auto text-2xl mb-4">{{$person->person_name}}</div>
 			</div>
+</button>
+<div x-show="show">
 			@foreach ($shared_items as $item)
 				@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 					<?php $item_count += 1 ?>
@@ -81,13 +85,12 @@ $item_count = 0;
 			@else
 				<table class="w-full text-md rounded mb-4">
 					<thead>
-					<!-- hover on current line -->
 					<tr class="border-b">
-						<th class="text-left p-3 px-5">Name</th>
-						<th class="text-left p-3 px-5">Item Name</th>
-						<th class="text-left p-3 px-5">Item Details</th>
-						<th class="text-left p-3 px-5">Item Link</th>
-						<th class="text-left p-3 px-5">Claim</th>
+						<th class="text-left pb-3">Name</th>
+						<th class="text-left pb-3">Item Name</th>
+						<th class="text-left pb-3">Item Details</th>
+						<th class="text-left pb-3">Item Link</th>
+						<th class="text-left pb-3">Claim</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -97,6 +100,7 @@ $item_count = 0;
 					} else {
 					$text = parse_url($item->url)['path'];
 				}?>
+
 				@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 				<tr class="hover:bg-gray-100">
 					<td> {{$item->person_name}} </td>
@@ -123,9 +127,6 @@ $item_count = 0;
 						<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
 	                                        <input type="submit" value="Un-claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
 						</form>
-					@else					
-						<form>
-						<input type="submit" class="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" value="Item Claimed">
 						</form>
 					@endif
 					</td>
@@ -138,6 +139,8 @@ $item_count = 0;
 			
 		</div>
 	</div>
+</div>
+</div>
 </div>
 @endforeach
 </x-app-layout>

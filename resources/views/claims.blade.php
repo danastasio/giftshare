@@ -57,11 +57,11 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 				<table class="w-full text-md rounded mb-4">
 					<thead>
 					<tr class="border-b">
-						<th class="text-left p-3 px-5">Name</th>
-						<th class="text-left p-3 px-5">Item Name</th>
-						<th class="text-left p-3 px-5">Item Details</th>
-						<th class="text-left p-3 px-5">Item Link</th>
-						<th class="text-left p-3 px-5">Claim</th>
+						<th class="text-left pb-3">Name</th>
+						<th class="text-left pb-3">Item Name</th>
+						<th class="text-left pb-3">Item Details</th>
+						<th class="text-left pb-3">Item Link</th>
+						<th class="text-left pb-3">Claim</th>
 						<th></th>
 					</tr>
 					</thead>
