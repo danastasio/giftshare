@@ -93,7 +93,7 @@ ORDER BY person_name', [auth()->user()->id] );
 								$text = parse_url($item->url)['path'];
 							}?>
 							@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
-								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0">
+								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
 									<div class="md:w-1/5 w-full pb-2">
 										<div class="md:hidden"><strong>Person Name</strong></div>
 										{{$person->person_name}}
