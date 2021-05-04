@@ -1,7 +1,16 @@
 <?php
 
+// uncomment the next three items if you're disabling email verification
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
+// controllers go here
+use App\Http\Controllers\ShareController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AdminPanel;
+use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\ImportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +23,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('auth/login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+	Route::get('/dashboard',[ItemController::class, 'index'])->name('dashboard');
+	Route::get('/',[ItemController::class, 'index'])->name('index');
+
+	Route::resource('item', ItemController::class);
+	Route::resource('share', ShareController::class);
+	Route::resource('claim', ClaimController::class);
+	Route::get('/list', [ItemController::class, 'list'])->name('list');
+	Route::resource('admin', AdminPanel::class);
+	Route::resource('import', ImportController::class);
+	Route::get('/amazon', [ImportController::class, 'amazon'])->name('amazon');
+});
+
+// below routes are for email verification
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
