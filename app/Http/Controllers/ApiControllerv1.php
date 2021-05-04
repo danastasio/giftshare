@@ -30,8 +30,9 @@ class ApiControllerv1 extends Controller {
 		return "hello";
 	}
 
-	public function item_create() {
-		return json_encode(['message' => 'item_create']);
+	public function item_create(Request $request) {
+		return $request;
+		//return json_encode(['message' => 'item_create']);
 	}
 
 	public function item_read() {
@@ -64,7 +65,7 @@ class ApiControllerv1 extends Controller {
                 }
 
                 // check to see if share exists
-                $exists = DB::table('user__users')
+                $exists = DB::table('user_users')
                         ->where('owner_id','=',$request->owner_id)
                         ->where('sharee_id','=',$sharee_id)
                         ->get();

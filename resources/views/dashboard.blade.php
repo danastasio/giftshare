@@ -36,6 +36,7 @@ WHERE user_items.user_id IN (
         WHERE sharee_id = ?
 )
 ORDER BY person_name', [auth()->user()->id] );
+
 ?>
 @if ( empty($access_users) )
 <div class="py-12">
@@ -74,6 +75,8 @@ ORDER BY person_name', [auth()->user()->id] );
 							<div class="flex-auto text-2xl mb-4">> {{$person->person_name}}</div>
 						</div>
 					</button>
+
+				<div x-show="show">
 					<div id="header-card" class="md:flex hidden">
 						<div class='w-1/5'>
 							<strong>Person Name</strong>
@@ -91,8 +94,9 @@ ORDER BY person_name', [auth()->user()->id] );
 							<strong>Claim Button</strong>
 						</div>
 					</div>
-				<hr>
-				<div x-show="show">
+					<div class="invisible md:visible">
+						<hr>
+					</div>
 					@foreach ($shared_items as $item)
 						@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 							<?php $item_count += 1 ?>

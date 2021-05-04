@@ -10,7 +10,7 @@ use App\Http\Controllers\ShareController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\ClaimController;
-
+use App\Http\Controllers\ImportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 	Route::resource('claim', ClaimController::class);
 	Route::get('/list', [ItemController::class, 'list'])->name('list');
 	Route::resource('admin', AdminPanel::class);
+	Route::resource('import', ImportController::class);
+	Route::get('/amazon', [ImportController::class, 'amazon'])->name('amazon');
 });
 
 // below routes are for email verification
