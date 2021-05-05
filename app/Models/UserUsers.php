@@ -28,6 +28,6 @@ class UserUsers extends Model
 		return $this->belongsTo(User::class);
 	}
 	public function sharee() {
-		return $this->hasOne(User::class);
+		return $this->belongsTo(User::class);
 	}
 }

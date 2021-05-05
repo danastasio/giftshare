@@ -32,7 +32,8 @@ class ClaimController extends Controller {
 		* @return Response
 		*/
 	public function index() {
-		return UserItems::with('user')->with('item')->get();
+		$claims =  UserItems::with('user')->with('item')->get();
+		return $claims[0]['user'];
 		return view('claims');
 	}
 

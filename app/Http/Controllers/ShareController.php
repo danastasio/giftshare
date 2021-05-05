@@ -10,7 +10,7 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
@@ -28,20 +28,27 @@ use DB;
 class ShareController extends Controller
 {
 	public function index() {
-		return view('sharing');
+		$shared_users = UserUsers::with('owner','sharee')->get();
+					        /*$shared_users = DB::table('user_users')
+		                    ->join('users', 'users.id', '=', 'user_users.sharee_id')
+		                    ->select('users.name','users.id','user_users.id AS share_id')
+		                    ->where('user_users.owner_id','=',auth()->user()->id)
+		                    ->get();*/
+		return $shared_users;
+		return view('sharing')->with('shared_users', $shared_users);
 	}
 	public function create() {
 		echo 'create';
 	}
 	public function store() {
-		
+
 		// validate data
-		
+
 		$request = request();
 		$validated = $request->validate(['email' => 'bail|required|max:255']);
 	        $usershare = new UserUsers;
 		$sharee_id = DB::table('users')->where('email','=',$request->email)->value('id');
-		
+
 		// prevent users from sharing with themselves
 		if ($request->user_id == $sharee_id) {
 			return redirect('share')->withInfo('You cannot add yourself. Nice try though 😉');
@@ -55,7 +62,7 @@ class ShareController extends Controller
 			->get();
 		if($exists->count() > 0) {
 			return redirect('share')->withInfo('Share already exists between you');
-		} 
+		}
 
 		// check to see if user exists
 		$exists = User::find($sharee_id);

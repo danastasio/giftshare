@@ -9,7 +9,7 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
@@ -55,13 +55,6 @@
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4">Users you're currently sharing with</div>
 				</div>
-				<?php
-			        $shared_users = DB::table('user_users')
-		                    ->join('users', 'users.id', '=', 'user_users.sharee_id')
-		                    ->select('users.name','users.id','user_users.id AS share_id')
-		                    ->where('user_users.owner_id','=',auth()->user()->id)
-		                    ->get();
-				?>
 				<table class="w-full text-md rounded mb-4">
 					<thead>
 					<tr class="border-b">
@@ -84,7 +77,7 @@
 					@endforeach
 					</tbody>
 				</table>
-					
+
 			</div>
 		</div>
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
@@ -113,7 +106,7 @@
 					@endforeach
 					</tbody>
 				</table>
-					
+
 			</div>
 		</div>
 	</div>
