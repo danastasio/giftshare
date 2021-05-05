@@ -50,8 +50,8 @@ class ClaimController extends Controller {
 	*
 	* @return Response
 	*/
-    public function store() {
-        $request = request();
+    public function store(ClaimRequest $request) {
+        $request = $request->validated();
         $item_id = $request->item;
         $user_id = $request->user;
 
