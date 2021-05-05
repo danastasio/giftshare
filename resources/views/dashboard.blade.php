@@ -113,11 +113,10 @@ ORDER BY person_name', [auth()->user()->id] );
 											</form>
 										@elseif ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
 											<form action="{{ route('claim.destroy', $item->id) }}" method="post">
-							                                        @csrf
+		                                        @csrf
 												@method('DELETE')
-							                                        <input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 												<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-							                                        <input type="submit" value="Un-claim" class="md:ml-2 w-full md:w-1/2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg">
+		                                        <input type="submit" value="Un-claim" class="md:ml-2 w-full md:w-1/2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg">
 											</form>
 										@endif
 									</div>

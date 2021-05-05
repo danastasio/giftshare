@@ -34,45 +34,36 @@
 		</div>
 	</div>
 @else
-
 	<div class="py-4">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="flex">
-					<div class="flex-auto text-2xl mb-4">My claimed items</div>
-				</div>
-				<table class="w-full text-md rounded mb-4">
-					<thead>
-					<tr class="border-b">
-						<th class="text-left pb-3">Name</th>
-						<th class="text-left pb-3">Item Name</th>
-						<th class="text-left pb-3">Item Details</th>
-						<th class="text-left pb-3">Item Link</th>
-						<th class="text-left pb-3">Claim</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-				@foreach ( $claims as $item )
-						<tr class="hover:bg-gray-100">
-							<td> {{$item['user']->name}} </td>
-							<td style="word-break: break-word"> {{$item->name}} </td>
-							<td style="word-break: break-word"> {{$item->description}}</td>
-                            <td> <a href="{{$item['url']}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$item['url']}}</a></td>
-							<td>
-								<form id="share-delete" method="post">
-									@csrf
+				<div class="text-center text-2xl mb-4">My claimed items</div>
+					<div class='hidden md:grid grid-cols-5 gap-3 font-semibold'>
+						<div class="text-left pb-3">Name</div>
+						<div class="text-left pb-3">Item Name</div>
+						<div class="text-left pb-3">Item Details</div>
+						<div class="text-left pb-3">Item Link</div>
+						<div class="text-left pb-3">Claim</div>
+					</div>
+					<hr class='mb-3'>
+					<div class='grid grid-cols-1 md:grid-cols-5 gap-3'>
+						@foreach ( $claims as $item )
+							<div> {{$item['user']->name}} </div>
+							<div> {{$item->name}} </div>
+							<div> {{$item->description}}</div>
+                        	<div class='my-auto w-full'> <a href="{{$item['url']}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$item['url']}}</a></div>
+							<div class='w-full'>
+								<form action="{{ route('claim.destroy', $item->id) }}" method="post">
+		                            @csrf
 									@method('DELETE')
-									<input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
 									<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-									<input type="hidden" name="page" id="page_name" value="claims">
-									<input type="submit" value="Un-claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
+		                            <input formaction="{{ route('claim.destroy', $item->id) }}" type="submit" value="Un-claim" class="md:ml-2 w-full md:w-1/2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 md:px-4 px-24 rounded md:rounded-md">
 								</form>
-							</td>
-						</tr>
-				@endforeach
-		</tbody>
-	</table>
-</div>
+							</div>
+						@endforeach
+					</div>
+			</div>
+		</div>
+	</div>
 @endif
 </x-app-layout>

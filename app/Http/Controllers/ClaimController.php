@@ -69,7 +69,7 @@ class ClaimController extends Controller {
 
         $user_item = Item::where('id',$request['item'])->get();
         $user_item[0]['claimed'] = 0;
-        $user_item[0]['claimant_id'] = NULL;
+        $user_item[0]['claimant_id'] = null;
         $user_item[0]->save();
 		return back();
 	}
