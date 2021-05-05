@@ -51,11 +51,11 @@ class ItemController extends Controller {
 
 		$shared_items_by_user = array();
 		foreach ($access_users as $user) {
-			//$item = UserItems::where('user_id',$user['id'])->with('item')->with('user')->get();
 			$item = User::where('id',$user['id'])->with('items')->with('items')->get();
-			return $item;
+			array_push($shared_items_by_user, $item);
 		}
-		return view('dashboard')->with('access_users', $access_users);
+		//return $shared_items_by_user;
+		return view('dashboard')->with('shared_items', $shared_items_by_user);
 	}
 
 	/**
@@ -137,7 +137,7 @@ class ItemController extends Controller {
 		return redirect('list')->withSuccess('Item updated');
 	}
 	public function list() {
-		$own_items = Item::where('id', auth()->user()->id)->with('items')->get();
+		$own_items = Item::where('owner_id', auth()->user()->id)->with('items')->get();
 		return view('list')->with('own_items', $own_items);
 	}
 	/**
