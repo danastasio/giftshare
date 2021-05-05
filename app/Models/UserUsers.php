@@ -10,7 +10,7 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserUsers extends Model
 {
 	public function owner() {
-		return $this->hasOne(User::class);
+		return $this->belongsTo(User::class);
 	}
 	public function sharee() {
 		return $this->hasOne(User::class);
