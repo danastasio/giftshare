@@ -9,7 +9,7 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
@@ -36,7 +36,7 @@
 				@else
 					<form action="{{ route('item.store') }}" method="post">
 				@endif
-				
+
 
 				<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
 				<!-- CROSS Site Request Forgery Protection -->
@@ -49,7 +49,7 @@
 	                                        <div class="flex-auto text-2xl mb-4">Add a new item</div>
 					@endif
                                 </div>
-				
+
 				<!-- columns go claim|item|link|details -->
 				<div>
 					<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
@@ -74,13 +74,6 @@
                         </div>
                 </div>
         </div>
-	<?php
-	$own_items = DB::table('user_items')
-	            ->join('items', 'items.id', '=', 'user_items.item_id')
-	            ->select('items.name', 'items.description', 'items.url','items.id', 'user_items.user_id AS user_link')
-		    ->where('user_items.user_id','=',auth()->user()->id)
-	            ->get();
-	?>
         <div >
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -125,9 +118,8 @@
 					@endforeach
                                         </tbody>
                                 </table>
-                                            
+
                         </div>
                 </div>
         </div>
 </x-app-layout>
-

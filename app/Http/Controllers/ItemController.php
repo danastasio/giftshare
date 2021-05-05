@@ -10,7 +10,7 @@
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
@@ -51,7 +51,7 @@ class ItemController extends Controller {
 		*/
 	public function store() {
 		$request = request();
-	
+
 		// validate input
 		$validated = $request->validate([
 			'name' => 'bail|required|max:255',
@@ -112,40 +112,14 @@ class ItemController extends Controller {
 		$item->name = $request->name;
 		@$item->description = $request->description;
 		@$item->url = $request->url;
-		$item->save();	   
+		$item->save();
 		$request->is_update = False;
 		return redirect('list')->withSuccess('Item updated');
 	}
-	public function claim() {
-		$request = request();
-		$item_id = $request->item;
-		$user_id = $request->user;
-
-		$user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-		$user_item = UserItems::find($user_item_find);
-		if($user_item->claimed == 1) {
-			return redirect('/')->withError("Item was claimed while you were on this page");
-		} else {
-			$user_item->claimed = 1;
-			$user_item->claimant_id = $user_id;
-			$user_item->save();
-			return redirect('/');
-		}
-	}
-	public function unclaim() {
-		$request = request();
-		$item_id = $request->item;
-		$user_id = $request->user;
-
-		$user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-		$user_item = UserItems::find($user_item_find);
-		$user_item->claimed = 0;
-		$user_item->claimant_id = NULL;
-		$user_item->save();
-		return redirect('/');
-	}
 	public function list() {
-		return view('list');
+		$own_items = UserItems::where('user_id', auth()->user()->id)->with('item')->get();
+		return $own_items;
+		return view('list')->with('own_items', $own_items);
 	}
 	/**
 	* Remove the specified resource from storage.

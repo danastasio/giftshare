@@ -27,7 +27,7 @@ class Item extends Model
 	protected $fillable = ['name','description','url'];
 
 	public function useritem() {
-		return $this->belongsTo(UserItems::class);
+		return $this->hasMany(UserItems::class);
 	}
 
 }
