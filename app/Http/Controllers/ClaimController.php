@@ -69,11 +69,10 @@ class ClaimController extends Controller {
         $item_id = $request->item;
         $user_id = $request->user;
 
-        $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-        $user_item = UserItems::find($user_item_find);
-        $user_item->claimed = 0;
-        $user_item->claimant_id = NULL;
-        $user_item->save();
+        $user_item = UserItems::where('item_id',$item_id)->get();
+        $user_item[0]['claimed'] = 0;
+        $user_item[0]['claimant_id'] = NULL;
+        $user_item[0]->save();
 		if ($request->page == 'claims') {
 			return redirect('claim');
 		} else {
