@@ -27,87 +27,87 @@ use DB;
 
 class ClaimController extends Controller {
 	/**
-		* Display a listing of the resource.
-		*
-		* @return Response
-		*/
+	* Display a listing of the resource.
+	*
+	* @return Response
+	*/
 	public function index() {
 		$claims =  UserItems::where('claimant_id',auth()->user()->id)->with('user','item')->get();
 		return view('claims')->with('claims', $claims);
 	}
 
 	/**
-		* Show the form for creating a new resource.
-		*
-		* @return Response
-		*/
+	* Show the form for creating a new resource.
+	*
+	* @return Response
+	*/
 	public function create() {
 		//
 	}
 
 	/**
-		* Store a newly created resource in storage.
-		*
-		* @return Response
-		*/
-        public function store() {
-                $request = request();
-                $item_id = $request->item;
-                $user_id = $request->user;
+	* Store a newly created resource in storage.
+	*
+	* @return Response
+	*/
+    public function store() {
+        $request = request();
+        $item_id = $request->item;
+        $user_id = $request->user;
 
-                $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-                $user_item = UserItems::find($user_item_find);
-                if($user_item->claimed == 1) {
-                        return redirect('/')->withError("Item was claimed while you were on this page");
-                } else {
-                        $user_item->claimed = 1;
-                        $user_item->claimant_id = $user_id;
-                        $user_item->save();
-                        return redirect('/');
-                }
-        }
-        public function destroy() {
-                $request = request();
-                $item_id = $request->item;
-                $user_id = $request->user;
-
-                $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-                $user_item = UserItems::find($user_item_find);
-                $user_item->claimed = 0;
-                $user_item->claimant_id = NULL;
+        $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+        $user_item = UserItems::find($user_item_find);
+        if($user_item->claimed == 1) {
+                return redirect('/')->withError("Item was claimed while you were on this page");
+        } else {
+                $user_item->claimed = 1;
+                $user_item->claimant_id = $user_id;
                 $user_item->save();
+                return redirect('/');
+        }
+    }
+    public function destroy() {
+        $request = request();
+        $item_id = $request->item;
+        $user_id = $request->user;
+
+        $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
+        $user_item = UserItems::find($user_item_find);
+        $user_item->claimed = 0;
+        $user_item->claimant_id = NULL;
+        $user_item->save();
 		if ($request->page == 'claims') {
 			return redirect('claim');
 		} else {
-	                return redirect('/');
+            return redirect('/');
 		}
 	}
 	/**
-		* Display the specified resource.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
+	* Display the specified resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
 	public function show($id) {
 		//
 	}
 
 	/**
-		* Show the form for editing the specified resource.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
+	* Show the form for editing the specified resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
 	public function edit($id) {
 		//
 	}
 
 	/**
-		* Update the specified resource in storage.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
+	* Update the specified resource in storage.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
 	public function update(Request $request, $id) {
 		//
 	}
