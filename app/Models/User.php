@@ -10,7 +10,7 @@
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
@@ -26,8 +26,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserItems;
+use App\Models\Item;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable //implements MustVerifyEmail
 {
 	use HasApiTokens;
 	use HasFactory;
@@ -76,11 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
 		'profile_photo_url',
 	];
 	public function items() {
-		return $this->hasMany(Item::class);
+		return $this->hasMany(Item::class, 'owner_id');
 	}
 
 	public function shares() {
-	return $this->hasMany(UserUsers::class);
+		return $this->hasMany(UserUsers::class);
 	}
 
 	public function claims() {

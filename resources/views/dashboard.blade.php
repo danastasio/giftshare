@@ -9,7 +9,7 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
@@ -22,22 +22,6 @@
 		{{ __('Dashboard') }}
 	</h2>
 </x-slot>
-<div class="pb-4">
-<!-- This is just here to give some space before the first card. Its needed because the first card doesn't get created until the foreach loop. Adding any space there would add space to every card. Adding padding to <h2> would just increase the header, not add space below it. -->
-</div>
-<?php
-$access_users = DB::select('SELECT distinct(users.name) as person_name,users.id
-FROM user_items
-JOIN items ON items.id = user_items.item_id
-JOIN users ON users.id = user_items.user_id
-WHERE user_items.user_id IN (
-        SELECT owner_id
-        FROM user_users
-        WHERE sharee_id = ?
-)
-ORDER BY person_name', [auth()->user()->id] );
-
-?>
 @if ( empty($access_users) )
 <div class="py-12">
 	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -63,7 +47,7 @@ ORDER BY person_name', [auth()->user()->id] );
 			WHERE sharee_id = ?
 			AND owner_id = ?
 		)
-		ORDER BY person_name', [auth()->user()->id,$person->id] );
+		ORDER BY person_name', [auth()->user()->id,$person['id']] );
 		$item_count = 0;
 	?>
 	<div class="py-4">
@@ -72,7 +56,7 @@ ORDER BY person_name', [auth()->user()->id] );
 				<div x-data={show:true}>
 					<button  @click="show=!show" type="button">
 						<div class="flex">
-							<div class="flex-auto text-2xl mb-4">> {{$person->person_name}}</div>
+							<div class="flex-auto text-2xl mb-4">> {{ $person['name'] }}</div>
 						</div>
 					</button>
 
@@ -102,7 +86,7 @@ ORDER BY person_name', [auth()->user()->id] );
 							<?php $item_count += 1 ?>
 						@endif
 					@endforeach
-				
+
 					@if ($item_count == 0)
 						<div class="flex-auto text-lg mb-4 text-center">
 							This person has not added any items to their list or they have all been claimed.
@@ -118,7 +102,7 @@ ORDER BY person_name', [auth()->user()->id] );
 								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
 									<div class="md:w-1/5 w-full pb-2">
 										<div class="md:hidden"><strong>Person Name</strong></div>
-										{{$person->person_name}}
+										{{ $person['name'] }}
 									</div>
 									<div class="md:w-1/5 w-full pb-2">
 										<div class="md:hidden"><hr><strong>Item Name</strong></div>
@@ -157,7 +141,7 @@ ORDER BY person_name', [auth()->user()->id] );
 							@endif
 						@endforeach
 					@endif
-				</div>	
+				</div>
 			</div>
 		</div>
 	</div>

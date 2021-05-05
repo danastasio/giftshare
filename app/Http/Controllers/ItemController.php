@@ -21,8 +21,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\UserUsers;
+use App\Models\User;
 use App\Models\Item;
-use App\Models\UserItems;
 use DB;
 
 class ItemController extends Controller {
@@ -39,7 +40,22 @@ class ItemController extends Controller {
 		// maybe stick that all in an array of arrays and return?
 
 		// Possibly handled by modle relationships.
-		return view('dashboard');
+
+		// holds all users that have shared with you
+		$myUsers = UserUsers::where('sharee_id', auth()->user()->id)->with('owner')->get();
+
+		$access_users = array();
+		foreach ($myUsers as $share) {
+			array_push($access_users, $share['owner']);
+		}
+
+		$shared_items_by_user = array();
+		foreach ($access_users as $user) {
+			//$item = UserItems::where('user_id',$user['id'])->with('item')->with('user')->get();
+			$item = User::where('id',$user['id'])->with('items')->with('items')->get();
+			return $item;
+		}
+		return view('dashboard')->with('access_users', $access_users);
 	}
 
 	/**
@@ -69,12 +85,9 @@ class ItemController extends Controller {
 		$item->name = $request->name;
 		@$item->description = $request->description;
 		@$item->url = $request->url;
+		$item->owner_id = auth()->user()->id;
 		$item->save();
 
-		$useritem = new UserItems;
-		$useritem->user_id = $request->user_id;
-		$useritem->item_id = $item->id;
-		$useritem->save();
 		return redirect('list')->withSuccess('Item added');
 	}
 	public function destroy($id) {
@@ -124,7 +137,7 @@ class ItemController extends Controller {
 		return redirect('list')->withSuccess('Item updated');
 	}
 	public function list() {
-		$own_items = UserItems::where('user_id', auth()->user()->id)->with('item')->get();
+		$own_items = Item::where('id', auth()->user()->id)->with('items')->get();
 		return view('list')->with('own_items', $own_items);
 	}
 	/**
