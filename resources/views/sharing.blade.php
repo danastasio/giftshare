@@ -49,57 +49,36 @@
 		</div>
 	</div>
 
-	<div>
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+	<div class='grid grid-cols-2 max-w-7xl mx-auto'>
+		<div class="w-full x-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="flex">
-					<div class="flex-auto text-2xl mb-4">Users you're currently sharing with</div>
-				</div>
-				<table class="w-full text-md rounded mb-4">
-					<thead>
-					<tr class="border-b">
-						<th class="text-left p-3 px-5">Name</th>
-						<th class="text-left p-3 px-5">Revoke Access</th>
-					</tr>
-					</thead>
-					<tbody>
+				<div class="text-center text-2xl mb-4">Users you're currently sharing with</div>
+				<div class='grid grid-cols-2 gap-5'>
+					<div class="invisible md:visible">Name</div>
+					<div class="invisible md:visible">Revoke Access</div>
+					<div class='col-span-2'><hr></div>
 					@foreach ( $shared_with_others as $user )
-						<tr>
-							<td>{{ $user['sharee']->name }}</td>
-							<td>
-								<form action="{{ route('share.destroy', $user->id) }}" method="post">
+						<div>
+							{{ $user['sharee']->name }}
+						</div>
+						<div>
+							<form action="{{ route('share.destroy', $user->id) }}" method="post">
 								@csrf
 								@method('DELETE')
-								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="share-delete-{{ $user->id }}" formaction="{{ route('share.destroy', $user->id) }}">
-								</form>
-							</td>
-						</tr>
+								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full" id="share-delete-{{ $user->id }}">
+							</form>
+						</div>
 					@endforeach
-					</tbody>
-				</table>
-
+				</div>
 			</div>
 		</div>
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
+		<div class="w-full mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="flex">
-					<div class="flex-auto text-2xl mb-4">Users who are currently sharing with you</div>
-				</div>
-				<table class="w-full text-md rounded mb-4">
-					<thead>
-					<tr class="border-b">
-						<th class="text-left p-3 px-5">Name</th>
-					</tr>
-					</thead>
-					<tbody>
-					@foreach ( $shared_with_me as $user )
-						<tr>
-							<td>{{ $user['owner']->name }}</td>
-						</tr>
-					@endforeach
-					</tbody>
-				</table>
-
+				<div class="text-center text-2xl mb-4">Users who are currently sharing with you</div>
+				<div class="text-left p-3 px-5">Name</div>
+				@foreach ( $shared_with_me as $user )
+					<div>{{ $user['owner']->name }}</div>
+				@endforeach
 			</div>
 		</div>
 	</div>
