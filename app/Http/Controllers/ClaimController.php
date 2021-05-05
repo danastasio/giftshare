@@ -66,10 +66,8 @@ class ClaimController extends Controller {
     }
     public function destroy() {
         $request = request();
-        $item_id = $request->item;
-        $user_id = $request->user;
 
-        $user_item = UserItems::where('item_id',$item_id)->get();
+        $user_item = UserItems::where('item_id',$request->item)->get();
         $user_item[0]['claimed'] = 0;
         $user_item[0]['claimant_id'] = NULL;
         $user_item[0]->save();
