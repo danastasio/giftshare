@@ -28,14 +28,9 @@ use DB;
 class ShareController extends Controller
 {
 	public function index() {
-		$shared_users = UserUsers::with('owner','sharee')->get();
-					        /*$shared_users = DB::table('user_users')
-		                    ->join('users', 'users.id', '=', 'user_users.sharee_id')
-		                    ->select('users.name','users.id','user_users.id AS share_id')
-		                    ->where('user_users.owner_id','=',auth()->user()->id)
-		                    ->get();*/
-		return $shared_users;
-		return view('sharing')->with('shared_users', $shared_users);
+		$shared_with_others = UserUsers::where('owner_id',auth()->user()->id)->with('owner','sharee')->get();
+		$shared_with_me = UserUsers::where('sharee_id',auth()->user()->id)->with('owner','sharee')->get();
+		return view('sharing')->with('shared_with_others', $shared_with_others)->with('shared_with_me', $shared_with_me);
 	}
 	public function create() {
 		echo 'create';

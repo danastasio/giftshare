@@ -63,14 +63,14 @@
 					</tr>
 					</thead>
 					<tbody>
-					@foreach ( $shared_users as $user )
+					@foreach ( $shared_with_others as $user )
 						<tr>
-							<td>{{ $user->name }}</td>
+							<td>{{ $user['sharee']->name }}</td>
 							<td>
 								<form action="{{ route('share.destroy', $user->id) }}" method="post">
 								@csrf
 								@method('DELETE')
-								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="share-delete-{{ $user->id }}" formaction="{{ route('share.destroy', $user->share_id) }}">
+								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="share-delete-{{ $user->id }}" formaction="{{ route('share.destroy', $user->id) }}">
 								</form>
 							</td>
 						</tr>
@@ -85,13 +85,6 @@
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4">Users who are currently sharing with you</div>
 				</div>
-				<?php
-			        $shared_users = DB::table('user_users')
-		                    ->select('users.name','users.id','user_users.id AS share_id')
-		                    ->join('users', 'users.id', '=', 'user_users.owner_id')
-				    ->where('user_users.sharee_id','=',auth()->user()->id)
-		                    ->get();
-				?>
 				<table class="w-full text-md rounded mb-4">
 					<thead>
 					<tr class="border-b">
@@ -99,9 +92,9 @@
 					</tr>
 					</thead>
 					<tbody>
-					@foreach ( $shared_users as $user )
+					@foreach ( $shared_with_me as $user )
 						<tr>
-							<td>{{ $user->name }}</td>
+							<td>{{ $user['owner']->name }}</td>
 						</tr>
 					@endforeach
 					</tbody>
