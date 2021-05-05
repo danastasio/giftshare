@@ -13,7 +13,7 @@ class ClaimRequest extends FormRequest
      */
     public function authorize()
     {
-        return ;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ClaimRequest extends FormRequest
     public function rules()
     {
         return [
-
+			'item' => 'required',
+			'user' => 'required'
         ];
     }
 }

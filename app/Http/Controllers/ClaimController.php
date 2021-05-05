@@ -21,6 +21,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\ClaimRequest;
 use App\Models\Item;
 use App\Models\UserItems;
 use DB;
@@ -52,17 +53,14 @@ class ClaimController extends Controller {
 	*/
     public function store(ClaimRequest $request) {
         $request = $request->validated();
-        $item_id = $request->item;
-        $user_id = $request->user;
 
-        $user_item_find = DB::table('user_items')->where('item_id','=',$item_id)->value('id');
-        $user_item = UserItems::find($user_item_find);
-        if($user_item->claimed == 1) {
+        $user_item = UserItems::where('item_id', $request['item'])->get();
+        if($user_item[0]['claimed'] == 1) {
                 return redirect('/')->withError("Item was claimed while you were on this page");
         } else {
-                $user_item->claimed = 1;
-                $user_item->claimant_id = $user_id;
-                $user_item->save();
+                $user_item[0]['claimed'] = 1;
+                $user_item[0]['claimant_id'] = auth()->user()->id;
+                $user_item[0]->save();
                 return redirect('/');
         }
     }
