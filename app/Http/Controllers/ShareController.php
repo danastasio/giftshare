@@ -21,6 +21,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\ShareRequest;
 use App\Models\UserUsers;
 use App\Models\User;
 use DB;
@@ -35,38 +36,30 @@ class ShareController extends Controller
 	public function create() {
 		echo 'create';
 	}
-	public function store() {
-
-		// validate data
-
-		$request = request();
-		$validated = $request->validate(['email' => 'bail|required|max:255']);
-	        $usershare = new UserUsers;
-		$sharee_id = DB::table('users')->where('email','=',$request->email)->value('id');
+	public function store(ShareRequest $request) {
+		$request = $request->validated();
+    	$sharee_id = User::where('email',$request['email'])->value('id');
 
 		// prevent users from sharing with themselves
-		if ($request->user_id == $sharee_id) {
+		if ($sharee_id === auth()->user()->id) {
 			return redirect('share')->withInfo('You cannot add yourself. Nice try though 😉');
-			//return redirect('sharing');
 		}
 
 		// check to see if share exists
-		$exists = DB::table('user_users')
-			->where('owner_id','=',$request->user_id)
-			->where('sharee_id','=',$sharee_id)
-			->get();
-		if($exists->count() > 0) {
+		$exists = UserUsers::where('owner_id',auth()->user()->id)->where('sharee_id',$sharee_id)->get();
+		if(!$exists) {
 			return redirect('share')->withInfo('Share already exists between you');
 		}
-
+		
 		// check to see if user exists
 		$exists = User::find($sharee_id);
 		if(!$exists) {
 			return redirect('share')->withError('User does not exist');
 		} else {
-		        $usershare->owner_id = $request->user_id;
-		        $usershare->sharee_id = $sharee_id;
-		        $usershare->save();
+    		$usershare = new UserUsers;
+		    $usershare->owner_id = auth()->user()->id;
+		    $usershare->sharee_id = $sharee_id;
+		    $usershare->save();
 			return redirect('share')->withSuccess('List shared with user');
 		}
 	}
