@@ -22,7 +22,7 @@
 		{{ __('My Claims') }}
 	</h2>
 </x-slot>
-@if ( empty($access_users) )
+@if ( empty($claims) )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -34,6 +34,7 @@
 		</div>
 	</div>
 @else
+
 	<div class="py-4">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -52,42 +53,12 @@
 					</tr>
 					</thead>
 					<tbody>
-				@foreach ( $access_users as $person )
-					<?php
-						$shared_items = DB::select('SELECT items.name, items.description, items.url, items.id, users.name AS person_name, items.id, user_items.claimed, user_items.claimant_id
-							FROM user_items
-							JOIN items ON items.id = user_items.item_id
-							JOIN users ON users.id = user_items.user_id
-							WHERE user_items.user_id IN (
-								SELECT owner_id
-								FROM user_users
-								WHERE sharee_id = ?
-								AND owner_id = ?)
-							AND claimed = 1
-							AND claimant_id = ?
-							ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
-
-	// show a message if user exists and is shared with current user but does not have any items left
-
-	// one page to rule them all
-					?>
-					@foreach ($shared_items as $item)
-					<?php
-			                        if (isset(parse_url($item->url)['host'])) {
-		        	                        $text = parse_url($item->url)['host'];
-		                                } else {
-			                                $text = parse_url($item->url)['path'];
-		                        }?>
-					@if ($item->claimed == 0 || $item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+				@foreach ( $claims as $item )
 						<tr class="hover:bg-gray-100">
-							<td> {{$item->person_name}} </td>
+							<td> {{$item['user']->name}} </td>
 							<td style="word-break: break-word"> {{$item->name}} </td>
 							<td style="word-break: break-word"> {{$item->description}}</td>
-		                                        @if ( !empty($text) )
-		                                                <td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
-		                                        @else
-		                                                <td></td>
-		                                        @endif
+                            <td> <a href="{{$item['url']}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$item['url']}}</a></td>
 							<td>
 								<form id="share-delete" method="post">
 									@csrf
@@ -99,9 +70,7 @@
 								</form>
 							</td>
 						</tr>
-					@endif
 				@endforeach
-			@endforeach
 		</tbody>
 	</table>
 </div>
