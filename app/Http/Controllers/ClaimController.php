@@ -23,7 +23,6 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ClaimRequest;
 use App\Models\Item;
-use App\Models\UserItems;
 use DB;
 
 class ClaimController extends Controller {
@@ -33,7 +32,8 @@ class ClaimController extends Controller {
 	* @return Response
 	*/
 	public function index() {
-		$claims =  UserItems::where('claimant_id',auth()->user()->id)->with('user','item')->get();
+		$claims =  Item::where('claimant_id',auth()->user()->id)->with('user')->get();
+		return $claims;
 		return view('claims')->with('claims', $claims);
 	}
 
@@ -54,7 +54,8 @@ class ClaimController extends Controller {
     public function store(ClaimRequest $request) {
         $request = $request->validated();
 
-        $user_item = UserItems::where('item_id', $request['item'])->get();
+        $user_item = Item::where('item_id', $request['item'])->get();
+		return $user_item;
         if($user_item[0]['claimed'] == 1) {
                 return redirect('/')->withError("Item was claimed while you were on this page");
         } else {

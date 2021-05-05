@@ -9,7 +9,7 @@
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
@@ -22,20 +22,6 @@
 		{{ __('My Claims') }}
 	</h2>
 </x-slot>
-<?php
-$access_users = DB::select('SELECT distinct(users.name) as person_name,users.id
-FROM user_items
-JOIN items ON items.id = user_items.item_id
-JOIN users ON users.id = user_items.user_id
-WHERE user_items.user_id IN (
-		SELECT owner_id
-		FROM user_users
-		WHERE sharee_id = ?
-)
-AND claimed = 1
-AND claimant_id = ?
-ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
-?>
 @if ( empty($access_users) )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -80,9 +66,9 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 							AND claimed = 1
 							AND claimant_id = ?
 							ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
-	
+
 	// show a message if user exists and is shared with current user but does not have any items left
-	
+
 	// one page to rule them all
 					?>
 					@foreach ($shared_items as $item)
@@ -117,7 +103,7 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 				@endforeach
 			@endforeach
 		</tbody>
-	</table>			
+	</table>
 </div>
 @endif
 </x-app-layout>
