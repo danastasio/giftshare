@@ -118,7 +118,6 @@ class ItemController extends Controller {
 	}
 	public function list() {
 		$own_items = UserItems::where('user_id', auth()->user()->id)->with('item')->get();
-		return $own_items;
 		return view('list')->with('own_items', $own_items);
 	}
 	/**

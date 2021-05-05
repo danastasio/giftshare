@@ -95,24 +95,24 @@
                                         <tbody>
 					@foreach (  $own_items as $item )
 			                        <?php
-							if (isset(parse_url($item->url)['host'])) {
-			                                $text = parse_url($item->url)['host'];
+							if (isset(parse_url($item['item']->url)['host'])) {
+			                                $text = parse_url($item['item']->url)['host'];
 			                                } else {
-			                                $text = parse_url($item->url)['path'];
+			                                $text = parse_url($item['item']->url)['path'];
 			                        }?>
 						<tr>
-							<td style="word-break: break-word"> {{$item->name}} </td>
-							<td style="word-break: break-word"> {{$item->description}}</td>
-							<td> {{$item->url}}</td>
+							<td style="word-break: break-word"> {{$item['item']->name}} </td>
+							<td style="word-break: break-word"> {{$item['item']->description}}</td>
+							<td> {{$item['item']->url}}</td>
 							<td>
-								<div class="flex-auto text-left mt-2"> <a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a> </div>
+								<div class="flex-auto text-left mt-2"> <a href="/list?name={{$item['item']->name}}&description={{$item['item']->description}}&url={{$item['item']->url}}&item_id={{$item['item']->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a> </div>
 							</td>
 							<td>
-								<form action="{{ route('item.destroy', $item->id) }}" method="post">
+								<form action="{{ route('item.destroy', $item['item']->id) }}" method="post">
 								@csrf
 								@method('DELETE')
-								<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-								<input type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
+								<input type="hidden" id="user_link" value="{{ $item['item']->user_link }}">
+								<input type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item['item']->id }}" formaction="{{ route('item.destroy', $item['item']->id) }}">
 							</td>
 						</tr>
 					@endforeach
