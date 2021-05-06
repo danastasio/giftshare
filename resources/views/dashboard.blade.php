@@ -25,20 +25,7 @@
 <div class="pb-4">
 <!-- This is just here to give some space before the first card. Its needed because the first card doesn't get created until the foreach loop. Adding any space there would add space to every card. Adding padding to <h2> would just increase the header, not add space below it. -->
 </div>
-<?php
-$access_users = DB::select('SELECT distinct(users.name) as person_name,users.id
-FROM user_items
-JOIN items ON items.id = user_items.item_id
-JOIN users ON users.id = user_items.user_id
-WHERE user_items.user_id IN (
-        SELECT owner_id
-        FROM user_users
-        WHERE sharee_id = ?
-)
-ORDER BY person_name', [auth()->user()->id] );
-
-?>
-@if ( empty($access_users) )
+@if ( empty($shared_items) )
 <div class="py-12">
 	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -49,7 +36,7 @@ ORDER BY person_name', [auth()->user()->id] );
 		</div>
 	</div>
 </div>
-@endif
+@else
 
 @foreach ( $shared_items as $person )
 	<div class="py-4">
@@ -128,4 +115,5 @@ ORDER BY person_name', [auth()->user()->id] );
 		</div>
 	</div>
 @endforeach
+@endif
 </x-app-layout>
