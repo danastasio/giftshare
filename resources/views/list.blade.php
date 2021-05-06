@@ -66,9 +66,7 @@
 							<div style="word-break: break-word"> {{$item->name}} </div>
 							<div style="word-break: break-word"> {{$item->description}}</div>
 							<div> {{$item->url}}</div>
-							<div>
-								<a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">Edit</a>
-							</div>
+							<div><a href="#edit-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">Edit</a></div>
 							<div>
 								<form action="{{ route('item.destroy', $item->id) }}" method="post">
 									@csrf
@@ -77,6 +75,18 @@
 									<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
 								</form>
 							</div>
+						@component('modals.confirmation')
+							<x-slot name='modal_header'>
+								Edit Item
+							</x-slot>
+							<x-slot name='modal_content'>
+								<div class='grid grid-cols-1 gap-3'>
+									<div><label for='name'>Name</label></div>
+									<div><input type='text' value="{{ $item->name }}" class='rounded'></div>
+									<div><label for='description'>Description</label></div>
+									<div><textarea class='rounded'>{{ $item->description }}</textarea></div>
+							</x-slot>
+						@endcomponent
 						@endforeach
                     </tbody>
                 </table>

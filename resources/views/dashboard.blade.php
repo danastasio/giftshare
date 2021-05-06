@@ -22,17 +22,18 @@
 		{{ __('Dashboard') }}
 	</h2>
 </x-slot>
-<div class="pb-4">
-<!-- This is just here to give some space before the first card. Its needed because the first card doesn't get created until the foreach loop. Adding any space there would add space to every card. Adding padding to <h2> would just increase the header, not add space below it. -->
-</div>
 @if ( empty($shared_items) )
 <div class="py-12">
 	<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="flex">
-<div class="flex-auto text-2xl mb-4 text-center">No one has shared a list with you</div>
+				<div class="flex-auto text-2xl mb-4 text-center">
+					No one has shared a list with you
+				</div>
 			</div>
-			<div class="flex-auto text-lg mb-4 text-center">Have someone add you to their sharing center to view their list here</div>
+			<div class="flex-auto text-lg mb-4 text-center">
+				Have someone add you to their sharing center to view their list here
+			</div>
 		</div>
 	</div>
 </div>
@@ -45,31 +46,33 @@
 				<div x-data={show:true}>
 					<button  @click="show=!show" type="button">
 						<div class="flex">
-							<div class="flex-auto text-2xl mb-4">> {{ $person[0]->name }}</div>
+							<div class="flex-auto text-2xl mb-4">
+								>{{ $person[0]->name }}
+							</div>
 						</div>
 					</button>
 
-				<div x-show="show">
-					<div id="header-card" class="md:flex hidden">
-						<div class='w-1/5'>
-							<strong>Person Name</strong>
+					<div x-show="show">
+						<div id="header-card" class="md:flex hidden">
+							<div class='w-1/5'>
+								<strong>Person Name</strong>
+							</div>
+							<div class='w-1/5'>
+								<strong>Item Name</strong>
+							</div>
+							<div class='w-1/5'>
+								<strong>Item Description</strong>
+							</div>
+							<div class='w-1/5'>
+								<strong>Item Link</strong>
+							</div>
+							<div class='w-1/5'>
+								<strong>Claim Button</strong>
+							</div>
 						</div>
-						<div class='w-1/5'>
-							<strong>Item Name</strong>
+						<div class="invisible md:visible">
+							<hr>
 						</div>
-						<div class='w-1/5'>
-							<strong>Item Description</strong>
-						</div>
-						<div class='w-1/5'>
-							<strong>Item Link</strong>
-						</div>
-						<div class='w-1/5'>
-							<strong>Claim Button</strong>
-						</div>
-					</div>
-					<div class="invisible md:visible">
-						<hr>
-					</div>
 						@foreach($person as $items)
 							@foreach($items['items'] as $item)
 								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
@@ -94,8 +97,9 @@
 										<livewire:claim-item :item="$item">
 									</div>
 								</div>
+							@endforeach
 						@endforeach
-						@endforeach
+					</div>
 				</div>
 			</div>
 		</div>

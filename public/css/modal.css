@@ -1,0 +1,16 @@
+.overlay {
+	visibility: hidden;
+	position: fixed;
+}
+
+.overlay:target {
+	visibility: visible;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
