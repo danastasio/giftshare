@@ -9,7 +9,7 @@
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
@@ -80,9 +80,9 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 							AND claimed = 1
 							AND claimant_id = ?
 							ORDER BY person_name', [auth()->user()->id,$person->id,auth()->user()->id] );
-	
+
 	// show a message if user exists and is shared with current user but does not have any items left
-	
+
 	// one page to rule them all
 					?>
 					@foreach ($shared_items as $item)
@@ -97,27 +97,20 @@ ORDER BY person_name', [auth()->user()->id,auth()->user()->id] );
 							<td> {{$item->person_name}} </td>
 							<td style="word-break: break-word"> {{$item->name}} </td>
 							<td style="word-break: break-word"> {{$item->description}}</td>
-		                                        @if ( !empty($text) )
-		                                                <td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
-		                                        @else
-		                                                <td></td>
-		                                        @endif
+                                @if ( !empty($text) )
+                                    <td> <a href="{{$item->url}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" target="_blank">{{$text}}</a></td>
+                                @else
+                                	<td></td>
+                                @endif
 							<td>
-								<form id="share-delete" method="post">
-									@csrf
-									@method('DELETE')
-									<input type="hidden" name="user" id="current_user" value="{{ auth()->user()->id }}">
-									<input type="hidden" name="item" id="item_id" value="{{ $item->id }}">
-									<input type="hidden" name="page" id="page_name" value="claims">
-									<input type="submit" value="Un-claim" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" formaction="{{ route('claim.destroy', $item->id) }}">
-								</form>
+								<livewire:claim-item :item="$item">
 							</td>
 						</tr>
 					@endif
 				@endforeach
 			@endforeach
 		</tbody>
-	</table>			
+	</table>
 </div>
 @endif
 </x-app-layout>
