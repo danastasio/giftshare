@@ -21,14 +21,12 @@ class ClaimItem extends Component
 
 	public function claim() {
 	    $user_item = Item::where('id', $this->item_id)->get();
-        if($user_item[0]['claimed'] == 1) {
-			//
-        } else {
-                $user_item[0]['claimed'] = 1;
-                $user_item[0]['claimant_id'] = auth()->user()->id;
-                $user_item[0]->save();
-				$this->claimed = true;
-				$this->claimant_id = auth()->user()->id;
+        if(!$user_item[0]['claimed'] == 1) {
+            $user_item[0]['claimed'] = 1;
+            $user_item[0]['claimant_id'] = auth()->user()->id;
+            $user_item[0]->save();
+			$this->claimed = true;
+			$this->claimant_id = auth()->user()->id;
         }
 	}
 
