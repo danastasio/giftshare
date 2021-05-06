@@ -20,30 +20,16 @@
 <x-app-layout>
     <x-slot name="header">
     	<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            View and update your current list below.
+            View your current list below.
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-			@if ( request()->is_update == True )
-				<form action="{{ route('item.update', request()->item_id) }}" method="post">
-				@method('PUT')
-			@else
-				<form action="{{ route('item.store') }}" method="post">
-			@endif
-
-
-			<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
+        <div class="grid grid-cols-1 gap-3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<form action="{{ route('item.store') }}" method="post">
 			@csrf
 
-            <div class="flex">
-				@if ( request()->is_update == True )
-					<div class="flex-auto text-2xl mb-4">Update an item</div>
-				@else
-                    <div class="flex-auto text-2xl mb-4">Add a new item</div>
-				@endif
-            </div>
+            <div class="text-2xl mb-4">Add a new item</div>
 
 			<div>
 				<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
@@ -58,55 +44,39 @@
 				<textarea class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
 			</div>
             <div class="flex">
-				@if ( request()->is_update == True )
-					<input type="submit" value="Update" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-4" id="item-update" formaction="{{ route('item.update', request()->item_id) }}">
-					@else
-					<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
-					@endif
+				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
             </div>
 			</form>
         </div>
     </div>
-    <div >
+    <div class='mt-5'>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
                 <div class="flex">
                     <div class="flex-auto text-2xl mb-4">Your current list</div>
                 </div>
 
-                <table class="w-full text-md rounded mb-4">
-                    <thead>
-                        <tr class="border-b">
-                            <th class="text-left pb-3">Item Name</th>
-                            <th class="text-left pb-3">Item Details</th>
-							<th class="text-left pb-3">Item Link</th>
-							<th class="text-left pb-3">Edit Item</th>
-							<th class="text-left pb-3">Delete Item</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="grid grid-cols-5">
+                            <div class="text-left pb-3">Item Name</div>
+                            <div class="text-left pb-3">Item Details</div>
+							<div class="text-left pb-3">Item Link</div>
+							<div class="text-left pb-3">Edit Item</div>
+							<div class="text-left pb-3">Delete Item</div>
 						@foreach (  $own_items as $item )
-	                        <?php
-							if (isset(parse_url($item->url)['host'])) {
-                                $text = parse_url($item->url)['host'];
-                            } else {
-                                $text = parse_url($item->url)['path'];
-	                        }?>
-							<tr>
-								<td style="word-break: break-word"> {{$item->name}} </td>
-								<td style="word-break: break-word"> {{$item->description}}</td>
-								<td> {{$item->url}}</td>
-								<td>
-									<div class="flex-auto text-left mt-2"> <a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a> </div>
-								</td>
-								<td>
-									<form action="{{ route('item.destroy', $item->id) }}" method="post">
-										@csrf
-										@method('DELETE')
-										<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-										<input type="submit" value="Delete" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
-								</td>
-							</tr>
+							<div style="word-break: break-word"> {{$item->name}} </div>
+							<div style="word-break: break-word"> {{$item->description}}</div>
+							<div> {{$item->url}}</div>
+							<div>
+								<a href="/list?name={{$item->name}}&description={{$item->description}}&url={{$item->url}}&item_id={{$item->id}}&is_update=True" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">Edit</a>
+							</div>
+							<div>
+								<form action="{{ route('item.destroy', $item->id) }}" method="post">
+									@csrf
+									@method('DELETE')
+									<input type="hidden" id="user_link" value="{{ $item->user_link }}">
+									<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
+								</form>
+							</div>
 						@endforeach
                     </tbody>
                 </table>

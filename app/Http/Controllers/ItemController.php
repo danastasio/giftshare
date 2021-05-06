@@ -40,9 +40,9 @@ class ItemController extends Controller {
 		// maybe stick that all in an array of arrays and return?
 
 		// Possibly handled by modle relationships.
-
 		// holds all users that have shared with you
 		$myUsers = UserUsers::where('sharee_id', auth()->user()->id)->with('owner')->get();
+
 
 		$access_users = array();
 		foreach ($myUsers as $share) {
@@ -137,13 +137,7 @@ class ItemController extends Controller {
 		return redirect('list')->withSuccess('Item updated');
 	}
 	public function list() {
-		$own_items = Item::where('owner_id', auth()->user()->id)->with('items')->get();
+		$own_items = Item::where('owner_id', auth()->user()->id)->get();
 		return view('list')->with('own_items', $own_items);
 	}
-	/**
-	* Remove the specified resource from storage.
-	*
-	* @param  int  $id
-	* @return Response
-	*/
 }
