@@ -57,24 +57,24 @@
                 </div>
 
                 <div class="grid grid-cols-5 gap-5">
-                            <div class="text-left pb-3">Item Name</div>
-                            <div class="text-left pb-3">Item Details</div>
-							<div class="text-left pb-3">Item Link</div>
-							<div class="text-left pb-3">Edit Item</div>
-							<div class="text-left pb-3">Delete Item</div>
-						@foreach (  $own_items as $item )
-							<div style="word-break: break-word"> {{$item->name}} </div>
-							<div style="word-break: break-word"> {{$item->description}}</div>
-							<div> {{$item->url}}</div>
-							<a href="#edit-modal" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
-							<div>
-								<form action="{{ route('item.destroy', $item->id) }}" method="post">
-									@csrf
-									@method('DELETE')
-									<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-									<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto my-auto" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
-								</form>
-							</div>
+                    <div class="text-left pb-3">Item Name</div>
+                    <div class="text-left pb-3">Item Details</div>
+					<div class="text-left pb-3">Item Link</div>
+					<div class="text-left pb-3">Edit Item</div>
+					<div class="text-left pb-3">Delete Item</div>
+					@foreach (  $own_items as $item )
+						<div style="word-break: break-word"> {{$item->name}} </div>
+						<div style="word-break: break-word"> {{$item->description}}</div>
+						<div> {{$item->url}}</div>
+						<a href="#edit-modal" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
+						<div>
+							<form action="{{ route('item.destroy', $item->id) }}" method="post">
+								@csrf
+								@method('DELETE')
+								<input type="hidden" id="user_link" value="{{ $item->user_link }}">
+								<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto my-auto" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
+							</form>
+						</div>
 						@component('modals.edit-item')
 							<x-slot name='modal_header'>
 								Edit Item
@@ -93,9 +93,8 @@
 									<div class='mt-2'><textarea name="description" class='w-full rounded border-blue-400'>{{ $item->description }}</textarea></div>
 							</x-slot>
 						@endcomponent
-						@endforeach
-                    </tbody>
-                </table>
+					@endforeach
+				</div>
             </div>
         </div>
     </div>

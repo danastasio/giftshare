@@ -9,7 +9,7 @@
 		</div>
 		<div id='footer' class='mt-5'>
 			<div class='grid grid-cols-2 gap-3'>
-				<a href='#' class='text-center hover:bg-red-600 hover:text-white w-full text-red-600 border-2 border-red-600 bg-white font-bold mx-auto my-auto px-8 py-3 rounded'>Cancel</a>
+				<a href='#' class='items-center text-center hover:bg-red-600 hover:text-white w-full text-red-600 border-2 border-red-600 bg-white font-bold mx-auto my-auto px-8 py-3 rounded'>Cancel</a>
 				<button class='text-white font-bold px-8 py-3 bg-green-600 hover:bg-green-800 rounded'>Submit</button>
 			</form>
 			</div>
