@@ -3,6 +3,7 @@
 		<form method="post" action="{{ route('item.update', $id) }}">
 			@csrf
 			@method("PUT")
+			<input type="hidden" value="{{ $id }}" name="id">
 			<div id='header' class='font-bold text-center'>
 				{{ $modal_header }}
 			</div>
