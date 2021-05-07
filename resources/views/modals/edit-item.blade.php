@@ -9,8 +9,9 @@
 		</div>
 		<div id='footer' class='mt-5'>
 			<div class='grid grid-cols-2 gap-3'>
-				<a href='#' class='mx-auto my-auto px-8 py-3 bg-red-400 rounded'>Cancel</a>
+				<a href='' class='mx-auto my-auto px-8 py-3 bg-red-400 rounded'>Cancel</a>
 				<button class='px-8 py-3 bg-green-400 rounded'>Submit</button>
+			</form>
 			</div>
 		</div>
 	</div>

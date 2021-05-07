@@ -56,7 +56,7 @@
                     <div class="flex-auto text-2xl mb-4">Your current list</div>
                 </div>
 
-                <div class="grid grid-cols-5">
+                <div class="grid grid-cols-5 gap-5">
                             <div class="text-left pb-3">Item Name</div>
                             <div class="text-left pb-3">Item Details</div>
 							<div class="text-left pb-3">Item Link</div>
@@ -66,25 +66,28 @@
 							<div style="word-break: break-word"> {{$item->name}} </div>
 							<div style="word-break: break-word"> {{$item->description}}</div>
 							<div> {{$item->url}}</div>
-							<div><a href="#edit-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">Edit</a></div>
+							<a href="#edit-modal" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
 							<div>
 								<form action="{{ route('item.destroy', $item->id) }}" method="post">
 									@csrf
 									@method('DELETE')
 									<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-									<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
+									<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto my-auto" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
 								</form>
 							</div>
-						@component('modals.confirmation')
+						@component('modals.edit-item')
 							<x-slot name='modal_header'>
 								Edit Item
 							</x-slot>
 							<x-slot name='modal_content'>
 								<div class='grid grid-cols-1 gap-3'>
+									<form method="put" action="{{ route('item.update', $item->id) }}">
+										@csrf
+										@method("PUT")
 									<div><label for='name'>Name</label></div>
-									<div><input type='text' value="{{ $item->name }}" class='rounded'></div>
+									<div><input type='text' value="{{ $item->name }}" name="item_name" class='rounded'></div>
 									<div><label for='description'>Description</label></div>
-									<div><textarea class='rounded'>{{ $item->description }}</textarea></div>
+									<div><textarea name="description" class='rounded'>{{ $item->description }}</textarea></div>
 							</x-slot>
 						@endcomponent
 						@endforeach

@@ -124,16 +124,14 @@ class ItemController extends Controller {
 		* @param  int  $id
 		* @return Response
 		*/
-	public function update(Request $request, $id) {
-	 	$request = request();
-
-		$item_find = DB::table('items')->where('id','=',$id)->value('id');
+	public function update(Request $request) {
+		return 'you are here';
+		$item_find = Item::where('id',$request->id)->value('id');
 		$item = Item::find($item_find);
 		$item->name = $request->name;
 		@$item->description = $request->description;
 		@$item->url = $request->url;
 		$item->save();
-		$request->is_update = False;
 		return redirect('list')->withSuccess('Item updated');
 	}
 	public function list() {
