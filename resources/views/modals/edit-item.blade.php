@@ -1,4 +1,4 @@
-<div id='edit-modal' class='overlay bg-gray-200 bg-opacity-80'>
+<div id='{{ $name }}' class='overlay bg-gray-200 bg-opacity-80'>
 	<div class='p-5 w-1/2 bg-white rounded-lg grid grid-cols-1 gap-3 shadow-xl'>
 		<div id='header' class='font-bold text-center'>
 			{{ $modal_header }}

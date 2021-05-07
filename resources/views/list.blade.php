@@ -66,7 +66,7 @@
 						<div style="word-break: break-word"> {{$item->name}} </div>
 						<div style="word-break: break-word"> {{$item->description}}</div>
 						<div> {{$item->url}}</div>
-						<a href="#edit-modal" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
+						<a href="#{{ $item->id }}" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
 						<div>
 							<form action="{{ route('item.destroy', $item->id) }}" method="post">
 								@csrf
@@ -75,7 +75,7 @@
 								<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto my-auto" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
 							</form>
 						</div>
-						@component('modals.edit-item')
+						@component('modals.edit-item', ['name' => $item->id])
 							<x-slot name='modal_header'>
 								Edit Item
 							</x-slot>
