@@ -92,12 +92,13 @@ class ItemController extends Controller {
 
 		return redirect('list')->withSuccess('Item added');
 	}
-	public function destroy($id) {
-		$item = Item::find($id);
-		$user_link_find = DB::table('user_items')->where('item_id','=',$id)->value('id');
-		$user_link = UserItems::find($user_link_find);
+	public function destroy(ItemRequest $request) {
+		$request = $request->validated();
+		if (!Gate::allows('delete', Item::find($request['id']))) {
+			return abort(403, 'Unauthorized');
+		}
+		$item = Item::find($request['id']);
 		$item->delete();
-		$user_link->delete();
 		return redirect('list')->withInfo('Item deleted');
 	}
 	/**

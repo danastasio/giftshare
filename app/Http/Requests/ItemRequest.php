@@ -25,7 +25,7 @@ class ItemRequest extends FormRequest
     {
         return [
             'id' => 'required',
-			'name' => 'required',
+			'name' => 'sometimes|required',
 			'description' => 'sometimes|required',
 			'url' => 'sometimes|required',
         ];

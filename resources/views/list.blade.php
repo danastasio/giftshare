@@ -66,18 +66,22 @@
 						<div style="word-break: break-word"> {{$item->name}} </div>
 						<div style="word-break: break-word"> {{$item->description}}</div>
 						<div> {{$item->url}}</div>
-						<a href="#{{ $item->id }}" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
-						<div>
-							<form action="{{ route('item.destroy', $item->id) }}" method="post">
-								@csrf
-								@method('DELETE')
-								<input type="hidden" id="user_link" value="{{ $item->user_link }}">
-								<input type="submit" value="Delete" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-auto my-auto" id="item-delete-{{ $item->id }}" formaction="{{ route('item.destroy', $item->id) }}">
-							</form>
-						</div>
-						@component('modals.edit-item', ['name' => $item->id])
+						<a href="#edit{{ $item->id }}" class="w-full h-10 py-auto bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
+						<a href="#delete{{ $item->id }}" class="w-full h-10 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded">Delete</a>
+						@component('modals.delete-item', ['name' => 'delete'.$item->id,'item_id' => $item->id])
+								<x-slot name='modal_header'>
+									DELETE ITEM
+								</x-slot>
+								<x-slot name='modal_content'>
+									<input type='hidden' name='id' value="{{ $item->id}}">
+									You are about to delete this item. Confirm?
+								</x-slot>
+						@endcomponent
+						@component('modals.edit-item', ['name' => 'edit'.$item->id])
 							<x-slot name='modal_header'>
-								Edit Item
+								<div class="font-bold text-center">
+									Edit Item
+								</div>
 							</x-slot>
 							<x-slot name='modal_content'>
 								<div class='grid grid-cols-1 gap-3'>
