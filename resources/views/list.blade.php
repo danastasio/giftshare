@@ -85,9 +85,11 @@
 										@csrf
 										@method("PUT")
 									<div><label for='name'>Name</label></div>
-									<div><input type='text' value="{{ $item->name }}" name="item_name" class='rounded'></div>
-									<div><label for='description'>Description</label></div>
-									<div><textarea name="description" class='rounded'>{{ $item->description }}</textarea></div>
+									<div class='mt-2'><input type='text' value="{{ $item->name }}" name="item_name" class='rounded w-full border-blue-400'></div>
+									<div class='mt-5'><label for='url'>URL</label></div>
+									<div class='mt-2'><input type='text' value="{{ $item->url }}" name="item_name" class='rounded w-full border-blue-400'></div>
+									<div class='mt-5'><label for='description'>Description</label></div>
+									<div class='mt-2'><textarea name="description" class='w-full rounded border-blue-400'>{{ $item->description }}</textarea></div>
 							</x-slot>
 						@endcomponent
 						@endforeach
