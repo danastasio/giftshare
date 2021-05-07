@@ -81,13 +81,14 @@
 							</x-slot>
 							<x-slot name='modal_content'>
 								<div class='grid grid-cols-1 gap-3'>
-									<form method="put" action="{{ route('item.update', $item->id) }}">
+									<form method="post" action="{{ route('item.update', $item->id) }}">
 										@csrf
 										@method("PUT")
+									<input type='hidden' name='id' value="{{ $item->id }}">
 									<div><label for='name'>Name</label></div>
-									<div class='mt-2'><input type='text' value="{{ $item->name }}" name="item_name" class='rounded w-full border-blue-400'></div>
+									<div class='mt-2'><input type='text' value="{{ $item->name }}" name="name" class='rounded w-full border-blue-400'></div>
 									<div class='mt-5'><label for='url'>URL</label></div>
-									<div class='mt-2'><input type='text' value="{{ $item->url }}" name="item_name" class='rounded w-full border-blue-400'></div>
+									<div class='mt-2'><input type='text' value="{{ $item->url }}" name="url" class='rounded w-full border-blue-400'></div>
 									<div class='mt-5'><label for='description'>Description</label></div>
 									<div class='mt-2'><textarea name="description" class='w-full rounded border-blue-400'>{{ $item->description }}</textarea></div>
 							</x-slot>

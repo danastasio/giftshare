@@ -125,14 +125,13 @@ class ItemController extends Controller {
 		* @return Response
 		*/
 	public function update(Request $request) {
-		return 'you are here';
 		$item_find = Item::where('id',$request->id)->value('id');
 		$item = Item::find($item_find);
 		$item->name = $request->name;
 		@$item->description = $request->description;
 		@$item->url = $request->url;
 		$item->save();
-		return redirect('list')->withSuccess('Item updated');
+		return back();
 	}
 	public function list() {
 		$own_items = Item::where('owner_id', auth()->user()->id)->get();
