@@ -25,6 +25,7 @@ use App\Models\UserUsers;
 use App\Models\User;
 use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ItemRequest;
 use DB;
 
 class ItemController extends Controller {
@@ -125,15 +126,16 @@ class ItemController extends Controller {
 		* @param  int  $id
 		* @return Response
 		*/
-	public function update(Request $request) {
-		if (!Gate::allows('update', Item::find($request->id))) {
+	public function update(ItemRequest $request) {
+		$request = $request->validated();
+		if (!Gate::allows('update', Item::find($request['id']))) {
 			return abort(403, 'Unauthorized');
 		};
-		$item_find = Item::where('id',$request->id)->value('id');
+		$item_find = Item::where('id',$request['id'])->value('id');
 		$item = Item::find($item_find);
-		$item->name = $request->name;
-		@$item->description = $request->description;
-		@$item->url = $request->url;
+		$item->name = $request['name'];
+		@$item->description = $request['description'];
+		@$item->url = $request['url'];
 		$item->save();
 		return back();
 	}
