@@ -68,16 +68,18 @@
 						<div> {{$item->url}}</div>
 						<a href="#edit{{ $item->id }}" class="w-full h-10 py-auto bg-blue-500 hover:bg-blue-700 text-white font-bold text-center align-middle rounded">Edit</a>
 						<a href="#delete{{ $item->id }}" class="w-full h-10 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded">Delete</a>
+					@endforeach
+					@foreach ($own_items as $item )
 						@component('modals.delete-item', ['name' => 'delete'.$item->id,'item_id' => $item->id])
-								<x-slot name='modal_header'>
-									DELETE ITEM
-								</x-slot>
-								<x-slot name='modal_content'>
-									<input type='hidden' name='id' value="{{ $item->id}}">
-									You are about to delete this item. Confirm?
-								</x-slot>
+							<x-slot name='modal_header'>
+								DELETE ITEM
+							</x-slot>
+							<x-slot name='modal_content'>
+								<input type='hidden' name='id' value="{{ $item->id}}">
+								You are about to delete this item. Confirm?
+							</x-slot>
 						@endcomponent
-						@component('modals.edit-item', ['name' => 'edit'.$item->id])
+						@component('modals.edit-item', ['name' => 'edit'.$item->id, 'id' => $item->id])
 							<x-slot name='modal_header'>
 								<div class="font-bold text-center">
 									Edit Item
@@ -85,10 +87,6 @@
 							</x-slot>
 							<x-slot name='modal_content'>
 								<div class='grid grid-cols-1 gap-3'>
-									<form method="post" action="{{ route('item.update', $item->id) }}">
-										@csrf
-										@method("PUT")
-										<input type='hidden' name='id' value="{{ $item->id }}">
 										<div><label for='name'>Name</label></div>
 										<div class='mt-2'><input type='text' value="{{ $item->name }}" name="name" class='rounded w-full border-blue-400'></div>
 										<div class='mt-5'><label for='url'>URL</label></div>
