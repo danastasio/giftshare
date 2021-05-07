@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UserUsers;
 use App\Models\User;
 use App\Models\Item;
+use Illuminate\Support\Facades\Gate;
 use DB;
 
 class ItemController extends Controller {
@@ -125,6 +126,9 @@ class ItemController extends Controller {
 		* @return Response
 		*/
 	public function update(Request $request) {
+		if (!Gate::allows('update', Item::find($request->id))) {
+			return abort(403, 'Unauthorized');
+		};
 		$item_find = Item::where('id',$request->id)->value('id');
 		$item = Item::find($item_find);
 		$item->name = $request->name;
