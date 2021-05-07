@@ -45,10 +45,9 @@
 			<div class="bg-gray-100 md:bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div x-data={show:true}>
 					<button  @click="show=!show" type="button">
-						<div class="flex">
-							<div class="flex-auto text-2xl mb-4">
-								>{{ $person[0]->name }}
-							</div>
+						<div class="text-2xl mb-4">
+							{{ $person[0]->name }}
+							<img src="{{ url('/images/chevron.svg') }}" class="transform w-4 my-auto rotate-90">
 						</div>
 					</button>
 
@@ -77,7 +76,10 @@
 							@foreach($items['items'] as $item)
 								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
 									<div class="md:w-1/5 w-full pb-2">
-										<div class="md:hidden"><strong>Person Name</strong></div>
+										<div class="md:hidden">
+											<strong>Person Name</strong>
+										</div>
+
 										{{$person[0]->name}}
 									</div>
 									<div class="md:w-1/5 w-full pb-2">
