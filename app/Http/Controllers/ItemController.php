@@ -35,14 +35,6 @@ class ItemController extends Controller {
 		* @return Response
 		*/
 	public function index() {
-		// first you want a list of users that have shared with you.
-
-		// then you want all the items that belongs to each users
-
-		// maybe stick that all in an array of arrays and return?
-
-		// Possibly handled by modle relationships.
-		// holds all users that have shared with you
 		$myUsers = UserUsers::where('sharee_id', auth()->user()->id)->with('owner')->get();
 
 

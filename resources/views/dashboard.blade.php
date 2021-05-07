@@ -88,10 +88,8 @@
 										<div class="md:hidden"><hr><strong>Description</strong></div>
 										{{$item->description}}
 									</div>
-									<div class="md:w-1/5 w-full pb-2">
-										<form target="_blank">
-											<input type="submit" formaction="{{$item->url}}" class="w-full md:w-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg" value="{{$item->url}}">
-										</form>
+									<div class="md:w-1/5 w-full pb-2 mx-auto my-auto">
+										<a href="{{ $item->url }}" target="_blank" class="w-full md:w-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 md:px-4 px-24 rounded-2xl md:rounded-lg">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
 									</div>
 									<div class="md:w-1/5 w-full">
 										<livewire:claim-item :item="$item">
