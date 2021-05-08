@@ -39,8 +39,7 @@ class ItemPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
-    {
+    public function create(User $user) {
         //
     }
 
@@ -51,8 +50,7 @@ class ItemPolicy
      * @param  \App\Models\Item  $item
      * @return mixed
      */
-    public function update(User $user, Item $item)
-    {
+    public function update(User $user, Item $item) {
         if ((int)$user->id === (int)$item->owner_id) {
 			return true;
 		} else {
@@ -67,8 +65,7 @@ class ItemPolicy
      * @param  \App\Models\Item  $item
      * @return mixed
      */
-    public function delete(User $user, Item $item)
-    {
+    public function delete(User $user, Item $item) {
         if ((int)$user->id === (int)$item->owner_id) {
 			return true;
 		} else {
