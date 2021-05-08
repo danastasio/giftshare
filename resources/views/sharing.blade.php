@@ -61,9 +61,7 @@
 						<div>
 							{{ $user['sharee']->name }}
 						</div>
-						<div>
-							<a href="#delete{{ $user->id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded py-3 px-5">Revoke</a>
-						</div>
+						<a href="#delete{{ $user->id }}" class="w-full py-2 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded">Revoke</a>
 						@component('modals.delete-share', ['name' => 'delete'.$user->id,'share_id' => $user->id])
 							<x-slot name='modal_header'>
 								Revoke
