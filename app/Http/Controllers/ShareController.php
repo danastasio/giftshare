@@ -22,6 +22,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ShareRequest;
+use Illuminate\Support\Facades\Gate;
 use App\Models\UserUsers;
 use App\Models\User;
 use DB;
@@ -50,7 +51,7 @@ class ShareController extends Controller
 		if(!$exists) {
 			return redirect('share')->withInfo('Share already exists between you');
 		}
-		
+
 		// check to see if user exists
 		$exists = User::find($sharee_id);
 		if(!$exists) {
@@ -73,6 +74,10 @@ class ShareController extends Controller
 		echo 'update';
 	}
 	public function destroy($id) {
+		return (int)auth()->user()->id === (int)UserUsers::find($id)->value('id');
+		if (!Gate::allows('delete', UserUsers::find($id)->value('id'))) {
+			return abort(403, 'Unauthorized');
+		}
 	     $share = UserUsers::find($id);
 	     $share->delete();
 	     return redirect('share')->withInfo('List revoked from user');
