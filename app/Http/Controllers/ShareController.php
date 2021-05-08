@@ -74,12 +74,11 @@ class ShareController extends Controller
 		echo 'update';
 	}
 	public function destroy($id) {
-		return (int)auth()->user()->id === (int)UserUsers::find($id)->value('id');
-		if (!Gate::allows('delete', UserUsers::find($id)->value('id'))) {
+		if (!Gate::allows('delete', UserUsers::find($id))) {
 			return abort(403, 'Unauthorized');
 		}
-	     $share = UserUsers::find($id);
-	     $share->delete();
-	     return redirect('share')->withInfo('List revoked from user');
+	    $share = UserUsers::find($id);
+	    $share->delete();
+	    return redirect('share')->withInfo('List revoked from user');
 	}
 }

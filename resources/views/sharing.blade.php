@@ -52,7 +52,7 @@
 	<div class='grid grid-cols-2 max-w-7xl mx-auto'>
 		<div class="w-full x-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="text-center text-2xl mb-4">Users you're currently sharing with</div>
+				<div class="text-center text-2xl mb-4">You've shared your list with</div>
 				<div class='grid grid-cols-2 gap-5'>
 					<div class="invisible md:visible">Name</div>
 					<div class="invisible md:visible">Revoke Access</div>
@@ -62,23 +62,33 @@
 							{{ $user['sharee']->name }}
 						</div>
 						<div>
-							<form action="{{ route('share.destroy', $user->id) }}" method="post">
-								@csrf
-								@method('DELETE')
-								<input type=submit value="Revoke" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full" id="share-delete-{{ $user->id }}">
-							</form>
+							<a href="#delete{{ $user->id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded py-3 px-5">Revoke</a>
 						</div>
+						@component('modals.delete-share', ['name' => 'delete'.$user->id,'share_id' => $user->id])
+							<x-slot name='modal_header'>
+								Revoke
+							</x-slot>
+							<x-slot name='modal_content'>
+								<input type='hidden' name='id' value="{{ $user->id}}">
+								You are about to unshare you list with this person. Confirm?
+							</x-slot>
+						@endcomponent
 					@endforeach
 				</div>
 			</div>
 		</div>
 		<div class="w-full mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="text-center text-2xl mb-4">Users who are currently sharing with you</div>
-				<div class="text-left p-3 px-5">Name</div>
-				@foreach ( $shared_with_me as $user )
-					<div>{{ $user['owner']->name }}</div>
-				@endforeach
+				<div class="text-center text-2xl mb-4">Currently sharing with you</div>
+				<div class='grid grid-cols-2 gap-5'>
+					<div>Name</div>
+					<div>Email</div>
+					<hr class='col-span-2'>
+					@foreach ( $shared_with_me as $user )
+						<div>{{ $user['owner']->name }}</div>
+						<div>{{ $user['owner']->email }}</div>
+					@endforeach
+				</div>
 			</div>
 		</div>
 	</div>
