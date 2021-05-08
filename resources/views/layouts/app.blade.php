@@ -25,7 +25,7 @@
 
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-200">
 			@include('navigation-dropdown')
             <!-- Page Heading -->
             @if (isset($header))
@@ -36,6 +36,7 @@
                 </header>
             @endif
 
+			@include('flash-message')
             <!-- Page Content -->
             <main>
                 {{ $slot }}
