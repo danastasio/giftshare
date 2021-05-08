@@ -70,7 +70,7 @@
 						<a href="#delete{{ $item->id }}" class="w-full h-10 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded">Delete</a>
 					@endforeach
 					@foreach ($own_items as $item )
-						@component('modals.delete-item', ['name' => 'delete'.$item->id,'item_id' => $item->id])
+						@component('modals.delete-item', ['name' => 'delete'.$item->id,'id' => $item->id, 'route' => 'item.destroy'])
 							<x-slot name='modal_header'>
 								DELETE ITEM
 							</x-slot>
