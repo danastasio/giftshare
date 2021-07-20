@@ -31,7 +31,8 @@ class ClaimController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index() {
+	public function index()
+	{
 		$claims =  Item::where('claimant_id',auth()->user()->id)->with('user')->orderBy('claimant_id')->get();
 
 		return view('claims')->with('claims', $claims);
@@ -42,7 +43,8 @@ class ClaimController extends Controller {
 	*
 	* @return Response
 	*/
-	public function create() {
+	public function create()
+	{
 		//
 	}
 
@@ -51,7 +53,8 @@ class ClaimController extends Controller {
 	*
 	* @return Response
 	*/
-	public function store(ClaimRequest $request) {
+	public function store(ClaimRequest $request)
+	{
 		$request = $request->validated();
 
 		$user_item = Item::where('id', $request['item'])->get();
@@ -64,7 +67,8 @@ class ClaimController extends Controller {
 				return back();
 		}
 	}
-	public function destroy(ClaimRequest $request) {
+	public function destroy(ClaimRequest $request)
+	{
 		$request = $request->validated();
 
 		$user_item = Item::where('id',$request['item'])->get();
@@ -79,7 +83,8 @@ class ClaimController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function show($id) {
+	public function show($id)
+	{
 		//
 	}
 
@@ -89,7 +94,8 @@ class ClaimController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function edit($id) {
+	public function edit($id)
+	{
 		//
 	}
 
@@ -99,7 +105,8 @@ class ClaimController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function update(Request $request, $id) {
+	public function update(Request $request, $id)
+	{
 		//
 	}
 }
