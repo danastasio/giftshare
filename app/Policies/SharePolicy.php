@@ -4,6 +4,8 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\UserUsers;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SharePolicy
@@ -16,7 +18,8 @@ class SharePolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user) {
+    public function viewAny(User $user)
+    {
         //
     }
 
@@ -27,7 +30,8 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function view(User $user, UserUsers $userUsers) {
+    public function view(User $user, UserUsers $userUsers)
+    {
         //
     }
 
@@ -37,7 +41,8 @@ class SharePolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user) {
+    public function create(User $user)
+    {
         //
     }
 
@@ -48,7 +53,8 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function update(User $user, UserUsers $userUsers) {
+    public function update(User $user, UserUsers $userUsers)
+    {
         //
     }
 
@@ -59,11 +65,12 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function delete(User $user, UserUsers $share) {
+    public function delete(User $user, UserUsers $share)
+    {
 		if ((int)$share->owner_id === (int)$user->id) {
-			return true;
+			return Response::allow();
 		} else {
-			return false;
+			return Response::deny();
 		}
     }
 
@@ -74,7 +81,8 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function restore(User $user, UserUsers $userUsers) {
+    public function restore(User $user, UserUsers $userUsers)
+    {
         //
     }
 
@@ -85,7 +93,8 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function forceDelete(User $user, UserUsers $userUsers) {
+    public function forceDelete(User $user, UserUsers $userUsers)
+    {
         //
     }
 }

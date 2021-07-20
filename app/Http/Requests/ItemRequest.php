@@ -21,13 +21,13 @@ class ItemRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-            'id' => 'required',
+	public function rules()
+	{
+		return [
+			'id' => 'sometimes|required',
 			'name' => 'sometimes|required',
 			'description' => 'sometimes|required',
 			'url' => 'sometimes|required',
-        ];
-    }
+		];
+	}
 }

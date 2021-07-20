@@ -29,17 +29,21 @@ use DB;
 
 class ShareController extends Controller
 {
-	public function index() {
+	public function index()
+	{
 		$shared_with_others = UserUsers::where('owner_id',auth()->user()->id)->with('owner','sharee')->get();
 		$shared_with_me = UserUsers::where('sharee_id',auth()->user()->id)->with('owner','sharee')->get();
 		return view('sharing')->with('shared_with_others', $shared_with_others)->with('shared_with_me', $shared_with_me);
 	}
-	public function create() {
-		echo 'create';
+
+	public function create()
+	{
+		//
 	}
-	public function store(ShareRequest $request) {
-		$request = $request->validated();
-    	$sharee_id = User::where('email',$request['email'])->value('id');
+
+	public function store(ShareRequest $request)
+	{
+    		$sharee_id = User::where('email',$request['email'])->value('id');
 
 		// prevent users from sharing with themselves
 		if ($sharee_id === auth()->user()->id) {
@@ -54,31 +58,39 @@ class ShareController extends Controller
 
 		// check to see if user exists
 		$exists = User::find($sharee_id);
+
 		if(!$exists) {
 			return redirect('share')->withError('User does not exist');
 		} else {
-    		$usershare = new UserUsers;
-		    $usershare->owner_id = auth()->user()->id;
-		    $usershare->sharee_id = $sharee_id;
-		    $usershare->save();
+			$usershare = new UserUsers;
+			$usershare->owner_id = auth()->user()->id;
+			$usershare->sharee_id = $sharee_id;
+			$usershare->save();
 			return redirect('share')->withSuccess('List shared with user');
 		}
 	}
-	public function show($id) {
-		echo 'show';
+
+	public function show(int $id)
+	{
+		//
 	}
-	public function edit($id) {
-		echo 'edit';
+
+	public function edit(int $id)
+	{
+		//
 	}
-	public function update(Request $request, $id) {
-		echo 'update';
+
+	public function update(Request $request, int $id)
+	{
+		//
 	}
-	public function destroy($id) {
-		if (!Gate::allows('delete', UserUsers::find($id))) {
-			return abort(403, 'Unauthorized');
-		}
-	    $share = UserUsers::find($id);
-	    $share->delete();
-	    return redirect('share')->withInfo('List revoked from user');
+
+	public function destroy(int $id)
+	{
+		$share = UserUsers::find($id);
+		Gate::authorize('delete', $share);
+
+		$share->delete();
+		return redirect('share')->withInfo('List revoked from user');
 	}
 }

@@ -34,9 +34,9 @@ class ItemController extends Controller {
 		*
 		* @return Response
 		*/
-	public function index() {
+	public function index()
+	{
 		$myUsers = UserUsers::where('sharee_id', auth()->user()->id)->with('owner')->get();
-
 
 		$access_users = array();
 		foreach ($myUsers as $share) {
@@ -57,39 +57,38 @@ class ItemController extends Controller {
 		*
 		* @return Response
 		*/
-	public function create() {
+	public function create()
+	{
 		//
 	}
 
 	/**
-		* Store a newly created resource in storage.
-		*
-		* @return Response
-		*/
-	public function store() {
-		$request = request();
-
-		// validate input
-		$validated = $request->validate([
-			'name' => 'bail|required|max:255',
-			'url' => 'nullable|url'
-		]);
-
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(ItemRequest $request)
+	{
 		$item = new Item;
-		$item->name = $request->name;
-		@$item->description = $request->description;
-		@$item->url = $request->url;
+		$item->name = $request['name'];
+		@$item->description = $request['description'];
+		@$item->url = $request['url'];
 		$item->owner_id = auth()->user()->id;
 		$item->save();
-
 		return redirect('list')->withSuccess('Item added');
 	}
-	public function destroy(ItemRequest $request) {
-		$request = $request->validated();
-		if (!Gate::allows('delete', Item::find($request['id']))) {
-			return abort(403, 'Unauthorized');
-		}
+
+	/**
+	 * Destroy an item from the DB
+	 *
+	 * @param ItemRequest $request
+	 * @returns Response
+	 */
+	public function destroy(ItemRequest $request)
+	{
 		$item = Item::find($request['id']);
+		Gate::authorize('delete', $item)
+
 		$item->delete();
 		return redirect('list')->withInfo('Item deleted');
 	}
@@ -99,7 +98,8 @@ class ItemController extends Controller {
 		* @param  int  $id
 		* @return Response
 		*/
-	public function show($id) {
+	public function show($id)
+	{
 		//
 	}
 
@@ -109,7 +109,8 @@ class ItemController extends Controller {
 		* @param  int  $id
 		* @return Response
 		*/
-	public function edit($id) {
+	public function edit($id)
+	{
 		//
 	}
 
@@ -119,19 +120,21 @@ class ItemController extends Controller {
 		* @param  int  $id
 		* @return Response
 		*/
-	public function update(ItemRequest $request) {
-		$request = $request->validated();
-		if (!Gate::allows('update', Item::find($request['id']))) {
-			return abort(403, 'Unauthorized');
-		};
-		$item_find = Item::where('id',$request['id'])->value('id');
-		$item = Item::find($item_find);
+	public function update(ItemRequest $request)
+	{
+		$item = Item::find($request['id']);
+		Gate::authorize('update', $item);
+
+//		$item_find = Item::where('id',$request['id'])->value('id');
+//		$item = Item::find($item_find);
 		$item->name = $request['name'];
 		@$item->description = $request['description'];
 		@$item->url = $request['url'];
 		$item->save();
 		return back();
 	}
+
+	// I'm not actually sure what this function is for. Maybe being removed in a future version?
 	public function list() {
 		$own_items = Item::where('owner_id', auth()->user()->id)->get();
 		return view('list')->with('own_items', $own_items);
