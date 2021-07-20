@@ -13,7 +13,7 @@ class ClaimRequest extends FormRequest
      */
     public function authorize()
     {
-		// Need to figure out if user owns $object. If they do, allow.
+        // Need to figure out if user owns $object. If they do, allow.
         return true;
     }
 
@@ -25,9 +25,9 @@ class ClaimRequest extends FormRequest
     public function rules()
     {
         return [
-			'item' => 'sometimes|required',
-			'user' => 'sometimes|required',
-			'id' => 'sometimes|required',
+            'item' => 'sometimes|required',
+            'user' => 'sometimes|required',
+            'id' => 'sometimes|required',
         ];
     }
 }

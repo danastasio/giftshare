@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\ImportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,20 +24,20 @@ use App\Http\Controllers\ImportController;
 */
 
 Route::get('/', function () {
-	return view('auth/login');
+    return view('auth/login');
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-	Route::get('/dashboard',[ItemController::class, 'index'])->name('dashboard');
-	Route::get('/',[ItemController::class, 'index'])->name('index');
+    Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
+    Route::get('/', [ItemController::class, 'index'])->name('index');
 
-	Route::resource('item', ItemController::class);
-	Route::resource('share', ShareController::class);
-	Route::resource('claim', ClaimController::class);
-	Route::get('/list', [ItemController::class, 'list'])->name('list');
-	Route::resource('admin', AdminPanel::class);
-	Route::resource('import', ImportController::class);
-	Route::get('/amazon', [ImportController::class, 'amazon'])->name('amazon');
+    Route::resource('item', ItemController::class);
+    Route::resource('share', ShareController::class);
+    Route::resource('claim', ClaimController::class);
+    Route::get('/list', [ItemController::class, 'list'])->name('list');
+    Route::resource('admin', AdminPanel::class);
+    Route::resource('import', ImportController::class);
+    Route::get('/amazon', [ImportController::class, 'amazon'])->name('amazon');
 });
 
 // below routes are for email verification

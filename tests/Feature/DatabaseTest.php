@@ -13,7 +13,8 @@ class DatabaseTests extends TestCase
      *
      * @return void
      */
-    public function testUsingTestingDatabase() {
+    public function testUsingTestingDatabase()
+    {
         $this->assertEquals('/var/home/dave/local/giftshare/database/testing.db', \DB::connection()->getDatabaseName());
     }
 }

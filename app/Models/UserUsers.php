@@ -24,10 +24,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserUsers extends Model
 {
-	public function owner() {
-		return $this->belongsTo(User::class);
-	}
-	public function sharee() {
-		return $this->belongsTo(User::class);
-	}
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function sharee()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
