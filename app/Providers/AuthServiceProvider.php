@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-		'App\Models\UserUsers' => 'App\Policies\SharePolicy',
+        'App\Models\UserUsers' => 'App\Policies\SharePolicy',
     ];
 
     /**
@@ -26,8 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-		Gate::define('create-share', [SharePolicy::class, 'create']);
-		Gate::define('delete-share', [SharePolicy::class, 'delete']);
+        Gate::define('create-share', [SharePolicy::class, 'create']);
+        Gate::define('delete-share', [SharePolicy::class, 'delete']);
         //
     }
 }

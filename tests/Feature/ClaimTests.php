@@ -13,17 +13,16 @@ class ClaimTests extends TestCase
      *
      * @return void
      */
-	public function test_valid_claim(): void
-	{
-	}
+    public function test_valid_claim(): void
+    {
+    }
 
     /**
      * A test to see if you can claim an item that doesn't belong to you
      *
      * @returns void
      */
-	public test_invalid_claim(): void
-	{
-
-	}
+    public function test_invalid_claim(): void
+    {
+    }
 }

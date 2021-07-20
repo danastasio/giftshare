@@ -15,8 +15,8 @@ class CreateUserUserTable extends Migration
     {
         Schema::create('user_users', function (Blueprint $table) {
             $table->id();
-	    	$table->integer('owner_id');
-	    	$table->integer('sharee_id');
+            $table->integer('owner_id');
+            $table->integer('sharee_id');
             $table->timestamps();
         });
     }

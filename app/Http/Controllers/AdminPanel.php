@@ -10,7 +10,7 @@
 
         This program is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU Affero General Public License for more details.
 
         You should have received a copy of the GNU Affero General Public License
@@ -22,48 +22,51 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
-class AdminPanel extends Controller {
-        /** 
-                * Display a listing of the resource.
-                *
-                * @return Response
-                */
-        public function index() {
-                return view('admin-panel');
-        }   
+class AdminPanel extends Controller
+{
+    /**
+            * Display a listing of the resource.
+            *
+            * @return Response
+            */
+    public function index()
+    {
+        return view('admin-panel');
+    }
 
-        /** 
-                * Show the form for creating a new resource.
-                *
-                * @return Response
-                */
-        public function create() {
-                //  
-        }   
+    /**
+            * Show the form for creating a new resource.
+            *
+            * @return Response
+            */
+    public function create()
+    {
+        //
+    }
 
-        /** 
-                * Store a newly created resource in storage.
-                *
-                * @return Response
-                */
+    /**
+            * Store a newly created resource in storage.
+            *
+            * @return Response
+            */
 
-	public function store() {
+    public function store()
+    {
+    }
 
-	}
+    public function destroy()
+    {
+    }
 
-	public function destroy() {
+    public function show()
+    {
+    }
 
-	}
+    public function edit()
+    {
+    }
 
-	public function show() {
-
-	}
-
-	public function edit() {
-
-	}
-	
-	public function update() {
-
-	}
+    public function update()
+    {
+    }
 }
