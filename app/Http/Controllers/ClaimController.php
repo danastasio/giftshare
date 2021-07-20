@@ -51,26 +51,26 @@ class ClaimController extends Controller {
 	*
 	* @return Response
 	*/
-    public function store(ClaimRequest $request) {
-        $request = $request->validated();
+	public function store(ClaimRequest $request) {
+		$request = $request->validated();
 
-        $user_item = Item::where('id', $request['item'])->get();
-        if($user_item[0]['claimed'] == 1) {
-                return redirect('/')->withError("Item was claimed while you were on this page");
-        } else {
-                $user_item[0]['claimed'] = 1;
-                $user_item[0]['claimant_id'] = auth()->user()->id;
-                $user_item[0]->save();
-                return back();
-        }
-    }
-    public function destroy(ClaimRequest $request) {
-        $request = $request->validated();
+		$user_item = Item::where('id', $request['item'])->get();
+		if($user_item[0]['claimed'] == 1) {
+				return redirect('/')->withError("Item was claimed while you were on this page");
+		} else {
+				$user_item[0]['claimed'] = 1;
+				$user_item[0]['claimant_id'] = auth()->user()->id;
+				$user_item[0]->save();
+				return back();
+		}
+	}
+	public function destroy(ClaimRequest $request) {
+		$request = $request->validated();
 
-        $user_item = Item::where('id',$request['item'])->get();
-        $user_item[0]['claimed'] = 0;
-        $user_item[0]['claimant_id'] = null;
-        $user_item[0]->save();
+		$user_item = Item::where('id',$request['item'])->get();
+		$user_item[0]['claimed'] = 0;
+		$user_item[0]['claimant_id'] = null;
+		$user_item[0]->save();
 		return back();
 	}
 	/**

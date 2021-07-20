@@ -87,7 +87,7 @@ class ItemController extends Controller {
 	public function destroy(ItemRequest $request)
 	{
 		$item = Item::find($request['id']);
-		Gate::authorize('delete', $item)
+		Gate::authorize('delete', $item);
 
 		$item->delete();
 		return redirect('list')->withInfo('Item deleted');

@@ -43,7 +43,8 @@ class ShareController extends Controller
 
 	public function store(ShareRequest $request)
 	{
-    		$sharee_id = User::where('email',$request['email'])->value('id');
+		Gate::authorize('create-share');
+		$sharee_id = User::where('email',$request['email'])->value('id');
 
 		// prevent users from sharing with themselves
 		if ($sharee_id === auth()->user()->id) {
@@ -88,7 +89,7 @@ class ShareController extends Controller
 	public function destroy(int $id)
 	{
 		$share = UserUsers::find($id);
-		Gate::authorize('delete', $share);
+		Gate::authorize('delete-share', $share);
 
 		$share->delete();
 		return redirect('share')->withInfo('List revoked from user');
