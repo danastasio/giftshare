@@ -22,19 +22,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\ClaimRequest;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Item;
-use DB;
 
 class ClaimController extends Controller {
 	/**
 	* Display a listing of the resource.
-	*
+
 	* @return Response
 	*/
 	public function index()
 	{
 		$claims =  Item::where('claimant_id',auth()->user()->id)->with('user')->orderBy('claimant_id')->get();
-
 		return view('claims')->with('claims', $claims);
 	}
 
@@ -55,17 +54,17 @@ class ClaimController extends Controller {
 	*/
 	public function store(ClaimRequest $request)
 	{
-		$request = $request->validated();
-
-		$user_item = Item::where('id', $request['item'])->get();
+		// Moved to livewire component
+		/*$user_item = Item::find($request['item']);
+		dd($user_item);
 		if($user_item[0]['claimed'] == 1) {
-				return redirect('/')->withError("Item was claimed while you were on this page");
+			return redirect('/')->withError("Item was claimed while you were on this page");
 		} else {
-				$user_item[0]['claimed'] = 1;
-				$user_item[0]['claimant_id'] = auth()->user()->id;
-				$user_item[0]->save();
-				return back();
-		}
+			$user_item[0]['claimed'] = 1;
+			$user_item[0]['claimant_id'] = auth()->user()->id;
+			$user_item[0]->save();
+			return back();
+		} */
 	}
 	public function destroy(ClaimRequest $request)
 	{
