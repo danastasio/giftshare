@@ -25,10 +25,15 @@ COPY . /app
 
 RUN composer install --no-interaction
 RUN cp /app/.env.example /app/.env
-RUN sed -i "s/REPLACEDB/database.db/g" /app/.env
 RUN touch /app/database/database.db
 RUN php artisan key:generate
 RUN php artisan migrate
+RUN npm i npm@latest -g
+RUN npm install
+RUN npm run prod
+RUN php artisan view:cache
+RUN php artisan config:cache
+RUN php artisan route:cache
 
 VOLUME /app/database
 EXPOSE 8000
