@@ -18,6 +18,9 @@ FROM php
 RUN apt-get update -y && apt-get install -y libmcrypt-dev sqlite3 libsqlite3-dev git zip unzip uuid-runtime
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install nodejs -y
+
 RUN docker-php-ext-install pdo
 
 WORKDIR /app
