@@ -77,6 +77,7 @@ class User extends Authenticatable //implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
     public function items()
     {
         return $this->hasMany(Item::class, 'owner_id');
