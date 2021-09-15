@@ -59,7 +59,7 @@
 					<div class='col-span-2'><hr></div>
 					@foreach ( $shared_with_others as $user )
 						<div>
-							{{ $user['sharee']->name }}
+							{{ $user->name }}
 						</div>
 						<a href="#delete{{ $user->id }}" class="w-full py-2 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded">Revoke</a>
 						@component('modals.delete-item', ['name' => 'delete'.$user->id,'share_id' => $user->id, 'id' => $user->id, 'route' => 'share.destroy'])
@@ -83,8 +83,8 @@
 					<div>Email</div>
 					<hr class='col-span-2'>
 					@foreach ( $shared_with_me as $user )
-						<div>{{ $user['owner']->name }}</div>
-						<div>{{ $user['owner']->email }}</div>
+						<div>{{ $user->name }}</div>
+						<div>{{ $user->email }}</div>
 					@endforeach
 				</div>
 			</div>
