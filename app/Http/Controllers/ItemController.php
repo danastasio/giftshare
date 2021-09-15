@@ -20,37 +20,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 use App\Models\UserUsers;
-use App\Models\User;
 use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ItemRequest;
-use DB;
 
 class ItemController extends Controller
 {
     /**
-        * Display a listing of the resource.
+        * Get a list of all items shared with the logged in user based on what is shared with them.
         *
         * @return Response
         */
     public function index()
     {
-        $myUsers = UserUsers::where('sharee_id', auth()->user()->id)->with('owner')->get();
+		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)
+			->join('users', 'users.id', 'user_users.owner_id')
+			->get();
 
-        $access_users = array();
-        foreach ($myUsers as $share) {
-            array_push($access_users, $share['owner']);
-        }
+		$items = array();
+		foreach ($shared_users as $user) {
+			$user->items = $items;
+		}
 
-        $shared_items_by_user = array();
-        foreach ($access_users as $user) {
-            $item = User::where('id', $user['id'])->with('items')->with('items')->get();
-            array_push($shared_items_by_user, $item);
-        }
-        //return $shared_items_by_user;
-        return view('dashboard')->with('shared_items', $shared_items_by_user);
+		foreach ($shared_users as $user) {
+			$user->items = Item::where('owner_id', $user->id)->get();
+		}
+		//return $shared_users;
+        return view('dashboard')->with('shared_items', $shared_users);
     }
 
     /**
@@ -73,7 +71,7 @@ class ItemController extends Controller
         $item = new Item();
         $item->name = $request['name'];
         @$item->description = $request['description'];
-        @$item->url = $request['url'];
+        $item->url = $request['url'];
         $item->owner_id = auth()->user()->id;
         $item->save();
         return redirect('list')->withSuccess('Item added');
@@ -135,7 +133,9 @@ class ItemController extends Controller
         return back();
     }
 
-    // I'm not actually sure what this function is for. Maybe being removed in a future version?
+    /**
+     * Show the list of items that I personally own. Used by the "My List" button
+     */
     public function list()
     {
         $own_items = Item::where('owner_id', auth()->user()->id)->get();
