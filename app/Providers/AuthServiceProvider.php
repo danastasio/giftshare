@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\SharePolicy;
+use App\Policies\ClaimPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-		'App\Models\UserUsers' => 'App\Policies\SharePolicy',
+        'App\Models\UserUsers' => 'App\Policies\SharePolicy',
     ];
 
     /**
@@ -25,7 +27,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        Gate::define('create-share', [SharePolicy::class, 'create']);
+        Gate::define('delete-share', [SharePolicy::class, 'delete']);
+        Gate::define('create-claim', [ClaimPolicy::class, 'create']);
+        Gate::define('delete-claim', [ClaimPolicy::class, 'delete']);
     }
 }

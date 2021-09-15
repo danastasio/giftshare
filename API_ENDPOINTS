@@ -1,0 +1,17 @@
+/api/{version}/claim/create
+	expected payload: {'token': X, 'item_id': X, 'claimed': true}
+/api/{version}/claim/store
+	not used currently
+/api/{version}/claim/delete
+	expected payload: {'token': X, 'item_id': X, 'claimed': false}
+/api/{version}/claim/list
+	expected payload: {'token': X}
+/api/{version}/share/create
+/api/{version}/share/store
+/api/{version}/share/delete
+/api/{version}/share/list
+/api/{version}/item/create
+/api/{version}/item/store
+/api/{version}/item/delete
+/api/{version}/item/list
+/api/{version}/item/update

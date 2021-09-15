@@ -15,13 +15,13 @@ class CreateItemTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-	    	$table->string('name');
-	    	$table->text('description')->nullable();
-	    	$table->text('url')->nullable();
-			$table->integer('owner_id');
-	    	$table->boolean('claimed')->default(0);
-	    	$table->integer('claimant_id')->nullable();
-        	$table->timestamps();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->text('url')->nullable();
+            $table->integer('owner_id');
+            $table->boolean('claimed')->default(0);
+            $table->integer('claimant_id')->nullable();
+            $table->timestamps();
         });
     }
 

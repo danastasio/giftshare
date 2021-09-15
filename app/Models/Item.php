@@ -25,14 +25,15 @@ use App\Models\User;
 
 class Item extends Model
 {
-	protected $fillable = ['name','description','url'];
+    protected $fillable = ['name','description','url'];
 
-	public function items() {
-		return $this->belongsTo(User::class);
-	}
+    public function items()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	public function user() {
-		return $this->belongsTo(User::class, 'owner_id');
-	}
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }

@@ -13,4 +13,3 @@ npm-debug.log
 yarn-error.log
 .*
 /database/*.db
-/app/Providers/AppServiceProvider.php

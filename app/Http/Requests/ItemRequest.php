@@ -24,10 +24,10 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-			'name' => 'sometimes|required',
-			'url' => 'nullable|url',
-			'description' => 'nullable|string',
+        	'id' => 'required',
+		'name' => 'sometimes|required',
+		'url' => 'nullable|url',
+		'description' => 'nullable|string',
         ];
     }
 }
