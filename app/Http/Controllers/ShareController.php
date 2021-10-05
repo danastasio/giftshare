@@ -33,7 +33,7 @@ class ShareController extends Controller
 	{
 		$shared_with_others = UserUsers::where('owner_id', auth()->user()->id)
 		->join('users', 'users.id', 'user_users.sharee_id')
-		->select(['users.id','users.name','users.email'])
+		->select(['user_users.id as share_id','users.id as user_id','users.name','users.email'])
 		->get();
 
 		$shared_with_me = UserUsers::where('sharee_id', auth()->user()->id)
@@ -61,7 +61,7 @@ class ShareController extends Controller
 
 		// check to see if share exists
 		$exists = UserUsers::where('owner_id', auth()->user()->id)->where('sharee_id', $sharee_id)->get();
-		if (!$exists) {
+		if (!$exists->isEmpty()) {
 			return redirect('share')->withInfo('Share already exists between you');
 		}
 

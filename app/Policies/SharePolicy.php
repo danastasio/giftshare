@@ -79,12 +79,13 @@ class SharePolicy
 			return Response::deny();
 		}
 
+		return $share;
 		if (Auth::check() && (int)$share->owner_id === (int)$user->id) {
 			return Response::allow();
 		} else {
 			return Response::deny();
 		}
-	}
+}
 
 	/**
 	 * Determine whether the user can restore the model.
