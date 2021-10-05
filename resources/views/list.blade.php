@@ -49,6 +49,19 @@
 			</form>
 		</div>
 	</div>
+
+@if ( $own_items->isEmpty() )
+	<div class="py-8">
+		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
+				<div class="flex">
+					<div class="flex-auto text-2xl mb-4 text-center">You have not added any items yet</div>
+				</div>
+				<div class="flex-auto text-lg mb-4 text-center">Once you start adding items, they will show up here.</div>
+			</div>
+		</div>
+	</div>
+@else
 	<div class="mt-5">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
@@ -105,4 +118,5 @@
 			</div>
 		</div>
 	</div>
+@endif
 </x-app-layout>

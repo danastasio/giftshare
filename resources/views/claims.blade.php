@@ -25,7 +25,7 @@
 @if ( $claims->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4 text-center">You do not have any claims yet</div>
 				</div>
