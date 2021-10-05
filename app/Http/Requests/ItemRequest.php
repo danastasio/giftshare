@@ -13,21 +13,21 @@ class ItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-    }
+		return true;
+	}
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-        	'id' => 'required',
-		'name' => 'sometimes|required',
-		'url' => 'nullable|url',
-		'description' => 'nullable|string',
-        ];
-    }
+	public function rules()
+	{
+		return [
+			'id' => 'sometimes|required',
+			'name' => 'sometimes|required',
+			'url' => 'nullable|url',
+			'description' => 'nullable|string',
+		];
+	}
 }
