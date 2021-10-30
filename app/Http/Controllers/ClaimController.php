@@ -38,7 +38,7 @@ class ClaimController extends Controller
         $claims = Item::where('items.claimant_id', auth()->user()->id)
 	        ->join('users', 'users.id', 'items.owner_id')
 	        ->orderBy('items.owner_id')
-        	->select(['items.id','items.name','items.description','items.url','users.name AS user_name','items.claimed','items.claimant_id'])
+        	->select(['items.id','items.name','items.description','items.url','users.name AS user_name','items.claimed','items.claimant_id', 'users.profile_photo_path'])
         	->get();
         return view('claims')->with('claims', $claims);
     }

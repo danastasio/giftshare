@@ -60,13 +60,13 @@
 						<div x-show="show">
 							<div id="header-card" class="md:flex hidden">
 								<div class='w-1/5'>
-									<strong>Person Name</strong>
+									<strong>Name</strong>
 								</div>
 								<div class='w-1/5'>
 									<strong>Item Name</strong>
 								</div>
 								<div class='w-1/5'>
-									<strong>Item Description</strong>
+									<strong>Item Details</strong>
 								</div>
 								<div class='w-1/5'>
 									<strong>Item Link</strong>
@@ -82,7 +82,7 @@
 								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
 									<div class="md:w-1/5 w-full mb-2">
 										<div class="md:hidden">
-											<strong>Person Name</strong>
+											<strong>Name</strong>
 										</div>
 										{{  $person->name  }}
 									</div>
@@ -96,13 +96,17 @@
 									<div class="md:w-1/5 w-full my-1">
 										<div class="md:hidden">
 											<hr class="mb-2">
-											<strong>Description</strong>
+											<strong>Item Details</strong>
 										</div>
 										{{  $item->description  }}
 									</div>
-									<div class="md:w-1/5 w-full bg-green-500 hover:bg-green-700 rounded-2xl md:rounded-lg text-center py-2 my-1 md:my-0">
-										<a href="{{ $item->url }}" target="_blank" class="text-white font-bold py-auto">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
-									</div>
+									@if ($item->url)
+										<div class="md:w-1/5 w-full bg-green-500 hover:bg-green-700 rounded-2xl md:rounded-lg text-center py-2 my-1 md:my-0">
+											<a href="{{ $item->url }}" target="_blank" class="text-white font-bold py-auto">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
+										</div>
+									@else
+										<div class="invisible md:w-1/5 w-full"></div>
+									@endif
 									<div class="md:w-1/5 w-full">
 										<livewire:claim-item :item="$item">
 									</div>

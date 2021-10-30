@@ -48,12 +48,23 @@
 					<hr class="mb-3">
 					<div class="grid grid-cols-1 md:grid-cols-5 gap-3">
 						@foreach ( $claims as $item )
-							<div> {{ $item->user_name }} </div>
+							<div class="flex">
+								@if ($item->profile_photo_path)
+									<img alt="profile picture" src="{{ url('/storage/' . $item->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+								@else
+									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $item->user_name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+								@endif
+								<span class="my-auto">{{ $item->user_name }}</span>
+							</div>
 							<div> {{ $item->name }} </div>
 							<div> {{ $item->description }}</div>
-							<div class="my-auto w-full bg-green-500 hover:bg-green-700 rounded-lg text-white font-bold text-center py-2">
-								<a href="{{ $item->url }}" class="py-auto" target="_blank">{{$item["url"]}}</a>
-							</div>
+							@if ($item-> url)
+								<div class="my-auto w-full bg-green-500 hover:bg-green-700 rounded-lg text-white font-bold text-center py-2">
+									<a href="{{ $item->url }}" class="py-auto" target="_blank">{{$item["url"]}}</a>
+								</div>
+							@else
+								<div class="md:1/5 w-full"></div>
+							@endif
 							<div class="w-full">
 								<livewire:claim-item :item="$item">
 							</div>

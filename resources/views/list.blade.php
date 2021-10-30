@@ -37,11 +37,11 @@
 			</div>
 			<div class="mt-4">
 				<label for="url">Item Link:</label>
-				<input type="url" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="url" id="url" value="{{ request()->url }}">
+				<input type="url" placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="url" id="url" value="{{ request()->url }}">
 			</div>
 			<div class="mt-4">
-				<label for="description">Item Details</label>
-				<textarea class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
+				<label for="description">Item Details:</label>
+				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
 			</div>
 			<div class="flex">
 				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
