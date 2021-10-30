@@ -32,14 +32,14 @@ class ShareController extends Controller
 	public function index()
 	{
 		$shared_with_others = UserUsers::where('owner_id', auth()->user()->id)
-		->join('users', 'users.id', 'user_users.sharee_id')
-		->select(['user_users.id as share_id','users.id as user_id','users.name','users.email'])
-		->get();
+			->join('users', 'users.id', 'user_users.sharee_id')
+			->select(['user_users.id as share_id','users.id as user_id','users.name','users.email'])
+			->get();
 
 		$shared_with_me = UserUsers::where('sharee_id', auth()->user()->id)
-		->join('users', 'users.id', 'user_users.owner_id')
-		->select(['users.name','users.email'])
-		->get();
+			->join('users', 'users.id', 'user_users.owner_id')
+			->select(['users.name','users.email'])
+			->get();
 
 		return view('sharing')->with('shared_with_others', $shared_with_others)->with('shared_with_me', $shared_with_me);
 	}
