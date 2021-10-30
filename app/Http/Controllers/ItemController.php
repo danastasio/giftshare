@@ -37,6 +37,7 @@ class ItemController extends Controller
     {
 		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)
 			->join('users', 'users.id', 'user_users.owner_id')
+			->select('user_users.id', 'owner_id', 'shareee_id', 'users.name', 'users.profile_photo_path')
 			->get();
 
 		$items = array();
