@@ -22,6 +22,7 @@
 		{{ __('Dashboard') }}
 	</h2>
 </x-slot>
+
 @if ( $shared_items->isEmpty()) )
 	<div class="py-12">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -38,16 +39,21 @@
 		</div>
 	</div>
 @else
-
 	@foreach ( $shared_items as $person )
 		<div class="py-4">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 				<div class="bg-gray-100 md:bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 					<div x-data={show:true}>
-						<button  @click="show=!show" type="button">
+						<button  @click="show=!show" type="button" class="flex">
+							<div>
+								@if ($person->profile_photo_path)
+									<img alt="profile picture" src="{{ url('/storage/' . $person->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+								@else
+									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $person->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+								@endif
+							</div>
 							<div class="text-2xl mb-4">
 								{{ $person->name }}
-								<img src="{{ url('/images/chevron.svg') }}" class="transform w-4 my-auto rotate-90">
 							</div>
 						</button>
 
