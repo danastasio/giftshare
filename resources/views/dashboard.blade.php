@@ -18,7 +18,7 @@
 ?>
 <x-app-layout>
 <x-slot name="header">
-	<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+	<h2 class="font-semibold text-xl text-gray-800 leading-tight w-full">
 		{{ __('Dashboard') }}
 	</h2>
 </x-slot>
@@ -60,8 +60,8 @@
 						<div x-show="show">
 						<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 							@foreach($person->items as $item)
-								<div id="newcard" class="flex-none bg-white overflow-hidden shadow-2xl rounded-2xl border">
-									<div class="w-full mb-2 justify-center flex mx-auto mt-4">
+								<div id="newcard" class="grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border">
+									<div class="flex-none w-full mb-2 justify-center flex mx-auto mt-4">
 										@if ($item->image_url)
 											<img src="{{ $item->image_url}}" class="h-24" alt="product image">
 										@else
@@ -70,7 +70,7 @@
 									</div>
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">
 										@if ($item->url)
-											<a class="underline text-blue-600" href="{{$item->url}}">{{ $item->name }}</a>
+											<a target="_blank" class="underline text-blue-600" href="{{$item->url}}">{{ $item->name }}</a>
 										@else
 											{{ $item->name }}
 										@endif
@@ -79,11 +79,11 @@
 										@if ($item->description)
 											{{  $item->description  }}
 										@else
-											No Description Provided
+											<em>No Description Provided</em>
 										@endif
 									</div>
-									<div class="w-full">
-										<livewire:claim-item :item="$item">
+									<div class="w-full h-full">
+										<livewire:claim-item :item="$item" class="w-full">
 									</div>
 								</div>
 							@endforeach

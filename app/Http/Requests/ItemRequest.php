@@ -26,8 +26,8 @@ class ItemRequest extends FormRequest
 		return [
 			'id' => 'sometimes|required',
 			'name' => 'sometimes|required',
-			'url' => 'nullable|url',
-			'description' => 'nullable|string',
+			'url' => 'sometimes|nullable|url',
+			'description' => 'nullable|string|max:54',
 		];
 	}
 }
