@@ -50,7 +50,7 @@
 						@foreach ( $claims as $item )
 							<div class="flex">
 								@if ($item->profile_photo_path)
-									<img alt="profile picture" src="{{ url('/storage/' . $item->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+									<img alt="profile picture" src="{{ url('/storage/' . $item->profile_photo_path) }}" class="w-8 max-h-8 my-auto rounded-full mr-3">
 								@else
 									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $item->user_name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
 								@endif
@@ -60,7 +60,7 @@
 							<div> {{ $item->description }}</div>
 							@if ($item-> url)
 								<div class="my-auto w-full bg-green-500 hover:bg-green-700 rounded-lg text-white font-bold text-center py-2">
-									<a href="{{ $item->url }}" class="py-auto" target="_blank">{{$item["url"]}}</a>
+									<a href="{{ $item->url }}" class="py-auto" target="_blank">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
 								</div>
 							@else
 								<div class="md:1/5 w-full"></div>

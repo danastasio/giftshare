@@ -79,12 +79,8 @@
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
 						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
-						<div class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg">
-							<a href="#edit{{ $item->id }}" class="text-white font-bold">Edit</a>
-						</div>
-						<div class="max-h-10 w-full bg-white border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2">
-							<a href="#delete{{ $item->id }}" class="font-bold">Delete</a>
-						</div>
+						<a class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
+						<a class="max-h-10 w-full bg-white border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
 					@endforeach
 					@foreach ($own_items as $item )
 						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy"])

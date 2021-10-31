@@ -35,21 +35,6 @@ class ItemController extends Controller
         */
     public function index()
     {
-<<<<<<< HEAD
-        $shared_users = UserUsers::where('sharee_id', auth()->user()->id)
-            ->join('users', 'users.id', 'user_users.owner_id')
-            ->get();
-
-        $items = array();
-        foreach ($shared_users as $user) {
-            $user->items = $items;
-        }
-
-        foreach ($shared_users as $user) {
-            $user->items = Item::where('owner_id', $user->id)->get();
-        }
-        //return $shared_users;
-=======
 		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)
 			->join('users', 'users.id', 'user_users.owner_id')
 			->select('user_users.id', 'owner_id', 'shareee_id', 'users.name', 'users.profile_photo_path')
@@ -61,10 +46,8 @@ class ItemController extends Controller
 		}
 
 		foreach ($shared_users as $user) {
-			$user->items = Item::where('owner_id', $user->id)->get();
+			$user->items = Item::where('owner_id', $user->owner_id)->get();
 		}
-		//return $shared_users;
->>>>>>> cb63bbfdbd93c2f36365b7caba68345315a3834c
         return view('dashboard')->with('shared_items', $shared_users);
     }
 
@@ -90,6 +73,14 @@ class ItemController extends Controller
         @$item->description = $request['description'];
         $item->url = $request['url'];
         $item->owner_id = auth()->user()->id;
+        if ($request['url'] && str_contains($request['url'], "amazon.com")) {
+        	$string = file_get_contents($request['url']);
+        	if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) {
+	        	$item->image_url = $matches[1];
+	        }
+       	} else {
+        	$item->image_url = null;
+        }
         $item->save();
         return redirect('list')->withSuccess('Item added');
     }

@@ -23,7 +23,7 @@
 	</h2>
 </x-slot>
 
-@if ( $shared_items->isEmpty()) )
+@if ($shared_items->isEmpty())
 	<div class="py-12">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -42,7 +42,7 @@
 	@foreach ( $shared_items as $person )
 		<div class="py-4">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="bg-gray-100 md:bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="mx-2 rounded-md bg-gray-100 md:bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 					<div x-data={show:true}>
 						<button  @click="show=!show" type="button" class="flex">
 							<div>
@@ -58,60 +58,36 @@
 						</button>
 
 						<div x-show="show">
-							<div id="header-card" class="md:flex hidden">
-								<div class='w-1/5'>
-									<strong>Name</strong>
-								</div>
-								<div class='w-1/5'>
-									<strong>Item Name</strong>
-								</div>
-								<div class='w-1/5'>
-									<strong>Item Details</strong>
-								</div>
-								<div class='w-1/5'>
-									<strong>Item Link</strong>
-								</div>
-								<div class='w-1/5'>
-									<strong>Claim Button</strong>
-								</div>
-							</div>
-							<div class="invisible md:visible">
-								<hr>
-							</div>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 							@foreach($person->items as $item)
-								<div id="newcard" class="md:flex flex-none hover:bg-gray-300 bg-white overflow-hidden shadow-xl md:shadow-sm rounded-2xl md:rounded-sm p-3 mb-4 md:mb-0 border md:border-transparent">
-									<div class="md:w-1/5 w-full mb-2">
-										<div class="md:hidden">
-											<strong>Name</strong>
-										</div>
-										{{  $person->name  }}
+								<div id="newcard" class="flex-none bg-white overflow-hidden shadow-2xl rounded-2xl border">
+									<div class="w-full mb-2 justify-center flex mx-auto mt-4">
+										@if ($item->image_url)
+											<img src="{{ $item->image_url}}" class="h-24" alt="product image">
+										@else
+											<div class="h-24"></div>
+										@endif
 									</div>
-									<div class="md:w-1/5 w-full my-1">
-										<div class="md:hidden">
-											<hr class="mb-2">
-											<strong>Item Name</strong>
-										</div>
-										{{ $item->name }}
+									<div class="w-full my-1 font-bold text-xl text-center mt-3">
+										@if ($item->url)
+											<a class="underline text-blue-600" href="{{$item->url}}">{{ $item->name }}</a>
+										@else
+											{{ $item->name }}
+										@endif
 									</div>
-									<div class="md:w-1/5 w-full my-1">
-										<div class="md:hidden">
-											<hr class="mb-2">
-											<strong>Item Details</strong>
-										</div>
-										{{  $item->description  }}
+									<div class="w-full my-1 my-3 text-center text-gray-500">
+										@if ($item->description)
+											{{  $item->description  }}
+										@else
+											No Description Provided
+										@endif
 									</div>
-									@if ($item->url)
-										<div class="md:w-1/5 w-full bg-green-500 hover:bg-green-700 rounded-2xl md:rounded-lg text-center py-2 my-1 md:my-0">
-											<a href="{{ $item->url }}" target="_blank" class="text-white font-bold py-auto">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
-										</div>
-									@else
-										<div class="invisible md:w-1/5 w-full"></div>
-									@endif
-									<div class="md:w-1/5 w-full">
+									<div class="w-full">
 										<livewire:claim-item :item="$item">
 									</div>
 								</div>
 							@endforeach
+						</div>
 						</div>
 					</div>
 				</div>

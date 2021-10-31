@@ -21,6 +21,7 @@ class CreateItemTable extends Migration
             $table->integer('owner_id');
             $table->boolean('claimed')->default(0);
             $table->integer('claimant_id')->nullable();
+            $table->text('image_url')->nullable()->default(null);
             $table->timestamps();
         });
     }
