@@ -34,6 +34,7 @@ RUN php artisan migrate --force
 RUN npm i npm@latest -g
 RUN npm install
 RUN npm run prod
+RUN php artisan storage:link
 RUN php artisan view:cache
 RUN php artisan config:cache
 RUN php artisan route:cache
