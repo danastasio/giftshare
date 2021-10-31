@@ -29,8 +29,8 @@ COPY . /app
 RUN composer install --no-interaction
 RUN cp /app/.env.example /app/.env
 RUN touch /app/database/database.db
-RUN php artisan key:generate
-RUN php artisan migrate
+RUN php artisan key:generate --force
+RUN php artisan migrate --force
 RUN npm i npm@latest -g
 RUN npm install
 RUN npm run prod

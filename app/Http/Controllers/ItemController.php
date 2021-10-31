@@ -35,6 +35,7 @@ class ItemController extends Controller
         */
     public function index()
     {
+<<<<<<< HEAD
         $shared_users = UserUsers::where('sharee_id', auth()->user()->id)
             ->join('users', 'users.id', 'user_users.owner_id')
             ->get();
@@ -48,6 +49,22 @@ class ItemController extends Controller
             $user->items = Item::where('owner_id', $user->id)->get();
         }
         //return $shared_users;
+=======
+		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)
+			->join('users', 'users.id', 'user_users.owner_id')
+			->select('user_users.id', 'owner_id', 'shareee_id', 'users.name', 'users.profile_photo_path')
+			->get();
+
+		$items = array();
+		foreach ($shared_users as $user) {
+			$user->items = $items;
+		}
+
+		foreach ($shared_users as $user) {
+			$user->items = Item::where('owner_id', $user->id)->get();
+		}
+		//return $shared_users;
+>>>>>>> cb63bbfdbd93c2f36365b7caba68345315a3834c
         return view('dashboard')->with('shared_items', $shared_users);
     }
 
