@@ -65,7 +65,7 @@
 										@if ($item->image_url)
 											<img src="{{ $item->image_url}}" class="h-24" alt="product image">
 										@else
-											<img src="{{ url('/images/photo-not-found.webp') }}" alt="image not found" class="h-24">
+											<img src="{{ url('/images/not_found.svg') }}" alt="image not found" class="h-24">
 										@endif
 									</div>
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">
