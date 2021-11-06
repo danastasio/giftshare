@@ -125,8 +125,6 @@ class ItemController extends Controller
 		$item = Item::find($request['id']);
 		Gate::authorize('update', $item);
 
-		//		$item_find = Item::where('id',$request['id'])->value('id');
-		//		$item = Item::find($item_find);
 		$item->name = $request['name'];
 		@$item->description = $request['description'];
 		@$item->url = $request['url'];
@@ -149,10 +147,18 @@ class ItemController extends Controller
 	 */
 	private function get_image(string $url = null): string
 	{
-		if ($url && str_contains($url, "amazon.com")) {
-			$string = file_get_contents($url);
-			if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) {
+		if (preg_match("/amazon.com|newegg.com|target.com|gamestop.com/", $url) === 1) {
+			$string = gzdecode(file_get_contents($url));
+			if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) { // Amazon
 				return $matches[1];
+			} elseif (preg_match('/class="product-view-img-original" src="(.*?)"/', $string, $matches) > 0) { // Newegg
+				return $matches[1];
+			} elseif (preg_match('/"primary_image_url":"(.*?)"/', $string, $matches) > 0) { // Target
+				return $matches[1];
+			} elseif (preg_match('/property="og:image" content="(.*?)"/') > 0) { // GameStopg
+				return $matches[1];
+			} else {
+				return "";
 			}
 	   	} else {
 			return "";
