@@ -155,7 +155,7 @@ class ItemController extends Controller
 				return $matches[1];
 			} elseif (preg_match('/"primary_image_url":"(.*?)"/', $string, $matches) > 0) { // Target
 				return $matches[1];
-			} elseif (preg_match('/property="og:image" content="(.*?)"/') > 0) { // GameStop
+			} elseif (preg_match('/property="og:image" content="(.*?)"/') > 0) { // GameStopg
 				return $matches[1];
 			} else {
 				return "";
