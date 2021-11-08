@@ -75,14 +75,14 @@
 											{{ $item->name }}
 										@endif
 									</div>
-									<div class="w-full my-1 my-3 text-center text-gray-500">
+									<div class="w-full my-1 my-3 text-center text-gray-500 p-3">
 										@if ($item->description)
 											{{  $item->description  }}
 										@else
 											<em>No Description Provided</em>
 										@endif
 									</div>
-									<div class="w-full h-full">
+									<div class="w-full mt-auto">
 										<livewire:claim-item :item="$item" class="w-full">
 									</div>
 								</div>
