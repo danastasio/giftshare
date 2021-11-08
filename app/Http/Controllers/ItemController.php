@@ -148,7 +148,7 @@ class ItemController extends Controller
 	private function get_image(string $url = null): string
 	{
 		if (preg_match("/amazon.com|newegg.com|target.com|gamestop.com/", $url) === 1) {
-			$string = gzdecode(file_get_contents($url));
+			$string = file_get_contents($url);
 			if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) { // Amazon
 				return $matches[1];
 			} elseif (preg_match('/class="product-view-img-original" src="(.*?)"/', $string, $matches) > 0) { // Newegg
