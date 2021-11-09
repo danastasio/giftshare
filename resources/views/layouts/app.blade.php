@@ -23,10 +23,14 @@
 		<!-- Style -->
 		<style>
     		#checkbox:checked + label .switch-ball{
-      		background-color: white;
-      		transform: translateX(16px);
-      		transition: transform 0.2s linear;
+				background-color: white;
+				transform: translateX(16px);
+				transition: transform 0.2s linear;
     		}
+    		#checkbox:not(:checked) + label .switch-ball{
+      			background-color: white;
+      			transition: transform 0.2s linear;
+			}
   		</style>
 
   		<!-- Scripts -->
