@@ -69,18 +69,21 @@
 					<div class="flex-auto text-2xl mb-4 text-center md:text-left">Your current list</div>
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+				<div class="grid grid-cols-5 gap-5">
 					<div class="hidden md:flex text-left pb-3">Item Name</div>
 					<div class="hidden md:flex text-left pb-3">Item Details</div>
 					<div class="hidden md:flex text-left pb-3">Item Link</div>
 					<div class="hidden md:flex text-left pb-3">Edit Item</div>
 					<div class="hidden md:flex text-left pb-3">Delete Item</div>
+				</div>
 					@foreach (  $own_items as $item )
+					<div class="grid grid-cols-5 md:grid-cols-5 gap-5">
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
 						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
 						<a class="max-h-10 w-full bg-blue-500 dark:bg-blue-800 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
 						<a class="max-h-10 w-full bg-white dark:bg-red-800 border-solid border-2 hover:bg-red-500 text-red-500 dark:text-gray-200 hover:text-white border-red-500 dark:border-red-800 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
+					</div>
 					@endforeach
 					@foreach ($own_items as $item )
 						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy"])

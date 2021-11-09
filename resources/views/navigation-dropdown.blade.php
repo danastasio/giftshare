@@ -3,7 +3,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex mx-auto">
+            <div class="flex mx-auto md:mx-0">
                 <!-- Logo -->
                 <div class="flex items-center transform scale-75">
                     <a href="{{ route('dashboard') }}">
@@ -32,7 +32,7 @@
                         {{ __('Sharing Center') }}
                     </x-jet-nav-link>
                 </div>
-                <div class="flex w-full items-right justify-right mx-auto my-auto ml-5">
+                <div class="flex items-end justify-end mx-auto my-auto ml-5">
 					<div class="flex justify-end items-center space-x-2 mx-auto relative">
 						<span class="text-xs font-extralight dark:text-gray-200">Light </span>
 						<div>
@@ -165,22 +165,22 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="dark:text-black">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('claim.index')">
+            <x-jet-responsive-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('claim.index')" class="dark:text-black">
                 {{ __('My Claims') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('list') }}" :active="request()->routeIs('list')">
+            <x-jet-responsive-nav-link href="{{ route('list') }}" :active="request()->routeIs('list')" class="dark:text-black">
                 {{ __('My List') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('share.index')">
+            <x-jet-responsive-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('share.index')" class="dark:text-black">
                 {{ __('Sharing Center') }}
             </x-jet-responsive-nav-link>
         </div>
@@ -200,12 +200,12 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" class="dark:text-black">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')" class="dark:text-black">
                         {{ __('API Tokens') }}
                     </x-jet-responsive-nav-link>
                 @endif
@@ -214,7 +214,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                    <x-jet-responsive-nav-link href="{{ route('logout') }}" class="dark:text-black"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                         {{ __('Logout') }}
