@@ -24,7 +24,7 @@
 		<style>
     		#checkbox:checked + label .switch-ball{
       		background-color: white;
-      		transform: translateX(24px);
+      		transform: translateX(14px);
       		transition: transform 0.3s linear;
     		}
   		</style>
@@ -58,7 +58,11 @@
 
         @livewireScripts
 		<script>
-			localStorage.theme = 'light';
+			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark')
+			} else {
+				document.documentElement.classList.remove('dark')
+			}
 			function toggleDarkMode() {
 				if (localStorage.theme === 'light') {
 					localStorage.theme = "dark";
