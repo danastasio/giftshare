@@ -19,13 +19,13 @@
 
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+		<h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 			View your current list below.
 		</h2>
 	</x-slot>
 
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
-		<div class="grid grid-cols-1 gap-3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
+		<div class="grid grid-cols-1 gap-3 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 			<form action="{{ route("item.store") }}" method="post">
 			@csrf
 
@@ -33,18 +33,18 @@
 
 			<div>
 				<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
-				<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="name" id="name" value="{{ request()->name }}">
+				<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="name" id="name" value="{{ request()->name }}">
 			</div>
 			<div class="mt-4">
 				<label for="url">Item Link:</label>
-				<input type="url" placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="url" id="url" value="{{ request()->url }}">
+				<input type="url" placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="url" id="url" value="{{ request()->url }}">
 			</div>
 			<div class="mt-4">
 				<label for="description">Item Details:</label>
-				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="description" id="description">{{ request()->description }}</textarea>
+				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="description" id="description">{{ request()->description }}</textarea>
 			</div>
 			<div class="flex">
-				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
+				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 dark:bg-blue-800">Submit</button>
 			</div>
 			</form>
 		</div>
@@ -53,7 +53,7 @@
 @if ( $own_items->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
+			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4 text-center">You have not added any items yet</div>
 				</div>
@@ -64,7 +64,7 @@
 @else
 	<div class="mt-5">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
-			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
+			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 darkoverflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4 text-center md:text-left">Your current list</div>
 				</div>
@@ -79,8 +79,8 @@
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
 						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
-						<a class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
-						<a class="max-h-10 w-full bg-white border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
+						<a class="max-h-10 w-full bg-blue-500 dark:bg-blue-800 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
+						<a class="max-h-10 w-full bg-white dark:bg-red-800 border-solid border-2 hover:bg-red-500 text-red-500 dark:text-gray-200 hover:text-white border-red-500 dark:border-red-800 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
 					@endforeach
 					@foreach ($own_items as $item )
 						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy"])

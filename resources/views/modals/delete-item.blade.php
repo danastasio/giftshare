@@ -1,5 +1,5 @@
-<div id='{{ $name }}' class='overlay bg-gray-200 bg-opacity-80'>
-	<div class='p-5 w-1/2 bg-white rounded-lg grid grid-cols-1 gap-3 shadow-xl'>
+<div id='{{ $name }}' class="overlay bg-gray-200 bg-opacity-80">
+	<div class="p-5 w-1/2 bg-white dark:bg-gray-600 rounded-lg grid grid-cols-1 gap-3 shadow-xl">
 		<form method="post" action="{{ route($route, $id) }}">
 			@csrf
 			@method("DELETE")

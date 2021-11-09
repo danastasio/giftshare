@@ -24,8 +24,8 @@
 		<style>
     		#checkbox:checked + label .switch-ball{
       		background-color: white;
-      		transform: translateX(24px);
-      		transition: transform 0.3s linear;
+      		transform: translateX(16px);
+      		transition: transform 0.2s linear;
     		}
   		</style>
 
@@ -58,7 +58,13 @@
 
         @livewireScripts
 		<script>
-			localStorage.theme = 'light';
+		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.documentElement.classList.add('dark');
+			document.getElementById("checkbox").checked = true;
+		} else {
+			document.documentElement.classList.remove('dark');
+			document.getElementById("checkbox").checked = false;
+		}
 			function toggleDarkMode() {
 				if (localStorage.theme === 'light') {
 					localStorage.theme = "dark";
