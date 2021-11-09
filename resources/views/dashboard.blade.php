@@ -23,22 +23,7 @@
 	</h2>
 </x-slot>
 
-<body>
-  <div class="flex items-center justify-center mx-auto absolute top-5 right-0 left-1/3">
-  <div class="flex justify-end items-center space-x-2 mx-auto relative">
-  <span class="text-xs font-extralight">Light </span>
-  <div>
-  <input type="checkbox" name="" id="checkbox" class="hidden" />
-  <label for="checkbox" class="cursor-pointer" onclick="toggleDarkMode();">
-    <div class="w-9 h-5 flex items-center bg-gray-300 rounded-full p2 swit">
-      <div class="w-4 h-4 bg-white rounded-full shadow switch-ball"></div>
-    </div>
-  </label>
-</div>
-  <span class="text-xs font-semibold">Dark</span>
-</div>
-  </div>
-</body>
+
 
 @if ($shared_items->isEmpty())
 	<div class="py-12">

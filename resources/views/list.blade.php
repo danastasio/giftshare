@@ -19,13 +19,13 @@
 
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+		<h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 			View your current list below.
 		</h2>
 	</x-slot>
 
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
-		<div class="grid grid-cols-1 gap-3 bg-white overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
+		<div class="grid grid-cols-1 gap-3 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 			<form action="{{ route("item.store") }}" method="post">
 			@csrf
 
@@ -33,7 +33,7 @@
 
 			<div>
 				<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
-				<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none" name="name" id="name" value="{{ request()->name }}">
+				<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-300" name="name" id="name" value="{{ request()->name }}">
 			</div>
 			<div class="mt-4">
 				<label for="url">Item Link:</label>

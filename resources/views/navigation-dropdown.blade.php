@@ -1,8 +1,22 @@
+<div class="insivible md:visible flex-none justify-right absolute top-5 right-0 mr-4">
+	<div class="flex justify-end items-center space-x-2 mx-auto relative">
+		<span class="text-xs font-extralight dark:text-gray-200">Light </span>
+		<div>
+			<input type="checkbox" name="" id="checkbox" class="hidden" />
+			<label for="checkbox" class="cursor-pointer" onclick="toggleDarkMode();">
+				<div class="w-9 h-5 flex items-center bg-gray-300 rounded-full p2 swit">
+					<div class="w-4 h-4 bg-white rounded-full shadow ml-0.5 switch-ball"></div>
+				</div>
+			</label>
+		</div>
+		<span class="text-xs font-semibold dark:text-gray-200">Dark</span>
+	</div>
+</div>
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-700 dark:text-gray-200 border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex dark:text-gray-200">
                 <!-- Logo -->
                 <div class="flex items-center transform scale-75">
                     <a href="{{ route('dashboard') }}">
@@ -42,7 +56,7 @@
                                 <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                             </button>
                         @else
-                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-200 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
