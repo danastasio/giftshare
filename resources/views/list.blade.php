@@ -81,12 +81,11 @@
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
 						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
-						<a class="max-h-10 w-full bg-blue-500 dark:bg-blue-800 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
-						<a class="max-h-10 w-full bg-white dark:bg-red-800 border-solid border-2 hover:bg-red-500 text-red-500 dark:text-gray-200 hover:text-white border-red-500 dark:border-red-800 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
-					</div>
+						<button type="button" class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">Edit</button>
+						<button type="button" class="max-h-10 w-full bg-white border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');"> Delete</button>
 					@endforeach
 					@foreach ($own_items as $item )
-						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy"])
+						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy", "modal_id" => "delete" . $item->id])
 							<x-slot name="modal_header">
 								DELETE ITEM
 							</x-slot>
@@ -95,20 +94,20 @@
 								You are about to delete this item. Confirm?
 							</x-slot>
 						@endcomponent
-						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id])
+						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id, "modal_id" => "edit" . $item->id ])
 							<x-slot name="modal_header">
-								<div class="font-bold text-center">
+								<div class="font-bold text-center align-center my-auto">
 									Edit Item
 								</div>
 							</x-slot>
 							<x-slot name="modal_content">
 								<div class="grid grid-cols-1 gap-3">
 										<div><label for="name">Name</label></div>
-										<div class="mt-2"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full border-blue-400"></div>
-										<div class="mt-5"><label for="url">URL</label></div>
-										<div class="mt-2"><input type="text" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400"></div>
-										<div class="mt-5"><label for="description">Description</label></div>
-										<div class="mt-2"><textarea name="description" class="w-full rounded border-blue-400">{{ $item->description }}</textarea></div>
+										<div class="-mt-3"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full border-blue-400"></div>
+										<div class="mt-1"><label for="url">URL</label></div>
+										<div class="-mt-3"><input type="text" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400"></div>
+										<div class="mt-1"><label for="description">Description</label></div>
+										<div class="-mt-3"><textarea name="description" class="w-full rounded border-blue-400">{{ $item->description }}</textarea></div>
 								</div>
 							</x-slot>
 						@endcomponent
