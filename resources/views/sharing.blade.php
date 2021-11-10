@@ -62,10 +62,10 @@
 							{{ $user->name }}
 						</div>
 						<div>
-						<button type="button" class="w-full p-12 py-2 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $user->share_id }}').classList.remove('invisible');">Revoke</button>
+						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $user->share_id }}').classList.remove('invisible');">Revoke</button>
 						@component("modals.delete-item", ["name" => "delete".$user->share_id,"share_id" => $user->share_id, "id" => $user->share_id, "route" => "share.destroy", "modal_id" => "delete" . $user->share_id])
 							<x-slot name="modal_header">
-								Revoke
+								Revoke List Access
 							</x-slot>
 							<x-slot name="modal_content">
 								<input type="hidden" name="id" value="{{ $user->id}}">
