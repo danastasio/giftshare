@@ -79,7 +79,7 @@
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
 						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
 						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
-						<a class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}">Edit</a>
+						<button type="button" class="max-h-10 w-full bg-blue-500 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" href="#edit{{ $item->id }}" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">Edit</button>
 						<a class="max-h-10 w-full bg-white border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" href="#delete{{ $item->id }}">Delete</a>
 					@endforeach
 					@foreach ($own_items as $item )
@@ -92,7 +92,7 @@
 								You are about to delete this item. Confirm?
 							</x-slot>
 						@endcomponent
-						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id])
+						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id, "modal_id" => "edit" . $item->id ])
 							<x-slot name="modal_header">
 								<div class="font-bold text-center">
 									Edit Item

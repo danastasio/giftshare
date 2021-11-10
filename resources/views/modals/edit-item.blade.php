@@ -1,5 +1,6 @@
-<div id="{{ $name }}" class="overlay bg-gray-200 bg-opacity-80">
-	<div class="p-5 w-1/2 bg-white rounded-lg grid grid-cols-1 gap-3 shadow-xl">
+<div id="{{ $name }}" class="invisible fixed top-0 left-0">
+	<div class="bg-gray-200 bg-opacity-80 grid place-items-center h-screen w-screen">
+		<div class="p-5 w-1/2 bg-white rounded-lg grid grid-cols-1 gap-3 shadow-xl">
 		<form method="post" action="{{ route("item.update", $id) }}">
 			@csrf
 			@method("PUT")
@@ -13,10 +14,12 @@
 			</div>
 			<div id="footer" class="mt-5">
 				<div class="grid grid-cols-2 gap-3">
-					<a href="#" class="items-center text-center hover:bg-red-600 hover:text-white w-full text-red-600 border-2 border-red-600 bg-white font-bold mx-auto my-auto px-8 py-3 rounded">Cancel</a>
+					<button type="button" class="items-center text-center hover:bg-red-600 hover:text-white w-full text-red-600 border-2 border-red-600 bg-white font-bold mx-auto my-auto px-8 py-3 rounded" onclick="document.getElementById('{{ $modal_id }}').classList.add('invisible');">Cancel</button>
 					<button class="text-white font-bold px-8 py-3 bg-green-600 hover:bg-green-800 rounded">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
+	</div>
 </div>
+
