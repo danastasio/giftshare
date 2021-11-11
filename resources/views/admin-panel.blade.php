@@ -38,13 +38,29 @@
 					@foreach ( $user_list as $user )
 						<div>{{ $user->name }}</div>
 						<div>{{ $user->email }}</div>
-						<livewire:adminstatus :user="$user" class="w-full"/>
-						<div>
-						<form action="{{ route('admin.update', 5) }}" method="post">
-							<input type="hidden" id="user_id" value="CHANGEME">
-							<input type="submit" value="Delete User" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="user-delete" formaction="{{ route('admin.update', 5) }}">
-						</form>
-						</div>
+						<livewire:admin-status :user="$user" class="w-full"/>
+						<button type="button" class="bg-red-600 w-full" onclick="document.getElementById('delete{{$user->id}}').classList.remove('invisible');">Delete User</button>
+						<!-- Begin Modal -->
+							<div id="delete{{ $user->id }}" class="invisible fixed top-0 left-0">
+								<div class="bg-gray-200 dark:bg-gray-500 dark:bg-opacity-70 bg-opacity-80 grid place-items-center h-screen w-screen">
+									<div class="p-5 w-1/4 bg-white dark:bg-gray-600 rounded-lg grid grid-cols-1 gap-3 shadow-xl">
+										<div id="header" class="font-bold text-center mb-2">
+											Delete User
+										</div>
+										<hr>
+										<div id="content" class="mt-2 text-center">
+											You are about to delete: {{ $user-> name }}. <strong>This cannot be undone!</strong> Would you like to continue?
+										</div>
+										<div id="footer" class="mt-5">
+											<div class="grid grid-cols-2 gap-3">
+												<button type="button" class="items-center text-center w-full text-white border-2 bg-green-600 dark:bg-green-800 dark:border-green-800 font-bold mx-auto my-auto px-8 py-3 rounded" onclick="document.getElementById('delete{{ $user->id }}').classList.add('invisible');">Cancel</button>
+												<livewire:delete-user :user="$user">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						<!-- End Modal -->
 					@endforeach
 			</div>
 		</div>	
