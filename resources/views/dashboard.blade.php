@@ -72,7 +72,7 @@
 									</div>
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">
 										@if ($item->url)
-											<a target="_blank" class="underline text-blue-600" href="{{$item->url}}">{{ $item->name }}</a>
+											<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
 										@else
 											{{ $item->name }}
 										@endif
