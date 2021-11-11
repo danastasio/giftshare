@@ -44,7 +44,7 @@
 	@foreach ( $shared_items as $person )
 		<div class="py-4">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="mx-2 rounded-md bg-gray-100 md:bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="mx-2 rounded-md bg-gray-100 md:bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
 					<div x-data={show:true}>
 						<button  @click="show=!show" type="button" class="flex">
 							<div>
@@ -62,7 +62,7 @@
 						<div x-show="show">
 						<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 							@foreach($person->items as $item)
-								<div id="newcard" class="grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border">
+								<div id="newcard" class="grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 									<div class="flex-none w-full mb-2 justify-center flex mx-auto mt-4">
 										@if ($item->image_url)
 											<img src="{{ $item->image_url}}" class="h-24" alt="product image">
