@@ -33,7 +33,7 @@ class AdminPanel extends Controller
 	public function index()
 	{
 		$users = User::all();
-		return view('admin-panel')->with('users', $users);
+		return view('admin-panel')->with('user_list', $users);
 	}
 
 	/**
