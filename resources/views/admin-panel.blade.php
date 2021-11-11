@@ -62,11 +62,17 @@
 				<div class="flex-auto text-2xl mb-4 text-center">Users</div>
 			</div>
 				<div class="w-full bg-black dark:bg-gray-200 h-0.5"></div>
-				<div class="grid grid-cols-3 gap-3">
+				<div class="grid grid-cols-4 gap-3">
+					<div></div>
 					<div class="text-left p-3 px-5">Name</div>
 					<div class="text-left p-3 px-5">Email</div>
 					<div class="text-left p-3 px-5">Actions</div>
 					@foreach ( $user_list as $user )
+						@if ($user->profile_photo_path)
+							<img alt="profile picture" src="{{ url('/storage/' . $user->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+						@else
+							<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $user->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+						@endif
 						<div>{{ $user->name }}</div>
 						<div>{{ $user->email }}</div>
 						<div class="flex">
