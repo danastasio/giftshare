@@ -18,28 +18,61 @@
 ?>
 <x-app-layout>
 <x-slot name="header">
-	<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+	<h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
 		{{ __('Admin Panel') }}
 	</h2>
 </x-slot>
 
-@if ( empty($access_users) )
-<div class="py-12">
+<!-- Stats -->
+<div class="max-w-6xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center mt-3">
+	<div class="flex-none bg-white dark:bg-gray-600 dark:text-gray-200 rounded-xl mx-auto w-1/2 px-2">
+		<div class="font-bold text-2xl">
+		Total Users
+		</div>
+		<hr class="my-1">
+		<div class="text-2xl pb-2">
+			{{ $no_of_users }}
+		</div>
+	</div>
+	<div class="flex-none bg-white dark:bg-gray-600 dark:text-gray-200 rounded-xl mx-auto w-1/2 px-2">
+		<div class="font-bold text-2xl">
+			Total Items
+		</div>
+		<hr class="my-1">
+		<div class="text-2xl pb-2">
+			{{ $no_of_items }}
+		</div>
+	</div>
+	<div class="flex-none bg-white dark:bg-gray-600 dark:text-gray-200 rounded-xl mx-auto w-1/2 px-2">
+		<div class="font-bold text-2xl">
+			Total Shares
+		</div>
+		<hr class="my-1">
+		<div class="text-2xl pb-2">
+			{{ $no_of_shares }}
+		</div>
+	</div>
+</div>
+</div>
+<div class="py-6">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+		<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="flex">
 				<div class="flex-auto text-2xl mb-4 text-center">Users</div>
 			</div>
-				<div class="grid grid-cols-4">
+				<div class="w-full bg-black dark:bg-gray-200 h-0.5"></div>
+				<div class="grid grid-cols-3 gap-3">
 					<div class="text-left p-3 px-5">Name</div>
 					<div class="text-left p-3 px-5">Email</div>
-					<div class="text-left p-3 px-5">Role</div>
-					<div class="text-left p-3 px-5">Delete</div>
+					<div class="text-left p-3 px-5">Actions</div>
 					@foreach ( $user_list as $user )
 						<div>{{ $user->name }}</div>
 						<div>{{ $user->email }}</div>
-						<livewire:admin-status :user="$user" class="w-full"/>
-						<button type="button" class="bg-red-600 w-full" onclick="document.getElementById('delete{{$user->id}}').classList.remove('invisible');">Delete User</button>
+						<div class="flex">
+							<livewire:admin-status :user="$user"/>
+							<button type="button" class="bg-red-600 dark:bg-red-900 rounded-md text-white dark:text-gray-200 w-3/4" onclick="document.getElementById('delete{{$user->id}}').classList.remove('invisible');">Delete User</button>
+						</div>
 						<!-- Begin Modal -->
 							<div id="delete{{ $user->id }}" class="invisible fixed top-0 left-0">
 								<div class="bg-gray-200 dark:bg-gray-500 dark:bg-opacity-70 bg-opacity-80 grid place-items-center h-screen w-screen">
@@ -66,5 +99,4 @@
 		</div>	
 	</div>
 </div>
-@endif
 </x-app-layout>

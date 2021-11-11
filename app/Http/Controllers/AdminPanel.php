@@ -22,6 +22,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Item;
+use App\Models\UserUsers;
 
 class AdminPanel extends Controller
 {
@@ -33,7 +35,15 @@ class AdminPanel extends Controller
 	public function index()
 	{
 		$users = User::all();
-		return view('admin-panel')->with('user_list', $users);
+		$no_of_users = User::all()->count();
+		$no_of_items = Item::all()->count();
+		$no_of_share = UserUsers::all()->count();
+		return view('admin-panel')->with([
+			'user_list' => $users,
+			'no_of_users' => $no_of_users,
+			'no_of_items' => $no_of_items,
+			'no_of_shares' => $no_of_share,
+		]);
 	}
 
 	/**
