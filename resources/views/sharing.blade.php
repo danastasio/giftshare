@@ -57,6 +57,7 @@
 					<div class="invisible md:visible">Name</div>
 					<div class="invisible md:visible">Revoke Access</div>
 					<div class="col-span-2"><hr></div>
+
 					@foreach ( $shared_with_others as $user )
 						<div>
 							{{ $user->name }}

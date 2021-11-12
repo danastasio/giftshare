@@ -76,7 +76,7 @@
 									<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200">
 										<em>{{  $item->description ?? "No Description Provided" }}</em>
 									</div>
-									<div class="w-full h-full">
+									<div class="w-full h-full mt-auto">
 										<livewire:claim-item :item="$item" class="w-full">
 									</div>
 								</div>

@@ -36,7 +36,7 @@
 @else
 	<div class="py-4">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
+		<div class="bg-white dark:text-gray-200 dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="text-center text-2xl mb-4">My claimed items</div>
 					<div class="hidden md:grid grid-cols-5 gap-3 font-semibold">
 						<div class="text-left pb-3">Name</div>
