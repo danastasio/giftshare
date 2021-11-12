@@ -64,11 +64,7 @@
 							@foreach($person->items as $item)
 								<div id="newcard" class="grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 									<div class="flex-none w-full mb-2 justify-center flex mx-auto mt-4">
-										@if ($item->image_url)
-											<img src="{{ $item->image_url}}" class="h-24" alt="product image">
-										@else
-											<img src="{{ url('/images/not_found.svg') }}" alt="image not found" class="h-24">
-										@endif
+										<img src="{{ $item->image_url ?? url('/images/not_found.svg')}}" class="h-24" alt="product image">
 									</div>
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">
 										@if ($item->url)
@@ -77,12 +73,8 @@
 											{{ $item->name }}
 										@endif
 									</div>
-									<div class="w-full my-1 my-3 text-center text-gray-500">
-										@if ($item->description)
-											{{  $item->description  }}
-										@else
-											<em>No Description Provided</em>
-										@endif
+									<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200">
+										<em>{{  $item->description ?? "No Description Provided" }}</em>
 									</div>
 									<div class="w-full h-full">
 										<livewire:claim-item :item="$item" class="w-full">
