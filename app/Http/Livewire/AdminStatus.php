@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class AdminStatus extends Component
@@ -24,17 +25,23 @@ class AdminStatus extends Component
     public function promote()
     {
 		$user = User::find($this->user_id);
-		$user->is_admin = 1;
-		$this->is_admin = 1;
-		$user->save();
+		if ($user->id == auth()->user()->id) {
+		} elseif (Auth::check() && auth()->user()->is_admin) {
+			$user->is_admin = 1;
+			$this->is_admin = 1;
+			$user->save();
+		}
 
     }
 
     public function demote()
     {
 		$user = User::find($this->user_id);
-		$user->is_admin = 0;
-		$this->is_admin = 0;
-		$user->save();
+		if ($user-> id === auth()->user()->id) {
+		} elseif (Auth::check() && auth()->user()->is_admin) {
+			$user->is_admin = 0;
+			$this->is_admin = 0;
+			$user->save();
+		}
     }
 }
