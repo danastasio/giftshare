@@ -70,7 +70,7 @@
 			document.getElementById("checkbox").checked = false;
 		}
 			function toggleDarkMode() {
-				if (localStorage.theme === 'light') {
+				if (localStorage.theme === 'light' || localStorage.theme === null) {
 					localStorage.theme = "dark";
 	  				document.documentElement.classList.add('dark')
 	  				var result = true;
