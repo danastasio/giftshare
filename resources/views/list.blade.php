@@ -69,21 +69,29 @@
 					<div class="flex-auto text-2xl mb-4 text-center md:text-left">Your current list</div>
 				</div>
 
-				<div class="grid grid-cols-5 gap-5">
+			<div class="flex-none">
+				<div class="invisible md:visible grid grid-cols-4 gap-3">
 					<div class="hidden md:flex text-left pb-3">Item Name</div>
 					<div class="hidden md:flex text-left pb-3">Item Details</div>
 					<div class="hidden md:flex text-left pb-3">Item Link</div>
-					<div class="hidden md:flex text-left pb-3">Edit Item</div>
-					<div class="hidden md:flex text-left pb-3">Delete Item</div>
+					<div class="hidden md:flex text-left pb-3">Item Actions</div>
 				</div>
-									<div class="grid grid-cols-5 md:grid-cols-5 gap-5">
 					@foreach (  $own_items as $item )
-
-						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Name</span>{{ $item->name }} </div>
-						<div style="word-break: break-word"> <span class="flex md:hidden font-semibold text-lg">Description</span>{{ $item->description }}</div>
-						<div><span class="flex md:hidden font-semibold text-lg">URL</span> {{ $item->url }}</div>
-						<button type="button" class="max-h-10 w-full bg-blue-500 dark:bg-blue-800 dark:text-gray-200 hover:bg-blue-700 text-center py-2 my-2 md:my-0 rounded-lg text-white font-bold" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">Edit</button>
-						<button type="button" class="max-h-10 w-full bg-white dark:bg-red-800 dark:text-gray-200 dark:border-red-800 border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');"> Delete</button>
+						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2">
+						<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
+							{{ $item->name }}
+						</div>
+						<div class="text-center md:text-left text-lg align-center">
+							<em>{{ $item->description ?? "No Descripton Provided"}}</em>
+						</div>
+						<div>
+							{{ $item->url ?? "No URL Provided"}}
+						</div>
+						<div class="flex">
+							<button type="button" class="max-h-10 w-1/2 mr-2 bg-blue-500 dark:bg-blue-800 dark:text-gray-200 hover:bg-blue-700 text-center py-2 rounded-lg text-white font-bold" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">Edit</button>
+							<button type="button" class="max-h-10 w-1/2 mr-2 bg-white dark:bg-red-800 dark:text-gray-200 dark:border-red-800 border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');"> Delete</button>
+						</div>
+						</div>
 					@endforeach
 					@foreach ($own_items as $item )
 						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy", "modal_id" => "delete" . $item->id])
