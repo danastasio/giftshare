@@ -13,7 +13,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+        <link rel="stylesheet" href="{{ url('/css/modal.css') }}">
 
         @livewireStyles
 
@@ -23,10 +23,14 @@
 		<!-- Style -->
 		<style>
     		#checkbox:checked + label .switch-ball{
-      		background-color: white;
-      		transform: translateX(14px);
-      		transition: transform 0.3s linear;
+				background-color: white;
+				transform: translateX(16px);
+				transition: transform 0.2s linear;
     		}
+    		#checkbox:not(:checked) + label .switch-ball{
+      			background-color: white;
+      			transition: transform 0.2s linear;
+			}
   		</style>
 
   		<!-- Scripts -->
@@ -58,13 +62,15 @@
 
         @livewireScripts
 		<script>
-			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-				document.documentElement.classList.add('dark')
-			} else {
-				document.documentElement.classList.remove('dark')
-			}
+		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.documentElement.classList.add('dark');
+			document.getElementById("checkbox").checked = true;
+		} else {
+			document.documentElement.classList.remove('dark');
+			document.getElementById("checkbox").checked = false;
+		}
 			function toggleDarkMode() {
-				if (localStorage.theme === 'light') {
+				if (localStorage.theme === 'light' || localStorage.theme === null) {
 					localStorage.theme = "dark";
 	  				document.documentElement.classList.add('dark')
 	  				var result = true;

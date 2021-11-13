@@ -18,14 +18,14 @@
 ?>
 <x-app-layout>
 <x-slot name="header">
-	<h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
+	<h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
 		{{ __("My Claims") }}
 	</h2>
 </x-slot>
 @if ( $claims->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm dark:text-gray-200">
+			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
 				<div class="flex">
 					<div class="flex-auto text-2xl mb-4 text-center">You do not have any claims yet</div>
 				</div>
@@ -36,7 +36,7 @@
 @else
 	<div class="py-4">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white dark:bg-gray-200 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
+		<div class="bg-white dark:text-gray-200 dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="text-center text-2xl mb-4">My claimed items</div>
 					<div class="hidden md:grid grid-cols-5 gap-3 font-semibold">
 						<div class="text-left pb-3">Name</div>
