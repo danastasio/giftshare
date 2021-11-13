@@ -69,28 +69,45 @@
 					<div class="flex-auto text-2xl mb-4 text-center md:text-left">Your current list</div>
 				</div>
 
-			<div class="flex-none">
-				<div class="invisible md:visible grid grid-cols-4 gap-3">
+			<div class="flex-none dark:bg-gray-500 rounded-md overflow-hidden p-2 md:p-4">
+				<div class="invisible md:visible grid grid-cols-3 gap-3">
 					<div class="hidden md:flex text-left pb-3">Item Name</div>
 					<div class="hidden md:flex text-left pb-3">Item Details</div>
-					<div class="hidden md:flex text-left pb-3">Item Link</div>
-					<div class="hidden md:flex text-left pb-3">Item Actions</div>
+					<div class="hidden md:flex text-left pb-3 w-full"></div>
 				</div>
 					@foreach (  $own_items as $item )
-						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2">
-						<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
-							{{ $item->name }}
-						</div>
-						<div class="text-center md:text-left text-lg align-center">
-							<em>{{ $item->description ?? "No Descripton Provided"}}</em>
-						</div>
-						<div>
-							{{ $item->url ?? "No URL Provided"}}
-						</div>
-						<div class="flex">
-							<button type="button" class="max-h-10 w-1/2 mr-2 bg-blue-500 dark:bg-blue-800 dark:text-gray-200 hover:bg-blue-700 text-center py-2 rounded-lg text-white font-bold" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">Edit</button>
-							<button type="button" class="max-h-10 w-1/2 mr-2 bg-white dark:bg-red-800 dark:text-gray-200 dark:border-red-800 border-solid border-2 hover:bg-red-500 text-red-500 hover:text-white border-red-500 rounded-lg text-center py-2 font-bold" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');"> Delete</button>
-						</div>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4">
+							<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
+								{{ $item->name }}
+							</div>
+							<div class="text-center md:text-left text-lg align-center">
+								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
+							</div>
+							<div class="flex ml-auto">
+								@if($item->url)
+									@php($color = "text-green-800")
+								@else
+									@php($color = "text-gray-600")
+								@endif
+								<div class="flex">
+									<input type="text" value="{{ $item->url }}" disabled class="bg-gray-200 max-h-10" id="item{{ $item->id }}">
+									<button type="button" class="p-1 max-h-10 w-1/3 mr-2 bg-gray-600 rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+										</svg>
+									</button>
+								</div>
+								<button type="button" class="max-h-10 w-1/3 mr-2 py-2 rounded-full" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-yellow-700 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+									</svg>
+								</button>
+								<button type="button" class="max-h-10 w-1/3 mr-2 rounded-full text-center" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-red-600 dark:text-red-800 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+									</svg>
+								</button>
+							</div>
 						</div>
 					@endforeach
 					@foreach ($own_items as $item )

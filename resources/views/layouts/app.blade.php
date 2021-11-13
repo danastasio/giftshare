@@ -62,15 +62,15 @@
 
         @livewireScripts
 		<script>
-		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-			document.documentElement.classList.add('dark');
-			document.getElementById("checkbox").checked = true;
-		} else {
-			document.documentElement.classList.remove('dark');
-			document.getElementById("checkbox").checked = false;
-		}
+			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+				document.getElementById("checkbox").checked = true;
+			} else {
+				document.documentElement.classList.remove('dark');
+				document.getElementById("checkbox").checked = false;
+			}
 			function toggleDarkMode() {
-				if (localStorage.theme === 'light' || localStorage.theme === null) {
+				if (localStorage.theme === 'light' || !('theme' in localStorage)) {
 					localStorage.theme = "dark";
 	  				document.documentElement.classList.add('dark')
 	  				var result = true;
@@ -80,6 +80,17 @@
 	  				var result = false;
 				}
 				return result;
+			}
+
+			function copyToClipboard(divid) {
+				/* Get the text field */
+				var copyText = document.getElementById(divid);
+				/* Select the text field */
+				copyText.select();
+				copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+				/* Copy the text inside the text field */
+				navigator.clipboard.writeText(copyText.value);
 			}
 		</script>
     </body>
