@@ -25,7 +25,6 @@ use App\Http\Requests\ShareRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Models\UserUsers;
 use App\Models\User;
-use DB;
 
 class ShareController extends Controller
 {

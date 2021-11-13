@@ -1,14 +1,182 @@
-<svg width="250mm" height="230mm" version="1.1" viewBox="0 0 250 230" xmlns="http://www.w3.org/2000/svg">
-	<text transform="scale(.26458)" fill="#000000" font-family="sans-serif" font-size="40px" style="line-height:1.25;shape-inside:url(#rect36658);white-space:pre" xml:space="preserve"/>
-	<text transform="scale(.26458)" fill="#000000" font-family="sans-serif" font-size="40px" style="line-height:1.25;shape-inside:url(#rect69781);white-space:pre" xml:space="preserve"/>
-	<rect transform="rotate(18.68)" x="57.66" y="-18.666" width="195.77" height="169.39" fill="#e6e6e6" stroke="#000" stroke-width=".92202"/>
-	<rect transform="rotate(18.68)" x="65.3" y="-11.146" width="182.44" height="120.34" fill="#4d4d4d" stroke="#000"/>
-	<text transform="rotate(18.68)" x="142.93126" y="66.121658" fill="#000000" font-family="sans-serif" font-size="43.744px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="142.93126" y="66.121658" font-family="sans-serif" font-size="50.8px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">?</tspan></text>
-	<rect transform="rotate(-15.182)" x="-9.3478" y="58.272" width="195.77" height="169.39" fill="#e6e6e6" stroke="#000" stroke-width=".92202"/>
-	<rect transform="rotate(-15.182)" x="-1.7075" y="65.792" width="182.44" height="120.34" fill="#4d4d4d" stroke="#000"/>
-	<text transform="rotate(-15.182)" x="75.923363" y="143.05942" fill="#000000" font-family="sans-serif" font-size="43.744px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="75.923363" y="143.05942" font-family="sans-serif" font-size="50.8px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">?</tspan></text>
-	<rect x="28.236" y="26.594" width="195.77" height="169.39" fill="#e6e6e6" stroke="#000" stroke-width=".92202"/>
-	<rect x="35.876" y="34.114" width="182.44" height="120.34" fill="#4d4d4d" stroke="#000"/>
-	<text x="105.7188" y="131.44908" fill="#000000" font-family="Cantarell" font-size="105.83px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="105.7188" y="131.44908" font-family="Cantarell" font-size="105.83px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">?</tspan></text>
-	<text x="58.714542" y="180.27509" fill="#000000" font-family="Cantarell" font-size="16.933px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="58.714542" y="180.27509" font-family="Cantarell" font-size="16.933px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Image Not Found</tspan></text>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="281.72241mm"
+   height="236.5222mm"
+   viewBox="0 0 281.72241 236.5222"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="not_found.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.69044441"
+     inkscape:cx="529.36919"
+     inkscape:cy="496.78149"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="mm"
+     width="250mm"
+     showborder="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2">
+    <rect
+       x="373.76288"
+       y="252.22093"
+       width="123.19398"
+       height="241.23389"
+       id="rect69781" />
+    <rect
+       x="222.32735"
+       y="146.10114"
+       width="341.49786"
+       height="335.99985"
+       id="rect36658" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0.20718971,0.42630038)"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text36656"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect36658);fill:#000000;fill-opacity:1;stroke:none" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text69779"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect69781);fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       style="fill:#e6e6e6;stroke:#000000;stroke-width:0.922015;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83171-8"
+       width="195.77417"
+       height="169.38974"
+       x="94.393402"
+       y="-18.885427"
+       transform="rotate(18.679978)" />
+    <rect
+       style="fill:#666666;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83195-1"
+       width="182.4426"
+       height="120.34206"
+       x="102.03367"
+       y="-11.364913"
+       transform="rotate(18.679978)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.7444px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="179.6646"
+       y="65.902245"
+       id="text86865-2"
+       transform="rotate(18.679978)"><tspan
+         sodipodi:role="line"
+         id="tspan86863-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="179.6646"
+         y="65.902245">?</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     transform="translate(0.20718971,0.42630038)"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <rect
+       style="fill:#e6e6e6;stroke:#000000;stroke-width:0.922015;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83171"
+       width="195.77417"
+       height="169.38974"
+       x="-13.117305"
+       y="49.709011"
+       transform="rotate(-15.181844)" />
+    <rect
+       style="fill:#666666;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83195"
+       width="182.4426"
+       height="120.34206"
+       x="-5.4770389"
+       y="57.229519"
+       transform="rotate(-15.181844)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.7444px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="72.15387"
+       y="134.49669"
+       id="text86865"
+       transform="rotate(-15.181844)"><tspan
+         sodipodi:role="line"
+         id="tspan86863"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="72.15387"
+         y="134.49669">?</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3"
+     transform="translate(0.20718971,0.42630038)"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <rect
+       style="fill:#e6e6e6;stroke:#000000;stroke-width:0.922015;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83171-3"
+       width="195.77417"
+       height="169.38974"
+       x="44.504414"
+       y="66.486511" />
+    <rect
+       style="fill:#666666;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect83195-9"
+       width="182.4426"
+       height="120.34206"
+       x="52.144684"
+       y="74.007027" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.833px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="121.98721"
+       y="171.34167"
+       id="text86865-0"><tspan
+         sodipodi:role="line"
+         id="tspan86863-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.833px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="121.98721"
+         y="171.34167">?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.9333px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="74.982956"
+       y="220.16769"
+       id="text123274"><tspan
+         sodipodi:role="line"
+         id="tspan123272"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.9333px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="74.982956"
+         y="220.16769">Image Not Found</tspan></text>
+  </g>
 </svg>
