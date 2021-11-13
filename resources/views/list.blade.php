@@ -18,12 +18,6 @@
 ?>
 
 <x-app-layout>
-	<x-slot name="header">
-		<h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-			View your current list below.
-		</h2>
-	</x-slot>
-
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
 		<div class="grid grid-cols-1 gap-3 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 			<form action="{{ route("item.store") }}" method="post">
@@ -84,13 +78,8 @@
 								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
 							</div>
 							<div class="flex ml-auto">
-								@if($item->url)
-									@php($color = "text-green-800")
-								@else
-									@php($color = "text-gray-600")
-								@endif
 								<div class="flex">
-									<input type="text" value="{{ $item->url }}" disabled class="bg-gray-200 max-h-10" id="item{{ $item->id }}">
+									<input type="text" value="{{ $item->url }}" disabled class="bg-gray-200 max-h-10 rounded-l-lg" id="item{{ $item->id }}">
 									<button type="button" class="p-1 max-h-10 w-1/3 mr-2 bg-gray-600 rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
 										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />

@@ -14,22 +14,58 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="dark:text-gray-200">
-                        {{ __('Dashboard') }}
+                    	<div class="flex">
+                    		<div class="my-auto mr-1">
+                    			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+								</svg>
+							</div>
+							<div class="my-auto">
+                        		{{ __('Dashboard') }}
+                        	</div>
+                        </div>
                     </x-jet-nav-link>
                 </div>
                  <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('claim.index') }}" :active="request()->routeIs('claim.index')" class="dark:text-gray-200">
-                        {{ __('My Claims') }}
+                    	<div class="flex">
+                    		<div class="my-auto mr-1">
+                    	    	<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+								</svg>
+							</div>
+                    		<div class="my-auto">
+                        		{{ __('My Claims') }}
+                        	</div>
+						</div>
                     </x-jet-nav-link>
                 </div>
                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('list') }}" :active="request()->routeIs('list')" class="dark:text-gray-200">
-                        {{ __('My List') }}
+                    	<div class="flex">
+                    		<div class="my-auto mr-1">
+	                    		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+								</svg>
+							</div>
+							<div class="my-auto">
+                        		{{ __('My List') }}
+                        	</div>
+                        </div>
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('share.index') }}" :active="request()->routeIs('share.index')" class="dark:text-gray-200">
-                        {{ __('Sharing Center') }}
+                    	<div class="flex">
+                    		<div class="my-auto mr-1">
+                    			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+								</svg>
+							</div>
+							<div class="my-auto">
+                        		{{ __('Sharing Center') }}
+                        	</div>
+                        </div>
                     </x-jet-nav-link>
                 </div>
                 <div class="flex items-end justify-end mx-auto my-auto ml-5">
@@ -41,17 +77,17 @@
 								<div class="w-9 h-5 flex items-center bg-gray-300 rounded-full p2 switch z-0 relative">
 									<span class="ml-0.5 absolute">
 										<!-- Sun SVG -->
-										<svg style="width:16px;height:16px" viewBox="0 0 24 24">
-			    							<path fill="currentColor" d="M3.55,18.54L4.96,19.95L6.76,18.16L5.34,16.74M11,22.45C11.32,22.45 13,22.45 13,22.45V19.5H11M12,5.5A6,6 0 0,0 6,11.5A6,6 0 0,0 12,17.5A6,6 0 0,0 18,11.5C18,8.18 15.31,5.5 12,5.5M20,12.5H23V10.5H20M17.24,18.16L19.04,19.95L20.45,18.54L18.66,16.74M20.45,4.46L19.04,3.05L17.24,4.84L18.66,6.26M13,0.55H11V3.5H13M4,10.5H1V12.5H4M6.76,4.84L4.96,3.05L3.55,4.46L5.34,6.26L6.76,4.84Z" />
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
 										</svg>
 									</span>
 									<span class="absolute ml-5">
 										<!-- Moon SVG -->
-										<svg style="width:16px;height:16px" viewBox="0 0 24 24">
-			    							<path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
 										</svg>
-										</span>
-									<div class="w-4 h-4 bg-white rounded-full shadow switch-ball ml-0.5 relative z-10"></div>
+									</span>
+								<div class="w-4 h-4 bg-white rounded-full shadow switch-ball ml-0.5 relative z-10"></div>
 								</div>
 							</label>
 						</div>
