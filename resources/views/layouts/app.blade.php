@@ -62,7 +62,7 @@
 
         @livewireScripts
 		<script>
-			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			if (localStorage.theme === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				document.documentElement.classList.add('dark');
 				document.getElementById("checkbox").checked = true;
 			} else {
@@ -70,7 +70,7 @@
 				document.getElementById("checkbox").checked = false;
 			}
 			function toggleDarkMode() {
-				if (localStorage.theme === 'light' || !('theme' in localStorage)) {
+				if (localStorage.theme === 'light' || 'theme' in localStorage === false) {
 					localStorage.theme = "dark";
 	  				document.documentElement.classList.add('dark')
 	  				var result = true;
