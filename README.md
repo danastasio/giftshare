@@ -31,15 +31,20 @@ This is a minimal project. No app installs required but are optional through API
 ## Installation
 Docker or Podman is the recomended installation method. I use podman so those are the commands reflected below.
 
-01. cd to the directory that will host the projet
-02. git clone https://github.com/danastasio/giftshare.git
-03. podman build -t giftshare .
-04. podman run -p 8000:8000 -v $HOME/gift-config:/app/database:z --name giftshare giftshare
+1. cd to the directory that will host the projet
+2. ```git clone https://github.com/danastasio/giftshare.git```
+3. ```cd giftshare```
+4. ```podman build -t giftshare .```
+5. ```mkdir gift-config```
+6. ```chcon -Rt svirt_sandbox_file_t gift-config```
+7. ```podman run -p 8000:8000 -v \`pwd\`/gift-config:/app/database:z --name giftshare giftshare
 
 Unfortunately, I haven't figured out how to have artisan migrate the database after installation, so you need to create a DB and migrate it manually.
 
-05. podman exec -it giftshare touch /app/database/database.db
-06. podman exec -it giftshare php artisan migrate --force
+8. ```podman exec -it giftshare touch /app/database/database.db```
+9. ```podman exec -it giftshare php artisan migrate --force```
+
+Eventually I will add an /installation page that does this for you, but that day is not today.
 
 ## API Reference
 
