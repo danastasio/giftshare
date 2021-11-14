@@ -92,6 +92,15 @@
 				/* Copy the text inside the text field */
 				navigator.clipboard.writeText(copyText.value);
 			}
+
+			function toggleChevron(divid) {
+				let div = document.getElementById(divid);
+				if (div.classList.contains("rotate-90")) {
+					div.classList.remove("rotate-90");
+				} else {
+					div.classList.add("rotate-90");
+				}
+			}
 		</script>
     </body>
 
