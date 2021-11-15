@@ -128,7 +128,7 @@ class ItemController extends Controller
 		$item->name = $request['name'];
 		@$item->description = $request['description'];
 		@$item->url = $request['url'];
-		@$item->image_url = $this->get_image($request['url']);
+		$item->image_url = $this->get_image($request['url']);
 		$item->save();
 		return back();
 	}
