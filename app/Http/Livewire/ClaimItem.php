@@ -29,6 +29,8 @@ class ClaimItem extends Component
             $user_item[0]->save();
             $this->claimed = true;
             $this->claimant_id = auth()->user()->id;
+        } else {
+        	session()->flash('info', "Item was claimed while you were on this page");
         }
     }
 

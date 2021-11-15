@@ -1,5 +1,5 @@
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-700 dark:text-gray-200 border-gray-100">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-700 dark:text-gray-200 border-gray-100 sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -134,10 +134,13 @@
                         @endif
 
 			@if (auth()->user()->is_admin)
-			    <x-jet-dropdown-link href="{{ route('admin.index') }}">
-				{{ __('Admin Panel') }}
+				<x-jet-dropdown-link href="{{ route('admin.index') }}">
+					{{ __('Admin Panel') }}
 			    </x-jet-dropdown-link>
 			@endif
+				<x-jet-dropdown-link href="{{ route('deleted') }}">
+					{{ __('Deleted Items') }}
+				</x-jet-dropdown-link>
 
                         <div class="border-t border-gray-100"></div>
 

@@ -33,36 +33,55 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="bg-white dark:text-gray-200 dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="text-center text-2xl mb-4">My claimed items</div>
-					<div class="hidden md:grid grid-cols-5 gap-3 font-semibold">
-						<div class="text-left pb-3">Name</div>
-						<div class="text-left pb-3">Item Name</div>
-						<div class="text-left pb-3">Item Details</div>
-						<div class="text-left pb-3">Item Link</div>
-						<div class="text-left pb-3">Claim</div>
+					<div class="invisible md:visible grid grid-cols-3 gap-3">
+						<div class="hidden md:flex text-left pb-3">Item Name</div>
+						<div class="hidden md:flex text-left pb-3">Item Details</div>
+						<div class="hidden md:flex text-left pb-3 w-full"></div>
 					</div>
 					<hr class="mb-3">
-					<div class="grid grid-cols-1 md:grid-cols-5 gap-3">
 						@foreach ( $claims as $item )
-							<div class="flex">
-								@if ($item->profile_photo_path)
-									<img alt="profile picture" src="{{ url('/storage/' . $item->profile_photo_path) }}" class="w-8 max-h-8 my-auto rounded-full mr-3">
-								@else
-									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $item->user_name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
-								@endif
-								<span class="my-auto">{{ $item->user_name }}</span>
-							</div>
-							<div> {{ $item->name }} </div>
-							<div> {{ $item->description }}</div>
-							@if ($item-> url)
-								<div class="my-auto w-full bg-green-500 hover:bg-green-700 rounded-lg text-white dark:text-gray-200 font-bold text-center py-2">
-									<a href="{{ $item->url }}" class="py-auto" target="_blank">{{ parse_url($item->url, PHP_URL_HOST) }}</a>
-								</div>
-							@else
-								<div class="md:1/5 w-full"></div>
+							@php($status = "invisible")
+							@php($textcolor = "text-black")
+							@if($item->deleted_at === null)
+								@php($textcolor = "text-gray-300")
+								@php($status = null)
 							@endif
-							<div class="w-full">
-								<livewire:claim-item :item="$item">
+						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 {{ $textcolor }}">
+							<div class="flex my-auto">
+
+								<div class="mr-3 {{ $status }}" title="Item has been deleted">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</div>
+								<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
+									{{ $item->name }}
+								</div>
 							</div>
+							<div class="text-center md:text-left text-lg align-center">
+								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
+							</div>
+							<div class="flex ml-auto">
+								<div class="flex w-auto">
+									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block" id="item{{ $item->id }}">
+									<button type="button" class="p-1 max-h-10 md:w-1/3 w-full mr-2 sm:bg-gray-600 text-gray-400 bg-gray-400 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+										</svg>
+									</button>
+								</div>
+							</div>
+							<div class="flex">
+								<div class="w-1/2 rounded-l-lg overflow-hidden">
+									<livewire:claim-item :item="$item" class="">
+								</div>
+								<div class="w-1/2 rounded-r-lg overflow-hidden">
+									<p class="bg-yellow-600 h-full my-auto">
+										purchased button
+									</p>
+								</div>
+							</div>
+						</div>
 						@endforeach
 					</div>
 			</div>

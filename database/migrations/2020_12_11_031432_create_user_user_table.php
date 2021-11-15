@@ -17,6 +17,7 @@ class CreateUserUserTable extends Migration
             $table->id();
             $table->integer('owner_id');
             $table->integer('sharee_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

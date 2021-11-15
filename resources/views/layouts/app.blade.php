@@ -93,12 +93,23 @@
 				navigator.clipboard.writeText(copyText.value);
 			}
 
-			function toggleChevron(divid) {
-				let div = document.getElementById(divid);
-				if (div.classList.contains("rotate-90")) {
-					div.classList.remove("rotate-90");
+			function toggleSection(divid) {
+				let rotation = "rotate-90";
+				let marginBottom = "mb-4";
+				let chevron = document.getElementById("chevron" + divid);
+				let itemGrid = document.getElementById("item-grid" + divid);
+				let nameBox = document.getElementById("name" + divid);
+
+				// Rotate Chevron
+				if (chevron.classList.contains(rotation)) {
+					chevron.classList.remove(rotation);
+					itemGrid.classList.add("hidden");
+					nameBox.classList.remove(marginBottom);
+
 				} else {
-					div.classList.add("rotate-90");
+					chevron.classList.add(rotation);
+					itemGrid.classList.remove("hidden");
+					nameBox.classList.add(marginBottom);
 				}
 			}
 		</script>
