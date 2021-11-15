@@ -10,6 +10,7 @@ use App\Http\Controllers\ShareController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\DeletedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::resource('claim', ClaimController::class);
     Route::get('/list', [ItemController::class, 'list'])->name('list');
     Route::resource('admin', AdminPanel::class);
+    Route::get('/deleted', [DeletedController::class, 'index'])->name('deleted');
 });
 
 // below routes are for email verification
@@ -53,3 +55,4 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+

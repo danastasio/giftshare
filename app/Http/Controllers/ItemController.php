@@ -164,4 +164,9 @@ class ItemController extends Controller
 			return null;
 		}
 	}
+
+	public function restore(Item $item)
+	{
+		$item->restore();
+	}
 }

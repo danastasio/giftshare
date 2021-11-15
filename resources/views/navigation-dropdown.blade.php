@@ -134,10 +134,13 @@
                         @endif
 
 			@if (auth()->user()->is_admin)
-			    <x-jet-dropdown-link href="{{ route('admin.index') }}">
-				{{ __('Admin Panel') }}
+				<x-jet-dropdown-link href="{{ route('admin.index') }}">
+					{{ __('Admin Panel') }}
 			    </x-jet-dropdown-link>
 			@endif
+				<x-jet-dropdown-link href="{{ route('deleted') }}">
+					{{ __('Deleted Items') }}
+				</x-jet-dropdown-link>
 
                         <div class="border-t border-gray-100"></div>
 
