@@ -101,5 +101,4 @@ class ShareController extends Controller
         $share->delete();
         return redirect('share')->withInfo('List revoked from user');
     }
-
 }

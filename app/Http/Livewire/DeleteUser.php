@@ -7,22 +7,22 @@ use App\Models\User;
 
 class DeleteUser extends Component
 {
-	public $user_id;
+    public $user_id;
 
-	public function mount(User $user)
-	{
-		$this->user_id = $user->id;
-	}
+    public function mount(User $user)
+    {
+        $this->user_id = $user->id;
+    }
 
-	public function render()
-	{
-		return view('livewire.delete-user');
-	}
+    public function render()
+    {
+        return view('livewire.delete-user');
+    }
 
-	public function delete()
-	{
-		$user = User::find($this->user_id);
-		$user->delete();
-		$this->emit("document.getElementById('delete . $user->id\').classList.add('invisible');");
-	}
+    public function delete()
+    {
+        $user = User::find($this->user_id);
+        $user->delete();
+        $this->emit("document.getElementById('delete . $user->id\').classList.add('invisible');");
+    }
 }
