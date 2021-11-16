@@ -4,8 +4,7 @@
 			Here you can view the items that you have previously deleted
 		</p>
 		<p>
-			TODO: list the deleted items here
-			TODO: Make a livewire undelete button
+			TODO: Force permanent delete
 		</p>
 		<div>
 			@if ($deleted_items->isEmpty())
