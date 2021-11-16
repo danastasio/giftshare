@@ -17,6 +17,8 @@ class CreateUserUserTable extends Migration
             $table->id();
             $table->integer('owner_id');
             $table->integer('sharee_id');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('sharee_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -36,8 +36,9 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
 }

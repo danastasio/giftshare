@@ -30,10 +30,15 @@ class UserUsers extends Model
 
     public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
     public function sharee()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'sharee_id');
+    }
+
+    public function shared_items()
+    {
+    	return $this->hasMany(Item::class, 'owner_id', 'owner_id');
     }
 }
