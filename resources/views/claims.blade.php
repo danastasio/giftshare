@@ -86,10 +86,8 @@
 								</div>
 							</div>
 							<div class="flex">
-								<div class="w-1/2">
-									<p class="bg-blue-400 my-auto py-2 rounded-lg text-center mr-2">
-										Mark Purchased
-									</p>
+								<div class="w-1/2 mr-2">
+										<livewire:toggle-purchase :item="$item">
 								</div>
 								<div class="w-1/2 rounded-lg overflow-hidden">
 									<livewire:claim-item :item="$item" class="rounded-l-lg">
