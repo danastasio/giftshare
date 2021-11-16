@@ -34,6 +34,15 @@
 				<input type="url" placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="url" id="url" value="{{ request()->url }}">
 			</div>
 			<div class="mt-4">
+				<label for="url">Item Priority:</label>
+				<select class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="priority" id="priority" value="{{ request()->priority }}">
+					<option value="">--Please Select an Option--</option>
+					<option value="low">Low</option>
+					<option value="normal">Medium</option>
+					<option value="high">High</option>
+				</select>
+			</div>
+			<div class="mt-4">
 				<label for="description">Item Details:</label>
 				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="description" id="description">{{ request()->description }}</textarea>
 			</div>
@@ -70,11 +79,11 @@
 					<div class="hidden md:flex text-left pb-3 w-full"></div>
 				</div>
 					@foreach (  $own_items as $item )
-						<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4">
-							<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2">
+							<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal my-auto">
 								{{ $item->name }}
 							</div>
-							<div class="text-center md:text-left text-lg align-center">
+							<div class="text-center md:text-left text-lg align-center my-auto">
 								<em>{{ $item->description ?? "No Description Provided"}}</em>
 							</div>
 							<div class="flex ml-auto">
@@ -118,11 +127,20 @@
 							<x-slot name="modal_content">
 								<div class="grid grid-cols-1 gap-3">
 										<div><label for="name">Name</label></div>
-										<div class="-mt-3"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
+										<div class="-mt-3"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full dark:bg-gray-200 dark:text-gray-800"></div>
 										<div class="mt-1"><label for="url">URL</label></div>
-										<div class="-mt-3"><input type="text" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
+										<div class="-mt-3"><input type="text" value="{{ $item->url }}" name="url" class="rounded w-full dark:bg-gray-200 dark:text-gray-800"></div>
+										<div class="mt-1">
+											<label for="url">Item Priority:</label>
+											<select class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="priority" id="priority" value="{{ request()->priority }}">
+												<option value="">--Please Select an Option--</option>
+												<option value="low">Low</option>
+												<option value="normal">Medium</option>
+												<option value="high">High</option>
+											</select>
+										</div>
 										<div class="mt-1"><label for="description">Description</label></div>
-										<div class="-mt-3"><textarea name="description" class="w-full rounded border-blue-400 dark:bg-gray-200 dark:text-gray-800">{{ $item->description }}</textarea></div>
+										<div class="-mt-3"><textarea name="description" class="w-full rounded dark:bg-gray-200 dark:text-gray-800">{{ $item->description }}</textarea></div>
 								</div>
 							</x-slot>
 						@endcomponent

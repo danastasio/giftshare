@@ -47,7 +47,8 @@ class ClaimController extends Controller
 		}
 
 		foreach ($shared_users as $user) {
-			$user->items = Item::where('owner_id', $user->owner_id)
+			$user->items = Item::withTrashed()
+				->where('owner_id', $user->owner_id)
 				->where('claimant_id', auth()->user()->id)
 				->get();
 		}

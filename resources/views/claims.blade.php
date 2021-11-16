@@ -55,19 +55,29 @@
 
 				<div class="flex-none" id="item-grid{{ $person-> id }}">
 						@foreach($person->items as $item)
-							@php($status = null)
-							@php($textcolor = "text-gray-300")
-							@if($item->deleted_at === null)
-								@php($textcolor = "text-black")
-								@php($status = "invisible")
+							@php($textcolor = "text-black")
+							@if(!($item->deleted_at === null))
+								@php($textcolor = "text-gray-300")
 							@endif
 						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2 mb-2 {{ $textcolor }}">
 							<div class="flex my-auto">
-								<div class="mr-3 {{ $status }}" title="Item has been deleted">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+								@if (!($item->deleted_at === null))
+									<div title="{{ $person->name }} has deleted this from their list">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 									</svg>
-								</div>
+									</div>
+								@elseif ($item->priority == "high")
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" title="high priority">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z" />
+									</svg>
+								@elseif ($item->priority == "low")
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 text-opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+									</svg>
+								@else
+									<div class="h-6 w-6"></div>
+								@endif
 								<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
 									{{ $item->name }}
 								</div>
@@ -87,7 +97,7 @@
 							</div>
 							<div class="flex">
 								<div class="w-1/2 mr-2">
-										<livewire:toggle-purchase :item="$item">
+									<livewire:toggle-purchase :item="$item">
 								</div>
 								<div class="w-1/2 rounded-lg overflow-hidden">
 									<livewire:claim-item :item="$item" class="rounded-l-lg">

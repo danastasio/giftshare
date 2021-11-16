@@ -46,7 +46,9 @@ class ItemController extends Controller
 		}
 
 		foreach ($shared_users as $user) {
-			$user->items = Item::where('owner_id', $user->owner_id)->get();
+			$user->items = Item::where('owner_id', $user->owner_id)
+			->orderBy("priority", "asc")
+			->get();
 		}
 		return view('dashboard')->with('shared_items', $shared_users);
 	}
@@ -73,6 +75,7 @@ class ItemController extends Controller
 		@$item->description = $request['description'];
 		@$item->url = $request['url'];
 		$item->image_url = $this->get_image($request['url']);
+		$item->priority = $request['priority'];
 		$item->owner_id = auth()->user()->id;
 		$item->save();
 		return redirect('list')->withSuccess('Item added');
@@ -129,6 +132,7 @@ class ItemController extends Controller
 		@$item->description = $request['description'];
 		@$item->url = $request['url'];
 		$item->image_url = $this->get_image($request['url']);
+		$item->priority = $request['priority'];
 		$item->save();
 		return back();
 	}

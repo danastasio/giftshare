@@ -28,6 +28,7 @@ class ItemRequest extends FormRequest
             'name' => 'sometimes|required',
             'url' => 'sometimes|nullable|url',
             'description' => 'nullable|string|max:256',
+            'priority' => 'nullable',
         ];
     }
 }
