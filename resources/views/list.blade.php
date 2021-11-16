@@ -75,7 +75,7 @@
 								{{ $item->name }}
 							</div>
 							<div class="text-center md:text-left text-lg align-center">
-								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
+								<em>{{ $item->description ?? "No Description Provided"}}</em>
 							</div>
 							<div class="flex ml-auto">
 								<div class="flex w-auto">

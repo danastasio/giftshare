@@ -40,15 +40,14 @@
 					</div>
 					<hr class="mb-3">
 						@foreach ( $claims as $item )
-							@php($status = "invisible")
-							@php($textcolor = "text-black")
+							@php($status = null)
+							@php($textcolor = "text-gray-300")
 							@if($item->deleted_at === null)
-								@php($textcolor = "text-gray-300")
-								@php($status = null)
+								@php($textcolor = "text-black")
+								@php($status = "invisible")
 							@endif
-						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 {{ $textcolor }}">
+						<div class="grid grid-cols-1 md:grid-cols-4 gap-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 {{ $textcolor }}">
 							<div class="flex my-auto">
-
 								<div class="mr-3 {{ $status }}" title="Item has been deleted">
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -59,7 +58,7 @@
 								</div>
 							</div>
 							<div class="text-center md:text-left text-lg align-center">
-								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
+								<em>{{ $item->description ?? "No Description Provided"}}</em>
 							</div>
 							<div class="flex ml-auto">
 								<div class="flex w-auto">
@@ -73,10 +72,10 @@
 							</div>
 							<div class="flex">
 								<div class="w-1/2 rounded-l-lg overflow-hidden">
-									<livewire:claim-item :item="$item" class="">
+									<livewire:claim-item :item="$item" class="rounded-l-lg">
 								</div>
-								<div class="w-1/2 rounded-r-lg overflow-hidden">
-									<p class="bg-yellow-600 h-full my-auto">
+								<div class="w-1/2">
+									<p class="bg-yellow-600 my-auto py-2 rounded-r-lg text-center">
 										purchased button
 									</p>
 								</div>
