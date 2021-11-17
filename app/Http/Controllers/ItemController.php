@@ -148,7 +148,12 @@ class ItemController extends Controller
 	private function get_image(string $url = null)
 	{
 		if (preg_match("/amazon.com|newegg.com|target.com|gamestop.com/", $url) === 1) {
-			$string = file_get_contents($url);
+			$c = curl_init();
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($c, CURLOPT_URL, $url);
+			$string = curl_exec($c);
+			curl_close($c);
 			if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) { // Amazon
 				return $matches[1];
 			} elseif (preg_match('/class="product-view-img-original" src="(.*?)"/', $string, $matches) > 0) { // Newegg
