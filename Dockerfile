@@ -41,6 +41,8 @@ RUN php artisan storage:link
 RUN php artisan view:cache
 RUN php artisan config:cache
 RUN php artisan route:cache
+RUN chmod +x dbupdate.sh
+RUN sh dbupdate.sh
 
 VOLUME /app/database
 EXPOSE 8000
