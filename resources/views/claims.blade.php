@@ -60,7 +60,7 @@
 							@php($textcolor = "text-gray-300")
 							@if($item->deleted_at === null)
 								@php($textcolor = "text-black")
-								@php($status = "")
+								@php($status = "hidden")
 							@endif
 							<div class="flex-none md:grid md:grid-cols-1 md:grid-cols-4 gap-3 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2 mb-2 {{ $textcolor }}">
 								<div class="flex-none md:flex my-auto">
@@ -79,7 +79,7 @@
 									<em>{{ $item->description ?? "No Description Provided"}}</em>
 								</div>
 								<div class="flex ml-auto w-full my-1">
-										<div class="w-full p-2 h-10 bg-gray-200 border border-gray-400 max-h-10 rounded-l-lg" id="item{{ $item->id }}">
+										<div class="w-full p-2 h-10 bg-gray-200 border border-gray-400 max-h-10 rounded-l-lg overflow-hidden" id="item{{ $item->id }}">
 											{{ $item->url }}
 										</div>
 										<button type="button" class="p-1 h-10 md:mr-2 bg-gray-600 text-gray-300 bg-gray-400 dark:text-gray-800 rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
