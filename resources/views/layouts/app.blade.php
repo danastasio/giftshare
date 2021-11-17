@@ -86,11 +86,10 @@
 				/* Get the text field */
 				var copyText = document.getElementById(divid);
 				/* Select the text field */
-				copyText.select();
-				copyText.setSelectionRange(0, 99999); /* For mobile devices */
+				let content = copyText.innerHTML.trim();
 
 				/* Copy the text inside the text field */
-				navigator.clipboard.writeText(copyText.value);
+				navigator.clipboard.writeText(content);
 			}
 
 			function toggleSection(divid) {
