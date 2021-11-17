@@ -80,18 +80,21 @@
 							<div class="flex ml-auto">
 								<div class="flex w-auto">
 									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block" id="item{{ $item->id }}">
-									<button type="button" class="p-1 max-h-10 md:w-1/3 w-full mr-2 sm:bg-gray-600 text-gray-400 bg-gray-400 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+									<button type="button" class="p-1 max-h-10 md:w-1/3 w-full mr-2 sm:bg-gray-600 text-gray-800 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+										<!-- Link SVG -->
 										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
 										</svg>
 									</button>
 								</div>
 								<button type="button" class="max-h-10 w-1/3 mr-2 py-2 rounded-full" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');" title="Edit Item">
+									<!-- Edit SVG -->
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-yellow-700 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
 									</svg>
 								</button>
 								<button type="button" class="max-h-10 w-1/3 mr-2 rounded-full text-center" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');" title="Delete Item">
+									<!-- Delete SVG -->
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-red-600 dark:text-red-800 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
 									</svg>
