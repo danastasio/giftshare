@@ -37,8 +37,8 @@ class UserUsers extends Model
         return $this->belongsTo(User::class, 'sharee_id');
     }
 
-    public function shared_items()
-    {
-    	return $this->hasMany(Item::class, 'owner_id', 'owner_id');
-    }
+	public function items()
+	{
+		return $this->hasManyThrough(Item::class, User::class, 'id', 'owner_id', 'owner_id', 'id');
+	}
 }

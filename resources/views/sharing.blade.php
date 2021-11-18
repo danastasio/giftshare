@@ -58,18 +58,18 @@
 					<div class="invisible md:visible">Revoke Access</div>
 					<div class="col-span-2"><hr></div>
 
-					@foreach ( $shared_with_others as $user )
+					@foreach ( $shared_with_others as $share )
 						<div>
-							{{ $user->name }}
+							{{ $share->sharee->name }}
 						</div>
 						<div>
-						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $user->share_id }}').classList.remove('invisible');">Revoke</button>
-						@component("modals.delete-item", ["name" => "delete".$user->share_id,"share_id" => $user->share_id, "id" => $user->share_id, "route" => "share.destroy", "modal_id" => "delete" . $user->share_id])
+						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $share->share_id }}').classList.remove('invisible');">Revoke</button>
+						@component("modals.delete-item", ["name" => "delete".$share->id,"share_id" => $share->id, "id" => $share->id, "route" => "share.destroy", "modal_id" => "delete" . $share->id])
 							<x-slot name="modal_header">
 								Revoke List Access
 							</x-slot>
 							<x-slot name="modal_content">
-								<input type="hidden" name="id" value="{{ $user->id}}">
+								<input type="hidden" name="id" value="{{ $share->id}}">
 								You are about to unshare you list with this person. Confirm?
 							</x-slot>
 						@endcomponent
@@ -85,9 +85,9 @@
 					<div>Name</div>
 					<div>Email</div>
 					<hr class="col-span-2">
-					@foreach ( $shared_with_me as $user )
-						<div>{{ $user->name }}</div>
-						<div>{{ $user->email }}</div>
+					@foreach ( $shared_with_me as $share )
+						<div>{{ $share->owner->name }}</div>
+						<div>{{ $share->owner->email }}</div>
 					@endforeach
 				</div>
 			</div>
