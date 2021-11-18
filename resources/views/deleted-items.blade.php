@@ -1,15 +1,17 @@
 <x-app-layout>
-	<div class="mt-5 p-2 text-center w-full mx-auto">
-		<p class="mx-auto bg-gray-600 max-w-prose rounded-lg p-2 font-bold text-lg text-center">
-			Here you can view the items that you have previously deleted
-		</p>
-		<p>
-			TODO: list the deleted items here
-			TODO: Make a livewire undelete button
-		</p>
+	<x-slot name="header">
+		<span class="mx-auto max-w-prose rounded-lg p-2 font-bold text-2xl">
+			Your Deleted Items
+		</span>
+	</x-slot>
+		<!-- <p>
+			TODO: Force permanent delete
+		</p> -->
 		<div>
 			@if ($deleted_items->isEmpty())
-				You do not have any deleted items. If you delete something, it can be restored here.
+				<div class="max-w-7xl text-center text-xl mx-auto mt-6 p-6 dark:text-gray-200">
+					You do not have any deleted items. If you delete something, it can be restored here.
+				</div>
 			@else
 				Deleted Items:
 				<div class="grid grid-cols-3 gap-2 max-w-7xl mx-auto">

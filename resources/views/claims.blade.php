@@ -17,7 +17,7 @@
 */
 ?>
 <x-app-layout>
-@if ( $claims->isEmpty() )
+@if ( $shared_items->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
@@ -29,63 +29,81 @@
 		</div>
 	</div>
 @else
-	<div class="py-4">
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white dark:text-gray-200 dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="text-center text-2xl mb-4">My claimed items</div>
-					<div class="invisible md:visible grid grid-cols-3 gap-3">
-						<div class="hidden md:flex text-left pb-3">Item Name</div>
-						<div class="hidden md:flex text-left pb-3">Item Details</div>
-						<div class="hidden md:flex text-left pb-3 w-full"></div>
-					</div>
-					<hr class="mb-3">
-						@foreach ( $claims as $item )
-							@php($status = "invisible")
-							@php($textcolor = "text-black")
-							@if($item->deleted_at === null)
-								@php($textcolor = "text-gray-300")
-								@php($status = null)
-							@endif
-						<div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 {{ $textcolor }}">
-							<div class="flex my-auto">
-
-								<div class="mr-3 {{ $status }}" title="Item has been deleted">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-									</svg>
-								</div>
-								<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
-									{{ $item->name }}
-								</div>
-							</div>
-							<div class="text-center md:text-left text-lg align-center">
-								<em>{{ $item->description ?? "No Descripton Provided"}}</em>
-							</div>
-							<div class="flex ml-auto">
-								<div class="flex w-auto">
-									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block" id="item{{ $item->id }}">
-									<button type="button" class="p-1 max-h-10 md:w-1/3 w-full mr-2 sm:bg-gray-600 text-gray-400 bg-gray-400 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-										</svg>
-									</button>
-								</div>
-							</div>
-							<div class="flex">
-								<div class="w-1/2 rounded-l-lg overflow-hidden">
-									<livewire:claim-item :item="$item" class="">
-								</div>
-								<div class="w-1/2 rounded-r-lg overflow-hidden">
-									<p class="bg-yellow-600 h-full my-auto">
-										purchased button
-									</p>
-								</div>
-							</div>
+	@foreach ( $shared_items as $person )
+		@if ($person->items->isEmpty())
+		@else
+		<div class="py-4">
+			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+				<div class="mx-2 rounded-md bg-gray-100 md:bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
+					<button type="button" class="flex mb-4" onclick="toggleSection('{{ $person->id }}')" id="name{{ $person->id}}">
+						<div class="mr-4 my-auto">
+							<!-- Collapse Carrat -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 dark:text-gray-200 my-auto transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="chevron{{ $person->id }}">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+							</svg>
 						</div>
+						<div>
+							@if ($person->profile_photo_path)
+								<img alt="profile picture" src="{{ url('/storage/' . $person->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+							@else
+								<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $person->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+							@endif
+						</div>
+						<div class="text-2xl dark:text-gray-200">
+							{{ $person->name }}
+						</div>
+					</button>
+
+				<div class="flex-none" id="item-grid{{ $person-> id }}">
+						@foreach($person->items as $item)
+							@php($status = null)
+							@php($textcolor = "text-gray-300")
+							@if($item->deleted_at === null)
+								@php($textcolor = "text-black")
+								@php($status = "hidden")
+							@endif
+							<div class="flex-none md:grid md:grid-cols-1 md:grid-cols-4 gap-3 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2 mb-2 {{ $textcolor }}">
+								<div class="flex-none md:flex my-auto">
+									<div class="mx-auto">
+										<div class="mr-3 {{ $status }}" title="Item has been deleted">
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+											</svg>
+										</div>
+									</div>
+									<div class="w-full text-center md:text-left text-2xl md:text-lg font-bold md:font-normal mb-1">
+										{{ $item->name }}
+									</div>
+								</div>
+								<div class="w-full text-center md:text-left text-lg align-center my-auto">
+									<em>{{ $item->description ?? "No Description Provided"}}</em>
+								</div>
+								<div class="flex ml-auto w-full my-1">
+										<div class="w-full p-2 h-10 bg-gray-200 border border-gray-400 max-h-10 rounded-l-lg overflow-hidden" id="item{{ $item->id }}">
+											{{ $item->url }}
+										</div>
+										<button type="button" class="p-1 h-10 md:mr-2 bg-gray-600 text-gray-300 bg-gray-400 dark:text-gray-800 rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+											<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+		  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+											</svg>
+										</button>
+										<div class="flex-grow"></div>
+								</div>
+								<div class="flex">
+									<div class="w-1/2 mr-2">
+											<livewire:toggle-purchase :item="$item">
+									</div>
+									<div class="w-1/2 rounded-lg overflow-hidden">
+										<livewire:claim-item :item="$item" class="rounded-l-lg">
+									</div>
+								</div>
+							</div>
 						@endforeach
 					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+	@endif
+	@endforeach
 @endif
 </x-app-layout>

@@ -37,8 +37,11 @@ class ClaimItem extends Component
     public function unclaim()
     {
         $user_item = Item::where('id', $this->item_id)->get();
+        // TODO: Change this to a boolean field
+        // TODO: Do we really need to find items this way? There must be a better way.
         $user_item[0]['claimed'] = 0;
         $user_item[0]['claimant_id'] = null;
+        $user_item[0]['purchased'] = false;
         $user_item[0]->save();
         $this->claimed = false;
         $this->claimant_id = null;
