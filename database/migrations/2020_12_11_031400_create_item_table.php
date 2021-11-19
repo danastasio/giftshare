@@ -39,3 +39,4 @@ class CreateItemTable extends Migration
         Schema::dropIfExists('items');
     }
 }
+
