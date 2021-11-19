@@ -36,22 +36,8 @@ class ClaimController extends Controller
     */
     public function index()
     {
-		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)
-			->select('user_users.id', 'owner_id', 'shareee_id', 'users.name', 'users.profile_photo_path')
-			->join('users', 'users.id', 'user_users.owner_id')
-			->get();
-
-		$items = array();
-		foreach ($shared_users as $user) {
-			$user->items = $items;
-		}
-
-		foreach ($shared_users as $user) {
-			$user->items = Item::where('owner_id', $user->owner_id)
-				->where('claimant_id', auth()->user()->id)
-				->get();
-		}
-		return view('claims')->with('shared_items', $shared_users);
+		$shares = UserUsers::where('sharee_id', auth()->user()->id)->get();
+		return view('claims')->with('shares', $shares);
     }
 
     /**
