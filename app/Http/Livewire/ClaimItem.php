@@ -22,11 +22,11 @@ class ClaimItem extends Component
 
     public function claim()
     {
-        $user_item = Item::where('id', $this->item_id)->get();
-        if (!$user_item[0]['claimed'] == 1) {
-            $user_item[0]['claimed'] = 1;
-            $user_item[0]['claimant_id'] = auth()->user()->id;
-            $user_item[0]->save();
+        $user_item = Item::find($this->item_id);
+        if (!$user_item->claimed === true) {
+            $user_item->claimed = true;
+            $user_item->claimant_id = auth()->user()->id;
+            $user_item->save();
             $this->claimed = true;
             $this->claimant_id = auth()->user()->id;
         } else {
@@ -36,13 +36,11 @@ class ClaimItem extends Component
 
     public function unclaim()
     {
-        $user_item = Item::where('id', $this->item_id)->get();
-        // TODO: Change this to a boolean field
-        // TODO: Do we really need to find items this way? There must be a better way.
-        $user_item[0]['claimed'] = 0;
-        $user_item[0]['claimant_id'] = null;
-        $user_item[0]['purchased'] = false;
-        $user_item[0]->save();
+        $user_item = Item::find($this->item_id);
+        $user_item->claimed = false;
+        $user_item->claimant_id = null;
+        $user_item->purchased = false;
+        $user_item->save();
         $this->claimed = false;
         $this->claimant_id = null;
     }
