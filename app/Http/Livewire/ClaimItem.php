@@ -11,6 +11,7 @@ class ClaimItem extends Component
     public $item_id;
     public $claimed;
     public $claimant_id;
+    public $label;
 
     public function mount($item)
     {
@@ -30,7 +31,7 @@ class ClaimItem extends Component
             $this->claimed = true;
             $this->claimant_id = auth()->user()->id;
         } else {
-        	session()->flash('info', "Item was claimed while you were on this page");
+        	$this->label = "asdf";
         }
     }
 
