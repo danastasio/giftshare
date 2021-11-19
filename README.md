@@ -21,6 +21,7 @@ WIP
 Built with
 
 - Laravel
+- Livewire
 - Jetstream
 - TailwindCSS
 
@@ -29,8 +30,14 @@ Built with
 This is a minimal project. No app installs required but are optional through API. This attempts to follow the UNIX philosophy of "Do one thing and do it well".
 
 ## Installation
-Docker or Podman is the recomended installation method. I use podman so those are the commands reflected below.
+Docker or Podman is the recomended installation method. I use podman so those are the commands reflected below. There are two primary ways to install this. You can either pull the image from Docker Hub or build it yourself. Both methods are detailed below
 
+### Docker Hub
+1. ```podman run -dt -p 8000:8000 -v \`pwd\`/gift-config:/app/database:z --name giftshare danastasio/giftshare:latest
+
+If you do not want database persistence, then just omit the -v flag: ```podman run -dt -p 8000:8000 --name giftshare danastasio/giftshare:latest```
+
+### Build the image yourself
 1. cd to the directory that will host the projet
 2. ```git clone https://github.com/danastasio/giftshare.git```
 3. ```cd giftshare```
@@ -46,13 +53,18 @@ Unfortunately, I haven't figured out how to have artisan migrate the database af
 
 Eventually I will add an /installation page that does this for you, but that day is not today.
 
-## API Reference
+#### Note on installing
+At this time the applicaiton demands an SSL connection, and won't work without one. The image on docker and the files on github are configured for a production environment. So if you are testing this locally, you need to change the APP_ENV parameter in the .env file from 'production' to 'local', and clear the config cache. The steps on how to do that are detailed below.
 
+## API Reference
+The API currently isn't implemented. I don't recommend using it just yet.
 [Documentation](https://github.com/danastasio/giftshare/wiki/API)
 
 ## Tests
+Tests are built using PHPUnit and can be run with the following command:
+```php artisan test```
 
-NYI/WIP
+All tests should pass
 
 ## How to use?
 
