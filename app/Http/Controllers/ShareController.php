@@ -47,7 +47,8 @@ class ShareController extends Controller
     public function store(ShareRequest $request)
     {
         Gate::authorize('create-share');
-        $sharee_id = User::where('email', $request['email'])->value('id');
+        $request['email'] = strtolower($request['email']);
+        $sharee_id = User::whereRaw('lower(email) = (?)', ["{$request['email']}"])->value('id');
 
         // prevent users from sharing with themselves
         if ($sharee_id === auth()->user()->id) {
