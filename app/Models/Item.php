@@ -28,8 +28,9 @@ class Item extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['name','description','url'];
+    protected $fillable = ['name','description','url','owner_id','image_url'];
     protected $dates = ['deleted_at'];
+    protected $casts = ['claimed' => 'boolean'];
 
     public function items()
     {

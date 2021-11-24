@@ -71,6 +71,10 @@ class User extends Authenticatable //implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at'		=> 'datetime',
+        'udpated_at'		=> 'datetime',
+        'deleted_at'		=> 'datetime',
+        'is_admin'			=> 'boolean',
     ];
 
     /**
