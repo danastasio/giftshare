@@ -58,7 +58,7 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="item-grid{{ $share-> id }}">
 						@foreach($share->items as $item)
-							@if ($item->claimed == 0 || $item->claimant_id == auth()->user()->id)
+							@if ((!$item->claimed) || $item->claimant_id == auth()->user()->id)
 								<div id="newcard" class="grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 									<div class="flex-none w-full mb-2 justify-center flex mx-auto mt-4">
 										<img src="{{ $item->image_url ?? url('/images/not_found.svg')}}" class="h-24" alt="product image">

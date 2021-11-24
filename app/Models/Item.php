@@ -30,6 +30,7 @@ class Item extends Model
 
     protected $fillable = ['name','description','url'];
     protected $dates = ['deleted_at'];
+    protected $casts = ['claimed' => 'boolean'];
 
     public function items()
     {

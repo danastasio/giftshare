@@ -62,7 +62,7 @@
 								@php($textcolor = "text-black")
 								@php($status = "hidden")
 							@endif
-							@if ($item->claimed == 1 && $item->claimant_id == auth()->user()->id)
+							@if ($item->claimed && $item->claimant_id == auth()->user()->id)
 								<div class="flex-none md:grid md:grid-cols-1 md:grid-cols-4 gap-3 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2 mb-2 {{ $textcolor }}">
 									<div class="flex-none md:flex my-auto">
 										<div class="mx-auto">
