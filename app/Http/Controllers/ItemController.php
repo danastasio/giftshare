@@ -56,14 +56,8 @@ class ItemController extends Controller
 	 */
 	public function store(ItemRequest $request)
 	{
-		$item = new Item();
-		$item->name = $request['name'];
-		@$item->description = $request['description'];
-		@$item->url = $request['url'];
-		$item->image_url = $this->get_image($request['url']);
-		$item->owner_id = auth()->user()->id;
-		$item->save();
-		return redirect('list')->withSuccess('Item added');
+		auth()->user()->items()->create($request->validated());
+		return redirect('list')->with('success', __('Item added'));
 	}
 
 	/**
