@@ -48,14 +48,14 @@
 								</svg>
 							</div>
 							<div>
-								@if ($share->owner->profile_photo_path)
-									<img alt="profile picture" src="{{ url('/storage/' . $share->owner->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+								@if ($share['owner']->profile_photo_path)
+									<img alt="profile picture" src="{{ url('/storage/' . $share['owner']->profile_photo_path) }}" class="w-8 rounded-full mr-3">
 								@else
-									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $share->owner->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $share['owner']->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
 								@endif
 							</div>
 							<div class="text-2xl dark:text-gray-200">
-								{{ $share->owner->name }}
+								{{ $share['owner']->name }}
 							</div>
 						</div>
 					</button>
@@ -66,9 +66,9 @@
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="item-grid{{ $share-> id }}">
-						@foreach($share->items as $item)
+						@foreach($share['items'] as $item)
 							@if ((!$item->claimed) || $item->claimant_id == auth()->user()->id)
-								<div id="{{ $item->id }}" class="user{{ $share->owner->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
+								<div id="{{ $item->id }}" class="user{{ $share['owner']->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">
 										@if ($item->url)
 											<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
