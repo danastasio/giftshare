@@ -35,7 +35,15 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
-		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)->get();
+		$this->user_id = auth()->user()->id;
+		$shared_users = UserUsers::where('sharee_id', $this->user_id)
+		->with(['owner',
+			'items' => function ($query) {
+				$query->where('claimed', false)
+				->orWhere('claimant_id', $this->user_id);
+			}
+		])
+		->get();
 		return view('dashboard')->with('shared_items', $shared_users);
 	}
 
@@ -56,8 +64,14 @@ class ItemController extends Controller
 	 */
 	public function store(ItemRequest $request)
 	{
-		auth()->user()->items()->create($request->validated());
-		return redirect('list')->with('success', __('Item added'));
+		$item = new Item();
+		$item->name = $request['name'];
+		@$item->description = $request['description'];
+		@$item->url = $request['url'];
+		$item->image_url = $this->get_image($request['url']);
+		$item->owner_id = auth()->user()->id;
+		$item->save();
+		return redirect('list')->withSuccess('Item added');
 	}
 
 	/**
@@ -133,6 +147,7 @@ class ItemController extends Controller
 			$c = curl_init();
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($c, CURLOPT_ENCODING, "");
 			curl_setopt($c, CURLOPT_URL, $url);
 			$string = curl_exec($c);
 			curl_close($c);
@@ -145,6 +160,7 @@ class ItemController extends Controller
 			} elseif (preg_match('/property="og:image" content="(.*?)"/', $string, $matches) > 0) { // GameStopg
 				return $matches[1];
 			} else {
+				dd($string);
 				return null;
 			}
 	   	} else {
