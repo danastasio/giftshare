@@ -60,7 +60,7 @@
 
 					@foreach ( $shared_with_others as $share )
 						<div>
-							{{ $share->sharee->name }}
+							{{ $share['sharee']->name }}
 						</div>
 						<div>
 						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $share->id }}').classList.remove('invisible');">Revoke</button>
@@ -86,8 +86,8 @@
 					<div>Email</div>
 					<hr class="col-span-2">
 					@foreach ( $shared_with_me as $share )
-						<div>{{ $share->owner->name }}</div>
-						<div>{{ $share->owner->email }}</div>
+						<div>{{ $share['owner']->name }}</div>
+						<div>{{ $share['owner']->email }}</div>
 					@endforeach
 				</div>
 			</div>
