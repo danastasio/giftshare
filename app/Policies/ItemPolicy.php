@@ -55,11 +55,7 @@ class ItemPolicy
      */
     public function update(User $user = null, Item $item = null)
     {
-        if ($user === null || $item === null) {
-            return Response::deny();
-        }
-
-        if ((int)$user->id === (int)$item->owner_id) {
+        if ($user->is($item->owner)) {
             return Response::allow();
         } else {
             return Response::deny();
@@ -75,11 +71,7 @@ class ItemPolicy
      */
     public function delete(User $user = null, Item $item = null)
     {
-        if ($user === null || $item === null) {
-            return Response::deny();
-        }
-
-        if ((int)$user->id === (int)$item->owner_id) {
+        if (Auth::check() && $user->is($item->owner)) {
             return Response::allow();
         } else {
             return Response::deny();

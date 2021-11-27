@@ -43,15 +43,7 @@ class SharePolicy
      */
     public function create(User $user = null)
     {
-        if ($user === null) {
-            return Response::deny();
-        }
-
-        if (Auth::check()) {
-            return Response::allow();
-        } else {
-            return Response::deny();
-        }
+		//
     }
 
     /**
@@ -75,11 +67,7 @@ class SharePolicy
      */
     public function delete(User $user = null, UserUsers $share = null)
     {
-        if ($share === null || $user === null) {
-            return Response::deny();
-        }
-
-        if (Auth::check() && (int)$share->owner_id === (int)$user->id) {
+        if (Auth::check() && $user->is($share->owner)) {
             return Response::allow();
         } else {
             return Response::deny();

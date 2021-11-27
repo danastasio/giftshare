@@ -13,8 +13,7 @@ class ClaimRequest extends FormRequest
      */
     public function authorize()
     {
-        // Need to figure out if user owns $object. If they do, allow.
-        return true;
+    	return true;
     }
 
     /**

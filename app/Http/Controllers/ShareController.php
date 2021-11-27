@@ -30,15 +30,14 @@ class ShareController extends Controller
 {
     public function index()
     {
-        $shared_with_others = UserUsers::where('owner_id', auth()->user()->id)
-        ->with('sharee')
-        ->get();
+    	$user_id = auth()->user()->id;
+        $shared_with_others = UserUsers::my_shares($user_id);
+        $shared_with_me = UserUsers::shared_with_me($user_id);
 
-        $shared_with_me = UserUsers::where('sharee_id', auth()->user()->id)
-        ->with('owner')
-        ->get();
-
-        return view('sharing')->with('shared_with_others', $shared_with_others)->with('shared_with_me', $shared_with_me);
+        return view('sharing')->with([
+        	'shared_with_others' => $shared_with_others,
+        	'shared_with_me' 	 => $shared_with_me,
+        ]);
     }
 
     public function create()
@@ -48,33 +47,19 @@ class ShareController extends Controller
 
     public function store(ShareRequest $request)
     {
-        Gate::authorize('create-share');
-        $request['email'] = strtolower($request['email']);
-        $sharee_id = User::whereRaw('lower(email) = (?)', ["{$request['email']}"])->value('id');
-
-        // prevent users from sharing with themselves
-        if ($sharee_id === auth()->user()->id) {
-            return redirect('share')->withInfo('You cannot add yourself. Nice try though 😉');
-        }
-
         // check to see if share exists
-        $exists = UserUsers::where('owner_id', auth()->user()->id)->where('sharee_id', $sharee_id)->get();
+        $request['sharee_id'] = User::where('email', $request->email)->value('id');
+        $exists = UserUsers::where('owner_id', $request->owner_id)->where('sharee_id', $request['sharee_id'])->get();
         if (!$exists->isEmpty()) {
             return redirect('share')->withInfo('Share already exists between you');
         }
 
-        // check to see if user exists
-        $exists = User::find($sharee_id);
+		$share = new UserUsers;
+		$share->owner()->associate($request->user());
+		$share->sharee()->associate( User::find($request['sharee_id']) );
+		$share->save();
 
-        if (!$exists) {
-            return redirect('share')->withError('User does not exist');
-        } else {
-            $usershare = new UserUsers();
-            $usershare->owner_id = auth()->user()->id;
-            $usershare->sharee_id = $sharee_id;
-            $usershare->save();
-            return redirect('share')->withSuccess('List shared with user');
-        }
+        return redirect('share')->withSuccess('List shared with user');
     }
 
     public function show(int $id)
@@ -95,8 +80,6 @@ class ShareController extends Controller
     public function destroy(int $id)
     {
         $share = UserUsers::find($id);
-        Gate::authorize('delete-share', $share);
-
         $share->delete();
         return redirect('share')->withInfo('List revoked from user');
     }

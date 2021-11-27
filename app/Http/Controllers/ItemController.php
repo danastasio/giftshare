@@ -35,16 +35,7 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
-		$this->user_id = auth()->user()->id;
-		$shared_users = UserUsers::where('sharee_id', $this->user_id)
-		->with(['owner',
-			'items' => function ($query) {
-				$query->where('claimed', false)
-				->orWhere('claimant_id', $this->user_id);
-			}
-		])
-		->get();
-		return view('dashboard')->with('shared_items', $shared_users);
+		return view('dashboard')->with(['shared_items' => UserUsers::shared_items(auth()->user()->id)]);
 	}
 
 	/**
@@ -64,14 +55,10 @@ class ItemController extends Controller
 	 */
 	public function store(ItemRequest $request)
 	{
-		$item = new Item();
-		$item->name = $request['name'];
-		@$item->description = $request['description'];
-		@$item->url = $request['url'];
-		$item->image_url = $this->get_image($request['url']);
-		$item->owner_id = auth()->user()->id;
-		$item->save();
-		return redirect('list')->withSuccess('Item added');
+		//TODO: Figure out how to image scrape amazon
+		//$item['image_url'] = $this->get_image($request['url']);
+		Item::create($request->validated());
+		return redirect('list')->with(['success', 'Item added']);
 	}
 
 	/**
@@ -83,10 +70,8 @@ class ItemController extends Controller
 	public function destroy(ItemRequest $request)
 	{
 		$item = Item::find($request['id']);
-		Gate::authorize('delete', $item);
-
 		$item->delete();
-		return redirect('list')->withInfo('Item deleted');
+		return redirect('list')->with(['info', 'Item deleted']);
 	}
 	/**
 		* Display the specified resource.
@@ -119,23 +104,16 @@ class ItemController extends Controller
 	public function update(ItemRequest $request)
 	{
 		$item = Item::find($request['id']);
-		Gate::authorize('update', $item);
-
-		$item->name = $request['name'];
-		@$item->description = $request['description'];
-		@$item->url = $request['url'];
-		$item->image_url = $this->get_image($request['url']);
-		$item->save();
+		$item->update($request->validated());
 		return back();
 	}
 
 	/**
 	 * Show the list of items that I personally own. Used by the "My List" button
 	 */
-	public function list()
+	public function list(ItemRequest $request)
 	{
-		$own_items = Item::where('owner_id', auth()->user()->id)->get();
-		return view('list')->with('own_items', $own_items);
+		return view('list')->with(['own_items' => Item::own_items($request->user()->id)]);
 	}
 
 	/**

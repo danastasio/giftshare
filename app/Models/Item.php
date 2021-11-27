@@ -41,4 +41,9 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+	public static function own_items(int $user_id)
+	{
+		return Item::where('owner_id', $user_id)->get();
+	}
 }

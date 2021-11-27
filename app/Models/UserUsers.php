@@ -27,6 +27,7 @@ class UserUsers extends Model
 {
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
+	protected $fillable = ['owner_id', 'sharee_id'];
 
     public function owner()
     {
@@ -40,5 +41,37 @@ class UserUsers extends Model
 	public function items()
 	{
 		return $this->hasManyThrough(Item::class, User::class, 'id', 'owner_id', 'owner_id', 'id');
+	}
+
+	public static function claimed_items(int $user_id)
+	{
+		return UserUsers::where('sharee_id', $user_id)->with([
+			'owner',
+			'items' => function ($query) use (&$user_id) {
+				$query->where('claimant_id', $user_id)
+				->where('claimed', true);
+			},
+		])->get();
+	}
+
+	public static function shared_items(int $user_id)
+	{
+		return UserUsers::where('sharee_id', $user_id)->with([
+			'owner',
+			'items' => function ($query) use (&$user_id) {
+				$query->where('claimed', false)
+					  ->orWhere('claimant_id', $user_id);
+			}
+		])->get();
+	}
+
+	public static function my_shares(int $user_id)
+	{
+		return UserUsers::where('owner_id', $user_id)->with('sharee')->get();
+	}
+
+	public static function shared_with_me(int $user_id)
+	{
+		return UserUsers::where('sharee_id', $user_id)->with('owner')->get();
 	}
 }
