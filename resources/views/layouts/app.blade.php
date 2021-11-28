@@ -123,7 +123,7 @@
 			}
 			function toggle_claim(divid) {
 				let claimed_item = document.getElementById(divid);
-	  			if (claimed_item.classList.contains('claimed0')) {
+	  			if (claimed_item.classList.contains('claimed0') || claimed_item.classList.contains('claimed')) {
 	    			claimed_item.classList.add('claimed1');
 	    			claimed_item.classList.remove('claimed0');
 	  			} else {
