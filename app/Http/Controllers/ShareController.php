@@ -59,7 +59,7 @@ class ShareController extends Controller
 		$share->sharee()->associate( User::find($request['sharee_id']) );
 		$share->save();
 
-        return redirect('share')->withSuccess('List shared with user');
+        return redirect('share')->with(['success' => 'List shared with user']);
     }
 
     public function show(int $id)

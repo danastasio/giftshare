@@ -43,6 +43,7 @@
 					<button type="button" class="my-auto" onclick="toggleSection('{{ $share->id }}')" id="name{{ $share->id}}">
 						<div class="flex">
 							<div class="mr-4 my-auto">
+								<!-- Carrat SVG -->
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 dark:text-gray-200 my-auto transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="chevron{{ $share->id }}">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 								</svg>
@@ -68,24 +69,21 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="item-grid{{ $share-> id }}">
 						@foreach($share['items'] as $item)
-							<!-- TODO: This should not be in the blade file. It should be in the model -->
-							@if ((!$item->claimed) || $item->claimant_id == auth()->user()->id)
-								<div id="{{ $item->id }}" class="user{{ $share['owner']->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
-									<div class="w-full my-1 font-bold text-xl text-center mt-3">
-										@if ($item->url)
-											<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
-										@else
-											{{ $item->name }}
-										@endif
-									</div>
-									<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200 p-2">
-										<em>{{  $item->description ?? "No Description Provided" }}</em>
-									</div>
-									<div class="mt-auto">
-										<livewire:claim-item :item="$item" class="w-full">
-									</div>
+							<div id="{{ $item->id }}" class="user{{ $share['owner']->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
+								<div class="w-full my-1 font-bold text-xl text-center mt-3">
+									@if ($item->url)
+										<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
+									@else
+										{{ $item->name }}
+									@endif
 								</div>
-							@endif
+								<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200 p-2">
+									<em>{{  $item->description ?? "No Description Provided" }}</em>
+								</div>
+								<div class="mt-auto">
+									<livewire:claim-item :item="$item" class="w-full">
+								</div>
+							</div>
 						@endforeach
 					</div>
 				</div>
