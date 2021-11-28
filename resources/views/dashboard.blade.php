@@ -60,6 +60,7 @@
 						</div>
 					</button>
 					</div>
+					<!-- TODO: Add an indicator for the number of claimed gifts / total gifts -->
 					<div class="flex-grow w-full">
 						<livewire:toggle-privacy :share="$share">
 					</div>
@@ -67,6 +68,7 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="item-grid{{ $share-> id }}">
 						@foreach($share['items'] as $item)
+							<!-- TODO: This should not be in the blade file. It should be in the model -->
 							@if ((!$item->claimed) || $item->claimant_id == auth()->user()->id)
 								<div id="{{ $item->id }}" class="user{{ $share['owner']->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 									<div class="w-full my-1 font-bold text-xl text-center mt-3">

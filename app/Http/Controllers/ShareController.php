@@ -77,10 +77,10 @@ class ShareController extends Controller
         //
     }
 
-    public function destroy(int $id)
+    public function destroy(ShareRequest $request, UserUsers $share)
     {
-        $share = UserUsers::find($id);
+        $share = UserUsers::find($request->id);
         $share->delete();
-        return redirect('share')->withInfo('List revoked from user');
+        return redirect('share')->with(['info' => 'List revoked from user']);
     }
 }

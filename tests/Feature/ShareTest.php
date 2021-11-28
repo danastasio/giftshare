@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
@@ -24,15 +24,15 @@ class ShareTest extends TestCase
         $shared_user = User::factory()->create();
 
         $response = $this->be($user)->post(route('share.store'), $shared_user->toArray());
-        $id = UserUsers::where('owner_id', $user->id)
+        $share = UserUsers::where('owner_id', $user->id)
             ->where('sharee_id', $shared_user->id)
-            ->value('id');
-        $share = UserUsers::find($id);
+            ->with(['owner','sharee'])
+            ->first();
         $response->assertRedirect('share');
         $this->assertNotNull($share);
         $response->assertSessionHas(['success' => 'List shared with user']);
-        $this->assertEquals($share['owner_id'], $user->id);
-        $this->assertEquals($share['sharee_id'], $shared_user->id);
+        $this->assertTrue($user->is($share->owner));
+        $this->assertTrue($shared_user->is($share->sharee));
     }
 
     /**
@@ -86,7 +86,7 @@ class ShareTest extends TestCase
         $share = UserUsers::find($id);
 
         //Destroy the share
-        $response = $this->be($user)->delete(route('share.destroy', ['share' => $share->id]));
+        $response = $this->be($user)->delete(route('share.destroy', ['share' => $share, 'id' => $share->id]));
         $response->assertSessionHas(['info' => 'List revoked from user']);
         $response->assertRedirect('share');
 
@@ -115,7 +115,7 @@ class ShareTest extends TestCase
         $this->assertNotNull($share);
 
         //Destroy the share
-        $response = $this->delete(route('share.destroy', ['share' => $share->id]));
+        $response = $this->delete(route('share.destroy', ['share' => $share]));
 
         //Check to see if share still in DB
         $this->assertNotNull($share);
@@ -141,7 +141,8 @@ class ShareTest extends TestCase
         $share = UserUsers::find($id);
 
         //Destroy the share from the bad actor
-        $response = $this->be($bad_actor)->delete(route('share.destroy', ['share' => $share->id]));
+        $this->assertFalse($bad_actor->is($share->owner));
+        $response = $this->be($bad_actor)->delete(route('share.destroy', ['share' => $share]));
         $response->assertForbidden();
 
         //Check to see if share still in DB
