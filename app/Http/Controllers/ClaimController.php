@@ -36,8 +36,7 @@ class ClaimController extends Controller
     */
     public function index()
     {
-		$shares = UserUsers::where('sharee_id', auth()->user()->id)->get();
-		return view('claims')->with('shares', $shares);
+		return view('claims')->with(['shares' => UserUsers::claimed_items(auth()->user()->id)]);
     }
 
     /**

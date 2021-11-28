@@ -79,13 +79,13 @@
 							</div>
 							<div class="flex ml-auto">
 								<div class="flex w-auto">
-									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block" id="item{{ $item->id }}">
-									<button type="button" class="p-1 max-h-10 md:w-1/3 w-full mr-2 sm:bg-gray-600 text-gray-800 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg justify-center" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block truncate" id="item{{ $item->id }}">
+									<a href="{{ $item->url }}" target="_blank" class="p-1 max-h-10 mr-2 sm:bg-gray-600 text-gray-800 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
 										<!-- Link SVG -->
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto sm:text-white align" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
 										</svg>
-									</button>
+									</a>
 								</div>
 								<button type="button" class="max-h-10 w-1/3 mr-2 py-2 rounded-full" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');" title="Edit Item">
 									<!-- Edit SVG -->
@@ -123,7 +123,7 @@
 										<div><label for="name">Name</label></div>
 										<div class="-mt-3"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
 										<div class="mt-1"><label for="url">URL</label></div>
-										<div class="-mt-3"><input type="text" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
+										<div class="-mt-3"><input type="url" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
 										<div class="mt-1"><label for="description">Description</label></div>
 										<div class="-mt-3"><textarea name="description" class="w-full rounded border-blue-400 dark:bg-gray-200 dark:text-gray-800">{{ $item->description }}</textarea></div>
 								</div>

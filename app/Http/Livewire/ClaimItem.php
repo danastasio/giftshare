@@ -30,8 +30,9 @@ class ClaimItem extends Component
             $user_item->save();
             $this->claimed = true;
             $this->claimant_id = auth()->user()->id;
+            $this->emit('toggle_claim', $this->item_id);
         } else {
-        	$this->label = "asdf";
+        	$this->label = "Item was claimed while you were on this page";
         }
     }
 
@@ -44,6 +45,7 @@ class ClaimItem extends Component
         $user_item->save();
         $this->claimed = false;
         $this->claimant_id = null;
+        $this->emit('toggle_claim', $this->item_id);
     }
 
     public function render()

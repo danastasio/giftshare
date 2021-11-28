@@ -35,8 +35,7 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
-		$shared_users = UserUsers::where('sharee_id', auth()->user()->id)->get();
-		return view('dashboard')->with('shared_items', $shared_users);
+		return view('dashboard')->with(['shared_items' => UserUsers::shared_items(auth()->user()->id)]);
 	}
 
 	/**
@@ -56,14 +55,9 @@ class ItemController extends Controller
 	 */
 	public function store(ItemRequest $request)
 	{
-		$item = new Item();
-		$item->name = $request['name'];
-		@$item->description = $request['description'];
-		@$item->url = $request['url'];
-		$item->image_url = $this->get_image($request['url']);
-		$item->owner_id = auth()->user()->id;
-		$item->save();
-		return redirect('list')->withSuccess('Item added');
+		//TODO: Figure out how to image scrape amazon
+		Item::create($request->validated());
+		return redirect('list')->with(['success', 'Item added']);
 	}
 
 	/**
@@ -75,10 +69,8 @@ class ItemController extends Controller
 	public function destroy(ItemRequest $request)
 	{
 		$item = Item::find($request['id']);
-		Gate::authorize('delete', $item);
-
 		$item->delete();
-		return redirect('list')->withInfo('Item deleted');
+		return redirect('list')->with(['info', 'Item deleted']);
 	}
 	/**
 		* Display the specified resource.
@@ -111,23 +103,16 @@ class ItemController extends Controller
 	public function update(ItemRequest $request)
 	{
 		$item = Item::find($request['id']);
-		Gate::authorize('update', $item);
-
-		$item->name = $request['name'];
-		@$item->description = $request['description'];
-		@$item->url = $request['url'];
-		$item->image_url = $this->get_image($request['url']);
-		$item->save();
+		$item->update($request->validated());
 		return back();
 	}
 
 	/**
 	 * Show the list of items that I personally own. Used by the "My List" button
 	 */
-	public function list()
+	public function list(ItemRequest $request)
 	{
-		$own_items = Item::where('owner_id', auth()->user()->id)->get();
-		return view('list')->with('own_items', $own_items);
+		return view('list')->with(['own_items' => Item::own_items($request->user()->id)]);
 	}
 
 	/**
@@ -139,6 +124,7 @@ class ItemController extends Controller
 			$c = curl_init();
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($c, CURLOPT_ENCODING, "");
 			curl_setopt($c, CURLOPT_URL, $url);
 			$string = curl_exec($c);
 			curl_close($c);
@@ -151,6 +137,7 @@ class ItemController extends Controller
 			} elseif (preg_match('/property="og:image" content="(.*?)"/', $string, $matches) > 0) { // GameStopg
 				return $matches[1];
 			} else {
+				dd($string);
 				return null;
 			}
 	   	} else {

@@ -111,6 +111,32 @@
 					nameBox.classList.add(marginBottom);
 				}
 			}
+			function toggle_privacy(divid) {
+				let claimed_items = document.getElementsByClassName(divid);
+				for (let i=0;i<claimed_items.length;i++) {
+	  				if (claimed_items[i].classList.contains('claimed1') && !claimed_items[i].classList.contains('hidden')) {
+	    				claimed_items[i].classList.add('hidden');
+	  				} else {
+	      				claimed_items[i].classList.remove('hidden');
+    				}
+				}
+			}
+			function toggle_claim(divid) {
+				let claimed_item = document.getElementById(divid);
+	  			if (claimed_item.classList.contains('claimed0') || claimed_item.classList.contains('claimed')) {
+	    			claimed_item.classList.add('claimed1');
+	    			claimed_item.classList.remove('claimed0');
+	  			} else {
+	      			claimed_item.classList.add('claimed0');
+	      			claimed_item.classList.remove('claimed1');
+    			}
+			}
+			Livewire.on('toggle_privacy', divid => {
+				toggle_privacy(divid);
+			});
+			Livewire.on('toggle_claim', divid => {
+				toggle_claim(divid);
+			});
 		</script>
     </body>
 
