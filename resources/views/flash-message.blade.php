@@ -19,7 +19,7 @@
 @if(Session::has('success'))
 <div class="pt-2">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-green-600 rounded-lg p-4 text-center">
+		<div class="text-white bg-green-600 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-green-800">
 			<strong>{{ Session::get('success') }}</strong>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 	@if ( $errors->any() )
 		<div class="pt-5">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="text-white bg-red-700 rounded-lg p-4 text-center">
+				<div class="text-white bg-red-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-red-800">
 					<ul>
 						@foreach ($errors->all() as $error)
 							<li><strong>{{ __($error) }}</strong></li>
@@ -42,7 +42,7 @@
 	@else
 		<div class="pt-5">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="text-white bg-red-700 rounded-lg p-4 text-center">
+				<div class="text-white bg-red-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-red-800">
 					<strong>{{ __(Session::get('error') ) }}</strong>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 @if (Session::has('warning'))
 <div class="pt-2">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-yellow-700 rounded-lg p-4 text-center">
+		<div class="text-white bg-yellow-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-yellow-900">
 			<strong>{{ __(Session::get('warning')) }}</strong>
 		</div>
 	</div>
@@ -63,7 +63,7 @@
 @if (Session::has('info'))
 <div class="pt-2">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-gray-400 rounded-lg p-4 text-center">
+		<div class="text-white bg-gray-400 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-gray-700">
 			<strong>{{ __(Session::get('info')) }}</strong>
 		</div>
 	</div>
