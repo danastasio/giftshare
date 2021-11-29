@@ -1,0 +1,10 @@
+:80 {
+	root * /app/public
+	php_fastcgi unix//var/run/php-fpm/www.sock
+	file_server
+	log
+	@forbidden path /app/database/*
+	handle @forbidden {
+		respond * 403
+	}
+}
