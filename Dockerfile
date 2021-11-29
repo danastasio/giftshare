@@ -13,15 +13,11 @@
 #You should have received a copy of the GNU Affero General Public License
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM php
+FROM docker.io/library/fedora
 
-RUN apt-get update -y && apt-get install -y libmcrypt-dev sqlite3 libsqlite3-dev git zip unzip uuid-runtime
+RUN dnf install -y libmcrypt-devel sqlite sqlite-devel git zip unzip uuid-devel vim php nodejs caddy php-fpm
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install nodejs -y
-
-RUN docker-php-ext-install pdo
 
 WORKDIR /app
 COPY . /app
@@ -29,7 +25,7 @@ COPY . /app
 RUN composer install --no-interaction
 RUN cp /app/.env.example /app/.env
 RUN touch /app/database/database.db
-RUN php artisan key:generate --force
+RUN yes "no" | php artisan key:generate
 RUN php artisan migrate --force
 RUN npm i npm@latest -g
 RUN npm install
@@ -41,7 +37,10 @@ RUN php artisan storage:link
 RUN php artisan view:cache
 RUN php artisan config:cache
 RUN php artisan route:cache
+RUN mkdir /var/run/php-fpm
+RUN chmod 777 /app -R
 
 VOLUME /app/database
 EXPOSE 8000
-CMD php artisan serve --host=0.0.0.0 --port=8000
+
+CMD php-fpm && caddy run --config Caddyfile
