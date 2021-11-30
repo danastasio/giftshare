@@ -112,7 +112,10 @@ class ItemController extends Controller
 	 */
 	public function list(ItemRequest $request)
 	{
-		return view('list')->with(['own_items' => Item::own_items($request->user()->id)]);
+		return view('list')->with([
+			'own_items' => Item::own_items($request->user()->id),
+			'availability_warning' => Item::low_availability_warning($request->user()->id),
+		]);
 	}
 
 	/**

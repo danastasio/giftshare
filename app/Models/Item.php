@@ -46,4 +46,12 @@ class Item extends Model
 	{
 		return Item::where('owner_id', $user_id)->get();
 	}
+
+	public static function low_availability_warning(int $user_id): bool
+	{
+		$my_total_items = Item::where('owner_id', $user_id)->count();
+		$my_claimed_items = Item::where('owner_id', $user_id)->where('claimed', true)->count();
+		$claimed_percentage = $my_claimed_items / $my_total_items;
+		return $claimed_percentage >= 0.8;
+	}
 }
