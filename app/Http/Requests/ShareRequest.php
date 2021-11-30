@@ -33,7 +33,7 @@ class ShareRequest extends FormRequest
     {
     	return match ($this->route()->action['as']) {
         	"share.store"	=> [
-        		'email' => 'required|max:255|exists:App\Models\User,email|not_in:' . auth()->user()->email
+        		'email' => 'required|max:255|exists:App\Models\User,email|not_in:' . $this->user()->email
         	],
         	"share.destroy" => [
         		'id' => 'required'
@@ -44,8 +44,8 @@ class ShareRequest extends FormRequest
     public function vaidated()
     {
     	return array_merge($this->all(), [
-            'owner_id' => $this->user()->id,
-            'email'    => strtolower($this->email),
+            'owner_id'	=> $this->user()->id,
+            'email'		=> strtolower($this->email),
             'id'		=> $this->id,
         ]);
     }
