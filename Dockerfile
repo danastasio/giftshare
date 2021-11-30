@@ -22,6 +22,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /app
 COPY . /app
 
+RUN composer update
 RUN composer install --no-interaction
 RUN cp /app/.env.example /app/.env
 RUN touch /app/database/database.db
