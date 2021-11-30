@@ -51,7 +51,11 @@ class Item extends Model
 	{
 		$my_total_items = Item::where('owner_id', $user_id)->count();
 		$my_claimed_items = Item::where('owner_id', $user_id)->where('claimed', true)->count();
-		$claimed_percentage = $my_claimed_items / $my_total_items;
-		return $claimed_percentage >= 0.8;
+		if ($my_total_items === 0) {
+			return false;
+		} else {
+			$claimed_percentage = $my_claimed_items / $my_total_items;
+			return $claimed_percentage >= 0.8;
+		}
 	}
 }
