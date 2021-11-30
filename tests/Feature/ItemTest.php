@@ -27,11 +27,10 @@ class ItemTests extends TestCase
         );
 
         $response = $this->be($user)->post(route('item.store'), $payload);
-        $id = Item::where('name', $payload['name'])
+        $item = Item::where('name', $payload['name'])
             ->where('description', $payload['description'])
             ->where('url', $payload['url'])
-            ->value('id');
-        $item = Item::find($id);
+            ->first();
         $this->assertNotNull($item);
         //$response->assertSessionHas(['success' => "Item added"]);
         $this->assertEquals($payload['name'], $item->name);
@@ -54,10 +53,9 @@ class ItemTests extends TestCase
         );
 
         $response = $this->be($user)->post(route('item.store'), $payload);
-        $id = Item::where('name', $payload['name'])
+        $item = Item::where('name', $payload['name'])
             ->where('url', $payload['url'])
-            ->value('id');
-        $item = Item::find($id);
+            ->first();
         $this->assertNotNull($item);
         //$response->assertSessionHas(['success' => "Item added"]);
         $this->assertEquals($payload['name'], $item->name);
@@ -80,10 +78,9 @@ class ItemTests extends TestCase
         );
 
         $response = $this->be($user)->post(route('item.store'), $payload);
-        $id = Item::where('name', $payload['name'])
+        $item = Item::where('name', $payload['name'])
             ->where('description', $payload['description'])
-            ->value('id');
-        $item = Item::find($id);
+            ->first();
         $this->assertNotNull($item);
         //$response->assertSessionHas(['success' => "Item added"]);
         $this->assertEquals($payload['name'], $item->name);
