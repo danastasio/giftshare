@@ -20,11 +20,11 @@ class ItemTests extends TestCase
     public function testCreateItemWithAllAttributes(): void
     {
         $user = User::factory()->create();
-        $payload = array(
+        $payload = [
             'name' => 'item name',
             'description' => 'this is a test',
             'url' => 'https://google.com',
-        );
+        ];
 
         $response = $this->be($user)->post(route('item.store'), $payload);
         $item = Item::where('name', $payload['name'])
