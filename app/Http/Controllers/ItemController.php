@@ -56,7 +56,9 @@ class ItemController extends Controller
 	public function store(ItemRequest $request)
 	{
 		//TODO: Figure out how to image scrape amazon
-		Item::create($request->validated());
+		$item = new Item($request->validated());
+		$item->owner()->associate($request->user());
+		$item->save();
 		return redirect('list')->with(['success', 'Item added']);
 	}
 
@@ -112,9 +114,24 @@ class ItemController extends Controller
 	 */
 	public function list(ItemRequest $request)
 	{
-		return view('list')->with(['own_items' => Item::own_items($request->user()->id)]);
+		return view('list')->with([
+			'own_items' => Item::own_items($request->user()->id),
+			'availability_warning' => Item::low_availability_warning($request->user()->id),
+		]);
 	}
 
+	/**
+	 * Lists the currently deleted items for a user
+	 */
+	public function deleted()
+	{
+		$deleted_items = Item::withTrashed()->where('owner_id', auth()->user()->id)->where('deleted_at', ">", 0)->get();
+		$deleted_shares = UserUsers::withTrashed()->where('id', auth()->user()->id)->where("deleted_at", ">", 0)->get();
+		return view('deleted-items')->with([
+			'deleted_items' => $deleted_items,
+			'deleted_shares', $deleted_shares
+		]);
+	}
 	/**
 	 * Try and get an image from the items url. Only supports Amazon right now.
 	 */

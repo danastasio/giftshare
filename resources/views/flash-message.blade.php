@@ -16,56 +16,58 @@
         along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 ?>
-@if(Session::has('success'))
-<div class="pt-2">
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-green-600 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-green-800">
-			<strong>{{ Session::get('success') }}</strong>
-		</div>
-	</div>
-</div>
+@if(Session::has('info'))
+	@php
+		$text_color = "text-white dark:text-gray-200";
+		$bg_color = "bg-gray-500 dark:bg-gray-700";
+		$message = Session::get('info');
+	@endphp
+@elseif(Session::has('success'))
+	@php
+		$text_color = "text-white dark:text-gray-200";
+		$bg_color = "bg-green-600 dark:bg-green-800";
+		$message = Session::get('success');
+	@endphp
+@elseif(Session::has('error'))
+	@php
+		$text_color = "text-white dark:text-gray-200";
+		$bg_color = "bg-red-600 dark:bg-red-800";
+		$message = Session::get('error');
+	@endphp
+@elseif(Session::has('warning'))
+	@php
+		$text_color = "text-white dark:text-gray-200";
+		$bg_color = "bg-yellow-700 dark:bg-yellow-900";
+		$message = Session::get('warning');
+	@endphp
+@else
+	@php
+		$text_color = null;
+		$bg_color = "bg-red-600";
+		$message = null;
+	@endphp
 @endif
 
-@if (Session::has('error') || $errors->any())
-	@if ( $errors->any() )
-		<div class="pt-5">
-			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="text-white bg-red-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-red-800">
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li><strong>{{ __($error) }}</strong></li>
-						@endforeach
-					</ul>
-				</div>
+@if ( $errors->any() )
+	<div class="pt-5">
+		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+			<div class="text-white bg-red-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-red-800">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li><strong>{{ __($error) }}</strong></li>
+					@endforeach
+				</ul>
 			</div>
 		</div>
-	@else
-		<div class="pt-5">
-			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="text-white bg-red-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-red-800">
-					<strong>{{ __(Session::get('error') ) }}</strong>
-				</div>
+	</div>
+@elseif (!empty($message))
+	<div class="mt-2">
+		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+			<div class="{{ $text_color }} {{ $bg_color }} rounded-lg p-4 text-center">
+				<strong>{{ $message }}</strong>
 			</div>
 		</div>
-	@endif
+	</div>
+@else
 @endif
 
-@if (Session::has('warning'))
-<div class="pt-2">
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-yellow-700 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-yellow-900">
-			<strong>{{ __(Session::get('warning')) }}</strong>
-		</div>
-	</div>
-</div>
-@endif
-
-@if (Session::has('info'))
-<div class="pt-2">
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="text-white bg-gray-400 rounded-lg p-4 text-center dark:text-gray-200 dark:bg-gray-700">
-			<strong>{{ __(Session::get('info')) }}</strong>
-		</div>
-	</div>
-</div>
-@endif

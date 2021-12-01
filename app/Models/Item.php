@@ -28,7 +28,7 @@ class Item extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['name','description','url','owner_id','image_url'];
+    protected $fillable = ['name','description','url','image_url'];
     protected $dates = ['deleted_at'];
     protected $casts = ['claimed' => 'boolean'];
 
@@ -45,5 +45,17 @@ class Item extends Model
 	public static function own_items(int $user_id)
 	{
 		return Item::where('owner_id', $user_id)->get();
+	}
+
+	public static function low_availability_warning(int $user_id): bool
+	{
+		$my_total_items = Item::where('owner_id', $user_id)->count();
+		$my_claimed_items = Item::where('owner_id', $user_id)->where('claimed', true)->count();
+		if ($my_total_items === 0) {
+			return false;
+		} else {
+			$claimed_percentage = $my_claimed_items / $my_total_items;
+			return $claimed_percentage >= 0.8;
+		}
 	}
 }
