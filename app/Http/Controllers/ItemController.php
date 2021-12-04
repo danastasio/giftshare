@@ -56,9 +56,7 @@ class ItemController extends Controller
 	public function store(ItemRequest $request)
 	{
 		//TODO: Figure out how to image scrape amazon
-		$item = new Item($request->validated());
-		$item->owner()->associate($request->user());
-		$item->save();
+		Item::create($request->validated(), $request->user());
 		return redirect('list')->with(['success', 'Item added']);
 	}
 

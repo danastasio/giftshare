@@ -32,6 +32,14 @@ class Item extends Model
     protected $dates = ['deleted_at'];
     protected $casts = ['claimed' => 'boolean'];
 
+    public static function create(array $attributes, User $user): Item
+    {
+		$item = new Item($attributes);
+		$item->owner()->associate($user);
+		$item->save();
+		return $item;
+    }
+
     public function items()
     {
         return $this->belongsTo(User::class);
