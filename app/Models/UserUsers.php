@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserUsers extends Model
 {
-	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $fillable = ['owner_id', 'sharee_id'];
 

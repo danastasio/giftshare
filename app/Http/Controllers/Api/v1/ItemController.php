@@ -17,16 +17,15 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
-//use Illuminate\Database\Eloquent\Model;
 use App\Models\UserUsers;
 use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ItemRequest;
 
-class ItemController extends Controller
+class ItemController extends ApiController
 {
 	/**
 		* Get a list of all items shared with the logged in user based on what is shared with them.
@@ -35,7 +34,7 @@ class ItemController extends Controller
 		*/
 	public function index(ItemRequest $request)
 	{
-		return view('dashboard')->with(['shared_items' => UserUsers::shared_items(auth()->user()->id)]);
+		return response()->json(['message' => UserUsers::shared_items($request->user()->id)], 200);
 	}
 
 	/**
@@ -59,7 +58,7 @@ class ItemController extends Controller
 		$item = new Item($request->validated());
 		$item->owner()->associate($request->user());
 		$item->save();
-		return redirect('list')->with(['success', 'Item added']);
+		return response()->json(['message' => 'Item Added'], 200);
 	}
 
 	/**
@@ -72,7 +71,7 @@ class ItemController extends Controller
 	{
 		$item = Item::find($request['id']);
 		$item->delete();
-		return redirect('list')->with(['info', 'Item deleted']);
+		return response()->json(['message'  => 'Item deleted',], 200);
 	}
 	/**
 		* Display the specified resource.
@@ -104,9 +103,9 @@ class ItemController extends Controller
 		*/
 	public function update(ItemRequest $request)
 	{
-		$item = Item::find($request['id']);
+		$item = Item::find($request->id);
 		$item->update($request->validated());
-		return back();
+		return response()->json(["message" => "Item Updated"], 200);
 	}
 
 	/**
@@ -114,9 +113,9 @@ class ItemController extends Controller
 	 */
 	public function list(ItemRequest $request)
 	{
-		return view('list')->with([
-			'own_items' => Item::own_items($request->user()->id),
-			'availability_warning' => Item::low_availability_warning($request->user()->id),
+		return response()->json([
+			"availability_warning" => Item::low_availability_warning($request->user()->id),
+			'items' => Item::own_items($request->user()->id),
 		]);
 	}
 
@@ -127,10 +126,10 @@ class ItemController extends Controller
 	{
 		$deleted_items = Item::withTrashed()->where('owner_id', auth()->user()->id)->where('deleted_at', ">", 0)->get();
 		$deleted_shares = UserUsers::withTrashed()->where('id', auth()->user()->id)->where("deleted_at", ">", 0)->get();
-		return view('deleted-items')->with([
+		return response()->json([
 			'deleted_items' => $deleted_items,
-			'deleted_shares', $deleted_shares
-		]);
+			'deleted_shares', $deleted_shares,
+		], 200);
 	}
 	/**
 	 * Try and get an image from the items url. Only supports Amazon right now.

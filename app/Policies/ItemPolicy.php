@@ -55,7 +55,7 @@ class ItemPolicy
      */
     public function update(User $user = null, Item $item = null)
     {
-        if ($user->is($item->owner)) {
+        if (Auth::check() && $user->is($item->owner)) {
             return Response::allow();
         } else {
             return Response::deny();

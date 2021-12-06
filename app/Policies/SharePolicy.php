@@ -65,9 +65,10 @@ class SharePolicy
      * @param  \App\Models\UserUsers  $userUsers
      * @return mixed
      */
-    public function delete(User $user = null, UserUsers $share = null)
+    public function delete(User $user = null, int $share_id = null)
     {
-        if (Auth::check() && $user->is($share->owner)) {
+    	$share = UserUsers::find($share_id);
+        if ($share && \Auth::check() && $user->is($share->owner)) {
             return Response::allow();
         } else {
             return Response::deny();
