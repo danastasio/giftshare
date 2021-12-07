@@ -16,10 +16,11 @@ class ShareRequest extends FormRequest
      */
     public function authorize()
     {
-    	return match ($this->route()->uri) {
-    		"index",	"api/v1/share/index"	=> \Auth::check(),
-    		"share",	"api/v1/share/store"	=> \Auth::check(),
-    		"share/{share}",	"api/v1/share/destroy"	=> Gate::allows('delete-share', $this->id),
+    	return match ($this->method()) {
+    		"GET"		=> \Auth::check(),
+    		"POST",		=> \Auth::check(),
+    		"DELETE",	=> Gate::allows('delete-share', UserUsers::find($this->id)),
+    		"PUT",		=> Gate::allows('update-share', UserUsers::find($this->share)),
     		default			=> false,
     	};
     }
@@ -31,13 +32,15 @@ class ShareRequest extends FormRequest
      */
     public function rules()
     {
-    	return match ($this->route()->uri) {
-        	"share", "api/v1/share/store"	=> [
+    	return match ($this->method()) {
+        	"POST"	=> [
         		'email' => 'required|max:255|exists:App\Models\User,email|not_in:' . $this->user()->email
         	],
-        	"share/{share}", "api/v1/share/destroy" => [
+        	"DELETE" => [
         		'id' => 'required|exists:App\Models\UserUsers,id'
         	],
+        	"GET"  => [''],
+        	"PUT"  => [''],
         };
     }
 

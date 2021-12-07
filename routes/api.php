@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\ItemController;
 use App\Http\Controllers\Api\v1\ShareController;
+use App\Http\Controllers\Api\v1\ClaimController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '/v1', 'namespace' => 'Api\v1', 'middleware' => ['auth:sanctum', 'verified']], function () {
-	Route::get('item/dashboard',[ItemController::class, 'index']);
-	Route::get('item/list',		[ItemController::class, 'list']);
-	Route::post('item/store',	[ItemController::class, 'store']);
-	Route::post('item/destroy',	[ItemController::class, 'destroy']);
-	Route::post('item/update',	[ItemController::class, 'update']);
-	Route::get('share/index',	[ShareController::class, 'index']);
-	Route::post('share/store',	[ShareController::class, 'store']);
-	Route::post('share/destroy',[ShareController::class, 'destroy']);
+Route::group(['prefix' => '/v1', 'middleware' => ['auth:sanctum', 'verified']], function () {
+	// Application Endpoints
+	Route::get('dashboard', [ItemController::class, 'index']);
+
+	// Items API Endpoints
+	Route::get('items',		[ItemController::class, 'list']);
+	Route::post('items',	[ItemController::class, 'store']);
+	Route::put('items/{item}',	[ItemController::class, 'update']);
+	Route::delete('items',	[ItemController::class, 'destroy']);
+
+	// Share API Endpoints
+	Route::get('shares', [ShareController::class, 'index']);
+	Route::post('shares', [ShareController::class, 'store']);
+	Route::put('shares/{share}', [ShareController::class, 'update']);
+	Route::delete('shares', [ShareController::class, 'destroy']);
+
+	// Claim API Endpoints
+	Route::get('claims', [ClaimController::class, 'index']);
+	Route::post('claims', [ClaimController::class, 'store']);
+	Route::delete('claims', [ClaimController::class, 'destroy']);
 });
 

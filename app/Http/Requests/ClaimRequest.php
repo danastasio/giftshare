@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Item;
 
 class ClaimRequest extends FormRequest
 {
@@ -13,7 +15,13 @@ class ClaimRequest extends FormRequest
      */
     public function authorize()
     {
-    	return true;
+    	return match ($this->method()) {
+    		"GET"	=> \Auth::check(),
+    		"POST"	=> \Auth::check(),
+    		"PUT"	=> Gate::allows('update-claim', Item::find($this->item_id)),
+    		"DELETE"=> Gate::allows('delete-claim', Item::find($this->item_id)),
+    		default => false,
+    	};
     }
 
     /**

@@ -42,9 +42,30 @@ class Item extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+	public function claimant()
+	{
+		return $this->belongsTo(User::class, 'claimant_id');
+	}
+
 	public static function own_items(int $user_id)
 	{
 		return Item::where('owner_id', $user_id)->get();
+	}
+
+	public function claim(User $user)
+	{
+		$this->claimed = true;
+		$this->claimant()->associate($user);
+		$this->save();
+		return $this;
+	}
+
+	public function unclaim()
+	{
+		$this->claimed = false;
+		$this->claimant()->disassociate();
+		$this->save();
+		return $this;
 	}
 
 	public static function low_availability_warning(int $user_id): bool

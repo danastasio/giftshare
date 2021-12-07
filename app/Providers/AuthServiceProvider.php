@@ -29,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Gate::define('create-share', [SharePolicy::class, 'create']);
         Gate::define('delete-share', [SharePolicy::class, 'delete']);
+        Gate::define('update-share', [SharePolicy::class, 'update']);
         Gate::define('create-claim', [ClaimPolicy::class, 'create']);
         Gate::define('delete-claim', [ClaimPolicy::class, 'delete']);
         Gate::define('delete-item', [ItemPolicy::class, 'delete']);

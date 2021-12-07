@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Claim;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -69,13 +69,9 @@ class ClaimPolicy
      * @param  \App\Models\Claim  $claim
      * @return mixed
      */
-    public function delete(User $user, Claim $claim)
+    public function delete(User $user, Item $item)
     {
-        if ($share === null || $user === null) {
-            return Response::deny();
-        }
-
-        if (Auth::check() && (int)$share->owner_id === (int)$user->id) {
+        if (\Auth::check() && $user->is($item->claimant)) {
             return Response::allow();
         } else {
             return Response::deny();

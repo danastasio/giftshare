@@ -15,12 +15,11 @@ class ItemRequest extends FormRequest
      */
     public function authorize()
     {
-  	return match ($this->route()->uri) {
-    		"list",			"api/v1/item/list"		=> \Auth::check(),
-    		"dashboard", 	"api/v1/item/dashboard"	=> \Auth::check(),
-    		"store", 		"api/v1/item/store"		=> \Auth::check(),
-    		"item/{item}",	"api/v1/item/update"	=> Gate::allows('update-item', Item::find($this->id)),
-    		"destroy",		"api/v1/item/destroy"	=> Gate::allows('delete-item', Item::find($this->id)),
+  		return match ($this->method()) {
+    		"GET"		=> \Auth::check(),
+    		"POST",		=> \Auth::check(),
+    		"PUT",		=> Gate::allows('update-item', Item::find($this->id)),
+    		"DELETE",	=> Gate::allows('delete-item', Item::find($this->id)),
     		default			=> false,
     	};
     }

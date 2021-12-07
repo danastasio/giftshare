@@ -28,9 +28,9 @@ use App\Models\User;
 
 class ShareController extends ApiController
 {
-    public function index()
+    public function index(ShareRequest $request)
     {
-    	$user_id = auth()->user()->id;
+    	$user_id = $request->user()->id;
         $shared_with_others = UserUsers::my_shares($user_id);
         $shared_with_me = UserUsers::shared_with_me($user_id);
 
@@ -72,9 +72,9 @@ class ShareController extends ApiController
         //
     }
 
-    public function update(Request $request, int $id)
+    public function update(ShareRequest $request, int $id)
     {
-        //
+        return response()->json(['message' => "Not Yet Implemented"], 501);
     }
 
     public function destroy(ShareRequest $request)

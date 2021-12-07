@@ -28,13 +28,20 @@ use App\Http\Requests\ItemRequest;
 class ItemController extends ApiController
 {
 	/**
-		* Get a list of all items shared with the logged in user based on what is shared with them.
-		*
-		* @return Response
-		*/
+	 * Get information about a specific object
+	 */
+	public function info(ItemRequest $request)
+	{
+		return response()->json(Item::find($request->id), 200);
+	}
+	/**
+	* Get a list of all items shared with the logged in user based on what is shared with them.
+	*
+	* @return Response
+	*/
 	public function index(ItemRequest $request)
 	{
-		return response()->json(['message' => UserUsers::shared_items($request->user()->id)], 200);
+		return response()->json(UserUsers::shared_items($request->user()->id), 200);
 	}
 
 	/**
