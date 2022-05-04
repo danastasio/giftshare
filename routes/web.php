@@ -1,6 +1,6 @@
 <?php
 
-// uncomment the next three items if you're disabling email verification
+// uncomment the next three to disable email verification
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -10,6 +10,7 @@ use App\Http\Controllers\ShareController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::resource('share', ShareController::class);
     Route::resource('claim', ClaimController::class);
     Route::resource('admin', AdminPanel::class);
+    Route::resource('collection', CollectionController::class);
     Route::get('/list', [ItemController::class, 'list'])->name('list');
     Route::get('/deleted', [ItemController::class, 'deleted'])->name('deleted');
 

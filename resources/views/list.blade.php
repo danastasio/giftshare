@@ -37,6 +37,14 @@
 				<label for="description">Item Details:</label>
 				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="description" id="description">{{ request()->description }}</textarea>
 			</div>
+			<div class="mt-4">
+				<div class="w-full"><label for="lists">Item belongs to collections:</label></div>
+				<select name="lists" id="lists" multiple>
+					@foreach( $list_items as $list)
+						<option value="{{ $list }}">{{ $list }}</option>
+					@endforeach
+				</select>
+			</div>
 			<div class="flex">
 				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 dark:bg-blue-800">Submit</button>
 			</div>
@@ -95,7 +103,7 @@
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
 									</svg>
-									List
+									Collection
 								</button>
 								<button type="button" class="max-h-10" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');" title="Edit Item">
 									<!-- Edit SVG -->

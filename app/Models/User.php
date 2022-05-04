@@ -29,6 +29,8 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserItems;
 use App\Models\Item;
+use App\Models\Collection;
+use App\Models\UserCollection;
 
 class User extends Authenticatable //implements MustVerifyEmail
 {
@@ -102,4 +104,9 @@ class User extends Authenticatable //implements MustVerifyEmail
     {
         return $this->hasMany(UserItems::class, 'claimant_id');
     }
+
+	public function collections()
+	{
+		return $this->hasManyThrough(Collection::class, UserCollection::class, 'user_id', 'user_collections_id');
+	}
 }
