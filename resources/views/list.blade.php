@@ -71,41 +71,45 @@
 					@endif
 				</div>
 
-			<div class="flex-none dark:bg-gray-500 rounded-md overflow-hidden p-2 md:p-4">
-				<div class="invisible md:visible grid grid-cols-3 gap-3">
-					<div class="hidden md:flex text-left pb-3">Item Name</div>
-					<diProbably easiest v class="hidden md:flex text-left pb-3">Item Details</div>
-					<div class="hidden md:flex text-left pb-3 w-full"></div>
-				</div>
+				<div class="grid grid-cols-3 gap-2">
 					@foreach (  $own_items as $item )
-						<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4">
-							<div class="text-center md:text-left text-2xl md:text-lg font-bold md:font-normal">
+						<div class="grid grid-cols-1 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2 w-full">
+							<div class="text-center text-2xl md:text-lg font-bold">
 								{{ $item->name }}
 							</div>
-							<div class="text-center md:text-left text-lg align-center">
+							<div class="text-center text-lg align-center">
 								<em>{{ $item->description ?? "No Description Provided"}}</em>
 							</div>
-							<div class="flex ml-auto">
-								<div class="flex w-auto">
-									<input type="text" value="{{ $item->url }}" disabled class="w-auto bg-gray-200 max-h-10 rounded-l-lg hidden sm:block truncate" id="item{{ $item->id }}">
-									<a href="{{ $item->url }}" target="_blank" class="p-1 max-h-10 mr-2 sm:bg-gray-600 text-gray-800 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
-										<!-- Link SVG -->
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto sm:text-white align" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-	  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-										</svg>
-									</a>
-								</div>
-								<button type="button" class="max-h-10 w-1/3 mr-2 py-2 rounded-full" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');" title="Edit Item">
+							<div class="flex w-full">
+								<input type="text" value="{{ $item->url }}" disabled class="w-full bg-gray-200 max-h-10 rounded-l-lg hidden sm:block truncate" id="item{{ $item->id }}">
+								<a href="{{ $item->url }}" target="_blank" class="p-1 max-h-10 mr-2 sm:bg-gray-600 text-gray-800 dark:text-gray-800 rounded-lg sm:rounded-none sm:rounded-r-lg" onclick="copyToClipboard('item{{ $item->id }}')" title="Copy URL">
+									<!-- Link SVG -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto sm:text-white align" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+	  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+									</svg>
+								</a>
+							</div>
+							<div class="grid grid-cols-3 my-2">
+								<button type="button" class="max-h-10">
+									<!-- List SVG -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+									</svg>
+									List
+								</button>
+								<button type="button" class="max-h-10" onclick="document.getElementById('edit{{ $item->id }}').classList.remove('invisible');" title="Edit Item">
 									<!-- Edit SVG -->
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-yellow-700 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
 									</svg>
+									Edit
 								</button>
-								<button type="button" class="max-h-10 w-1/3 mr-2 rounded-full text-center" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');" title="Delete Item">
+								<button type="button" class="max-h-10" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');" title="Delete Item">
 									<!-- Delete SVG -->
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-red-600 dark:text-red-800 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
 									</svg>
+									Delete
 								</button>
 							</div>
 						</div>
