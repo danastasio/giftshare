@@ -49,7 +49,7 @@
 								</svg>
 							</div>
 							<div class="my-auto">
-                        		{{ __('My List') }}
+                        		{{ __('My Items') }}
                         	</div>
                         </div>
                     </x-jet-nav-link>
