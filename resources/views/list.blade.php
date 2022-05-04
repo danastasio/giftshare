@@ -39,9 +39,9 @@
 			</div>
 			<div class="mt-4">
 				<div class="w-full"><label for="lists">Item belongs to collections:</label></div>
-				<select name="lists" id="lists" multiple>
-					@foreach( $list_items as $list)
-						<option value="{{ $list }}">{{ $list }}</option>
+				<select name="collections[]" id="collections" multiple>
+					@foreach( $collections as $collection)
+						<option value="{{ $collection->id }}">{{ $collection->name }}</option>
 					@endforeach
 				</select>
 			</div>

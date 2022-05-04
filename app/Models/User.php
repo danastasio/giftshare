@@ -107,6 +107,6 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function collections()
 	{
-		return $this->hasManyThrough(Collection::class, UserCollection::class, 'user_id', 'user_collections_id');
+		return $this->belongsToMany(Collection::class);
 	}
 }

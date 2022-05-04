@@ -40,15 +40,10 @@ class CollectionController extends Controller
      */
     public function store(CollectionRequest $request, User $user)
     {
-        $user_collection = new UserCollection();
-        $user_collection->owner()->associate($request->user());
-        $user_collection->access_type = 2;
-        $user_collection->save();
-
         $collection = new Collection($request->validated());
         $collection->status = true;
-        $collection->user_collections()->associate($user_collection);
         $collection->save();
+        auth()->user()->collections()->attach($collection, ['access_type' => 2]);
         return view('collections.index')->with([
         	'success' => 'Collection added successfully',
         	'collections' => auth()->user()->collections()->get(),

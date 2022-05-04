@@ -17,9 +17,7 @@ class CreateCollectionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('status');
-            $table->unsignedBigInteger('user_collections_id');
             $table->timestamps();
-            $table->foreign('user_collections_id')->references('id')->on('user_collections');
         });
     }
 

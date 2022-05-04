@@ -25,6 +25,8 @@ use App\Models\UserUsers;
 use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ItemRequest;
+use App\Models\ItemCollection;
+use App\Models\Collection;
 
 class ItemController extends Controller
 {
@@ -57,10 +59,14 @@ class ItemController extends Controller
 	 */
 	public function store(ItemRequest $request)
 	{
-		//TODO: Figure out how to image scrape amazon
 		$item = new Item($request->validated());
-		$item->owner()->associate($request->user());
 		$item->save();
+		foreach($request['collections'] as $collection_id) {
+			// TODO validate that the owner is the user before attaching
+			$collection = Collection::find($collection_id);
+			$collection->items()->attach($item);
+			$collection->save();
+		}
 		return redirect('list')->with(['success', 'Item added']);
 	}
 
@@ -116,10 +122,11 @@ class ItemController extends Controller
 	 */
 	public function list(ItemRequest $request)
 	{
+		return auth()->user()->collections()->with('items')->get();
 		return view('list')->with([
 			'own_items' => Item::own_items($request->user()->id),
 			'availability_warning' => Item::low_availability_warning($request->user()->id),
-			'list_items' => ['a', 'b'],
+			'collections' => auth()->user()->collections()->get(),
 		]);
 	}
 

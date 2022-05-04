@@ -18,12 +18,12 @@ class CreateItemTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('url')->nullable();
-            $table->integer('owner_id');
             $table->boolean('claimed')->default(0);
-            $table->integer('claimant_id')->nullable();
             $table->text('image_url')->nullable()->default(null);
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->unsignedBigInteger('claimant_id')->nullable();
+            //$table->unsignedBigInteger('item_collections_id');
             $table->foreign('claimant_id')->references('id')->on('users');
+            //$table->foreign('item_collections_id')->references('id')->on('item_collections');
             $table->softDeletes();
             $table->timestamps();
         });

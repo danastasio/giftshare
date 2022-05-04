@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemCollectionsTable extends Migration
+class CreateCollectionItemTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateItemCollectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_collections', function (Blueprint $table) {
+        Schema::create('collection_item', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('collection_id');
             $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('list_id');
+            $table->foreign('collection_id')->references('id')->on('collections');
             $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('list_id')->references('id')->on('collections');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateItemCollectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_collections');
+        Schema::dropIfExists('collection_item');
     }
 }
