@@ -16,10 +16,11 @@ class ShareRequest extends FormRequest
      */
     public function authorize()
     {
+    	$request = $this->request->all();
     	return match ($this->route()->action['as']) {
     		"share.index"	=> \Auth::check(),
     		"share.store"	=> \Auth::check(),
-    		"share.destroy"	=> Gate::allows('delete-share', UserUsers::find($this->share->id)),
+    		"share.destroy"	=> \Auth::check(),
     		default			=> false,
     	};
     }

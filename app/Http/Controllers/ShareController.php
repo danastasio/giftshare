@@ -30,13 +30,9 @@ class ShareController extends Controller
 {
     public function index()
     {
-    	$user_id = auth()->user()->id;
-        $shared_with_others = UserUsers::my_shares($user_id);
-        $shared_with_me = UserUsers::shared_with_me($user_id);
-
         return view('sharing')->with([
-        	'shared_with_others' => $shared_with_others,
-        	'shared_with_me' 	 => $shared_with_me,
+        	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
+        	'shared_with_me' 	 => [],
         ]);
     }
 
@@ -45,21 +41,20 @@ class ShareController extends Controller
         //
     }
 
-    public function store(ShareRequest $request)
+	public function store(ShareRequest $request)
     {
-        // check to see if share exists
-        $request['sharee_id'] = User::where('email', $request->email)->value('id');
-        $exists = UserUsers::where('owner_id', $request->owner_id)->where('sharee_id', $request['sharee_id'])->get();
-        if (!$exists->isEmpty()) {
-            return redirect('share')->withInfo('Share already exists between you');
+    	if (count(User::where('email', $request['email'])->get()) == 0 ) {
+    		return redirect('share')->with(['error' => 'User not found']);
+    	}
+        if (count(auth()->user()->shares()->where('email', $request['email'])->get()) != 0) {
+        	return redirect('share')->with(['error' => 'Share already exists between you']);
         }
-
-		$share = new UserUsers;
-		$share->owner()->associate($request->user());
-		$share->sharee()->associate( User::find($request['sharee_id']) );
-		$share->save();
-
-        return redirect('share')->with(['success' => 'List shared with user']);
+		auth()->user()->shares()->attach(User::where('email', $request['email'])->get());
+        return view('sharing')->with([
+        	'success' => 'List shared with user',
+        	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
+        	'shared_with_me' => []
+        ]);
     }
 
     public function show(int $id)
@@ -77,10 +72,15 @@ class ShareController extends Controller
         //
     }
 
-    public function destroy(ShareRequest $request, UserUsers $share)
+    public function destroy(ShareRequest $request)
     {
-        $share = UserUsers::find($request->id);
-        $share->delete();
-        return redirect('share')->with(['info' => 'List revoked from user']);
+		$share = auth()->user()->shares()->wherePivot('id', $request['id'])->withPivot('id')->get();
+		auth()->user()->shares()->detach($share);
+
+        return view('sharing')->with([
+        	'info' => 'List revoked from user',
+        	'shared_with_others' => auth()->user()->shares()->get(),
+        	'shared_with_me' => []
+        ]);
     }
 }

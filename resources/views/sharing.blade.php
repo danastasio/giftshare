@@ -60,16 +60,16 @@
 
 					@foreach ( $shared_with_others as $share )
 						<div>
-							{{ $share['sharee']->name }}
+							{{ $share->name }}
 						</div>
 						<div>
-						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $share->id }}').classList.remove('invisible');">Revoke</button>
-						@component("modals.delete-item", ["name" => "delete".$share->id,"share_id" => $share->id, "id" => $share->id, "route" => "share.destroy", "modal_id" => "delete" . $share->id])
+						<button type="button" class="w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete{{ $share->pivot->id }}').classList.remove('invisible');">Revoke</button>
+						@component("modals.delete-item", ["name" => "delete".$share->pivot->id,"share_id" => $share->pivot->id, "id" => $share->pivot->id, "route" => "share.destroy", "modal_id" => "delete" . $share->pivot->id])
 							<x-slot name="modal_header">
 								Revoke List Access
 							</x-slot>
 							<x-slot name="modal_content">
-								<input type="hidden" name="id" value="{{ $share->id}}">
+								<input type="hidden" name="id" value="{{ $share->pivot->id}}">
 								You are about to unshare you list with this person. Confirm?
 							</x-slot>
 						@endcomponent
