@@ -63,8 +63,19 @@
 					</div>
 					<!-- TODO: Add an indicator for the number of claimed gifts / total gifts -->
 					</div>
-					@foreach(auth()->user()->shared_with_user()->get() as $collection)
-						{{ $collection }}
+					@foreach($user->visible_collections as $collection)
+						<div class="p-4">
+							<div class="p-4 border rounded-xl">
+								<div class="text-xl font-semibold dark:test-gray-200">
+									{{ $collection->name }}
+								</div>
+								@foreach($collection->items as $item)
+									<div class="w-full">
+										{{ $item->name }}
+									</div>
+								@endforeach
+							</div>
+						</div>
 					@endforeach
 			</div>
 		</div>
