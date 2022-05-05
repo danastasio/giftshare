@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserCollection;
+use App\Models\User;
 use App\Models\Item;
 use App\Models\ItemCollection;
 
@@ -22,4 +23,9 @@ class Collection extends Model
     {
 		return $this->belongsToMany(Item::class);
     }
+
+	public function users()
+	{
+		return $this->belongsToMany(User::class);
+	}
 }

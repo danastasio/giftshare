@@ -19,6 +19,7 @@ class CollectionController extends Controller
     {
         return view('collections.index')->with([
         	'collections' => auth()->user()->collections()->get(),
+        	'shared_with_me' => auth()->user()->shared_with_user()->get()
         ]);
     }
 
