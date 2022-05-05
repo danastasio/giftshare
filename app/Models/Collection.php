@@ -26,7 +26,7 @@ class Collection extends Model
 
 	public function owner()
 	{
-		return $this->belongsToMany(User::class, 'collection_user', 'id', 'owner_id');
+		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'owner_id');
 	}
 
 	public function users()
