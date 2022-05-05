@@ -103,17 +103,33 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function collections()
 	{
-		return $this->belongsToMany(Collection::class);
+		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
+			->wherepivot('access_type', '2')
+			->withpivot('access_type');
+	}
+
+	public function visible_collections()
+	{
+		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
+			->wherePivot('sharee_id', auth()->user()->id)
+			->withPivot('access_type');
+	}
+
+
+	public function shared_collections()
+	{
+		return $this->belongsToMany(Collection::class, 'collection_user', 'sharee_id')
+			->wherePivot('access_type', '1');
 	}
 
 	public function shares()
 	{
-		return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id')
-			->wherePivot('owner_id', auth()->user()->id);
+		return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id');
 	}
 
 	public function shared_with_user()
 	{
+
 		return $this->belongsToMany(User::class, 'user_user', 'sharee_id', 'owner_id')
 			->wherePivot('sharee_id', auth()->user()->id);
 	}

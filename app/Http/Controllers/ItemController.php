@@ -37,8 +37,9 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
+		return auth()->user()->shared_with_user()->with(['visible_collections', 'visible_collections.items'])->get();
 		return view('dashboard')->with([
-			'shared_items' => UserUsers::shared_items(auth()->user()->id),
+			'shared_items' => auth()->user()->shared_with_user()->get(),
 		]);
 	}
 
@@ -122,7 +123,6 @@ class ItemController extends Controller
 	 */
 	public function list(ItemRequest $request)
 	{
-		return auth()->user()->collections()->with('items')->get();
 		return view('list')->with([
 			'own_items' => Item::own_items($request->user()->id),
 			'availability_warning' => Item::low_availability_warning($request->user()->id),

@@ -15,10 +15,12 @@ class CreateCollectionUserTable extends Migration
     {
         Schema::create('collection_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('sharee_id')->nullable()->default(null);
             $table->unsignedBigInteger('collection_id');
             $table->string('access_type');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('sharee_id')->references('id')->on('users');
             $table->foreign('collection_id')->references('id')->on('collections');
             $table->timestamps();
         });

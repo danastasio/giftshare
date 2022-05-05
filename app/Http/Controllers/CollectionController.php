@@ -48,6 +48,7 @@ class CollectionController extends Controller
         return view('collections.index')->with([
         	'success' => 'Collection added successfully',
         	'collections' => auth()->user()->collections()->get(),
+        	'shared_with_me' => auth()->user()->shared_with_user()->get(),
         ]);
     }
 

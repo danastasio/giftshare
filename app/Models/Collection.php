@@ -24,8 +24,13 @@ class Collection extends Model
 		return $this->belongsToMany(Item::class);
     }
 
+	public function owner()
+	{
+		return $this->belongsToMany(User::class, 'collection_user', 'id', 'owner_id');
+	}
+
 	public function users()
 	{
-		return $this->belongsToMany(User::class);
+		return $this->belongsToMany(User::class, 'collection_user', 'sharee_id', 'sharee_id');
 	}
 }
