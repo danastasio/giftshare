@@ -32,7 +32,7 @@ class ShareController extends Controller
     {
         return view('sharing')->with([
         	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
-        	'shared_with_me' 	 => [],
+        	'shared_with_me' 	 => auth()->user()->shared_with_user()->get(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class ShareController extends Controller
         return view('sharing')->with([
         	'success' => 'List shared with user',
         	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
-        	'shared_with_me' => []
+        	'shared_with_me' => auth()->user()->shared_with_user()->get()
         ]);
     }
 
@@ -80,7 +80,7 @@ class ShareController extends Controller
         return view('sharing')->with([
         	'info' => 'List revoked from user',
         	'shared_with_others' => auth()->user()->shares()->get(),
-        	'shared_with_me' => []
+        	'shared_with_me' => auth()->user()->shared_with_user()->get()
         ]);
     }
 }

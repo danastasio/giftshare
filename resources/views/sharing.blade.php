@@ -86,8 +86,8 @@
 					<div>Email</div>
 					<hr class="col-span-2">
 					@foreach ( $shared_with_me as $share )
-						<div>{{ $share['owner']->name }}</div>
-						<div>{{ $share['owner']->email }}</div>
+						<div>{{ $share->name }}</div>
+						<div>{{ $share->email }}</div>
 					@endforeach
 				</div>
 			</div>
