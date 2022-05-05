@@ -37,9 +37,8 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
-		return auth()->user()->shared_with_user()->with(['visible_collections', 'visible_collections.items'])->get();
 		return view('dashboard')->with([
-			'shared_items' => auth()->user()->shared_with_user()->get(),
+			'shared_items' => auth()->user()->shared_with_user()->with(['visible_collections', 'visible_collections.items'])->get(),
 		]);
 	}
 
