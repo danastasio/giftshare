@@ -69,14 +69,29 @@
 								<div class="text-xl font-semibold dark:test-gray-200">
 									{{ $collection->name }}
 								</div>
+								<div class="grid grid-cols-3 gap-4 mt-5">
 								@foreach($collection->items as $item)
-									<div class="w-full">
-										{{ $item->name }}
+									<div id="{{ $item->id }}" class="user{{ $collection->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
+										<div class="w-full my-1 font-bold text-xl text-center mt-3">
+										@if ($item->url)
+											<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
+										@else
+											{{ $item->name }}
+										@endif
+										</div>
+										<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200 p-2">
+											<em>{{  $item->description ?? "No Description Provided" }}</em>
+										</div>
+										<div class="mt-auto">
+											<livewire:claim-item :item="$item" class="w-full">
+										</div>
 									</div>
 								@endforeach
+								</div>
 							</div>
 						</div>
 					@endforeach
+				</div>
 			</div>
 		</div>
 	@endforeach
