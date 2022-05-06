@@ -66,27 +66,44 @@
 					@foreach($user->visible_collections as $collection)
 						<div class="p-4">
 							<div class="p-4 border rounded-xl">
-								<div class="text-xl font-semibold dark:test-gray-200">
+								<div class="ml-1 text-xl font-semibold dark:test-gray-200">
 									{{ $collection->name }}
 								</div>
 								<div class="grid grid-cols-3 gap-4 mt-5">
-								@foreach($collection->items as $item)
-									<div id="{{ $item->id }}" class="user{{ $collection->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
-										<div class="w-full my-1 font-bold text-xl text-center mt-3">
-										@if ($item->url)
-											<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
-										@else
-											{{ $item->name }}
-										@endif
+									@foreach($collection->items as $item)
+										<div id="{{ $item->id }}" class="user{{ $collection->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
+											<div class="w-full my-1 font-bold text-xl text-center mt-3">
+											@if ($item->url)
+												<a target="_blank" class="underline text-blue-600 dark:text-blue-900" href="{{$item->url}}">{{ $item->name }}</a>
+											@else
+												{{ $item->name }}
+											@endif
+											</div>
+											<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200 p-2">
+												<em>{{  $item->description ?? "No Description Provided" }}</em>
+											</div>
+											<div class="mb-5 px-12">
+												<div class="grid grid-cols-2">
+													<button class="border rounded w-12 h-12 mx-auto bg-orange-500">
+														<!-- Truck SVG -->
+														<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+															<path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+															<path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+														</svg>
+													</button>
+													<button class="border rounded w-12 h-12 mx-auto">
+														<!-- Present SVG -->
+														<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto stroke-emerald-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+															<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+														</svg>
+													</button>
+												</div>
+											</div>
+											<div class="mt-auto">
+												<livewire:claim-item :item="$item" class="w-full">
+											</div>
 										</div>
-										<div class="w-full my-1 my-3 text-center text-gray-500 dark:text-gray-200 p-2">
-											<em>{{  $item->description ?? "No Description Provided" }}</em>
-										</div>
-										<div class="mt-auto">
-											<livewire:claim-item :item="$item" class="w-full">
-										</div>
-									</div>
-								@endforeach
+									@endforeach
 								</div>
 							</div>
 						</div>

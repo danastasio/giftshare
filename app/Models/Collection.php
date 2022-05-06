@@ -31,6 +31,6 @@ class Collection extends Model
 
 	public function users()
 	{
-		return $this->belongsToMany(User::class, 'collection_user', 'sharee_id', 'sharee_id');
+		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'sharee_id');
 	}
 }

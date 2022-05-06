@@ -12,7 +12,7 @@ class CollectionUser extends Component
 	{
 		$this->collection = $collection;
 		$this->user = $user;
-		$this->shared = count($collection->users()->wherePivot('sharee_id', $user->id)->get()) == 1;
+		$this->shared = $collection->users()->get()->contains($user);
 	}
 
     public function render()
@@ -24,13 +24,13 @@ class CollectionUser extends Component
 	{
 		$this->user->shared_collections()->attach($this->collection, ['owner_id' => $this->collection->owner()->first()->id, 'access_type' => '1']);
 		$this->user->save();
-		$this->shared = true;
+		$this->shared = $this->collection->users()->get()->contains($this->user);
 	}
 
 	public function revoke_collection()
 	{
 		$this->user->shared_collections()->detach($this->collection);
 		$this->user->save();
-		$this->shared = false;
+		$this->shared = $this->collection->users()->get()->contains($this->user);
 	}
 }

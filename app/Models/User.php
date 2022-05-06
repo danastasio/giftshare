@@ -104,8 +104,8 @@ class User extends Authenticatable //implements MustVerifyEmail
 	public function collections()
 	{
 		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
-			->wherepivot('access_type', '2')
-			->withpivot('access_type');
+			->wherePivot('access_type', '2')
+			->withPivot('access_type');
 	}
 
 	public function visible_collections()

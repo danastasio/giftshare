@@ -1,6 +1,6 @@
 <xml encoding="windows-1252">
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg class="w-16 h-16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve" width="10%" height="10%">
+<svg class="h-16 w-16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
 <path style="fill:#A2DAE7;" d="M32,216h416v256H32V216z"/>
 <path style="fill:#8DD3E7;" d="M32,216h416v32H32V216z"/>
 <path style="fill:#A2DAE7;" d="M8,136h464v80H8V136z"/>

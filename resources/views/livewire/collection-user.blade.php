@@ -1,6 +1,6 @@
 <div>
 	@if (!$this->shared)
-		<button wire:click="share_collection" class="rounded-full w-full">
+		<button wire:click="share_collection" class="rounded-full w-full" alt="Share Collection">
 			<div class="p-2 flex border-2 rounded-full">
 				<div class="rounded-full">
 					@if ($this->user->profile_photo_path)
@@ -15,7 +15,7 @@
 			</div>
 		</button>
 	@else
-		<button wire:click="revoke_collection" class="rounded-full w-full bg-gray-300">
+		<button wire:click="revoke_collection" class="rounded-full w-full bg-gray-300" alt="Unshare collection">
 			<div class="p-2 flex border-2 rounded-full">
 				<div class="rounded-full">
 					@if ($this->user->profile_photo_path)

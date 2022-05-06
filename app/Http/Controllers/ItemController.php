@@ -67,7 +67,7 @@ class ItemController extends Controller
 			$collection->items()->attach($item);
 			$collection->save();
 		}
-		return redirect('list')->with(['success', 'Item added']);
+		return redirect('items')->with(['success', 'Item added']);
 	}
 
 	/**
@@ -120,12 +120,11 @@ class ItemController extends Controller
 	/**
 	 * Show the list of items that I personally own. Used by the "My List" button
 	 */
-	public function list(ItemRequest $request)
+	public function owned_items(ItemRequest $request)
 	{
-		return view('list')->with([
-			'own_items' => Item::own_items($request->user()->id),
+		return view('items.index')->with([
+			'collections' => auth()->user()->collections()->with(['items'])->get(),
 			'availability_warning' => Item::low_availability_warning($request->user()->id),
-			'collections' => auth()->user()->collections()->get(),
 		]);
 	}
 

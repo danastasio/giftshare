@@ -19,6 +19,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdn.tailwindcss.com/"></script>
 
 		<!-- Style -->
 		<style>
@@ -59,7 +60,6 @@
         </div>
 
         @stack('modals')
-
         @livewireScripts
 		<script>
 			if (localStorage.theme === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
