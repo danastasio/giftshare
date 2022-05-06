@@ -2,12 +2,11 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     darkMode: 'class',
-    purge: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './vendor/laravel/jetstream/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-    ],
+	content: [
+    './public/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx,vue}',
+	'./resources/views/*.blade.php'
+	],
 
     theme: {
         extend: {
@@ -17,11 +16,9 @@ module.exports = {
         },
     },
 
-    variants: {
-        extend: {
-            opacity: ['disabled'],
-        },
-    },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+		require('@tailwindcss/forms'), 
+		require('@tailwindcss/typography')
+	],
 };
