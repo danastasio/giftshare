@@ -104,6 +104,16 @@
 											</button>
 										</a>
 									</div>
+									<div class="my-2 w-full mx-auto text-center">
+										<div>
+											<!-- TODO: This should be a livewire component -->
+											<select class="border p-1 w-full rounded-lg">
+												<option>Low</option>
+												<option>Medium</option>
+												<option>High</option>
+											</select>
+										</div>
+									</div>
 									<div class="grid grid-cols-3 my-2">
 										<button type="button" class="max-h-10" onclick="document.getElementById('edit_item_collections_{{ $item->id }}').classList.remove('invisible')" title="Edit Collections">
 											<!-- Collection SVG -->
