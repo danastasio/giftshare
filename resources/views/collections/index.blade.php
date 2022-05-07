@@ -19,7 +19,8 @@
 						<div class="hidden w-full" id="edit_collection_name_{{ $collection->id }}">
 							<div class="flex justify-center">
 								<input type="text" class="rounded-l-xl text-center" placeholder="{{ $collection->name }}">
-								<button class="rounded-r-xl bg-emerald-600 py-auto p-2">
+								<button class="rounded-r-xl bg-emerald-600 py-auto p-2" onclick="toggle_collection_name('{{ $collection->id }}')">
+									<!-- Check SVG -->
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
 									</svg>
