@@ -55,12 +55,6 @@
 			</div>
 		</div>
 		@component("modals.collection-users", ["collection" => $collection, "shared_with_me" => $shared_with_me])
-			<x-slot name="modal_header">
-				Collection User Management
-			</x-slot>
-			<x-slot name="modal_content">
-				You are about to unshare you list with this person. Confirm?
-			</x-slot>
 		@endcomponent
 	@endforeach
 	</div>

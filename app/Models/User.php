@@ -93,7 +93,7 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function items()
     {
-        return $this->hasMany(Item::class, 'owner_id');
+        return $this->belongsToMany(Item::class);
     }
 
     public function claims()

@@ -3,7 +3,7 @@
 	<div class="grid place-items-center h-screen w-screen">
 		<div class="absolute p-5 w-3/4 md:w-1/4 bg-white dark:bg-gray-600 rounded-lg grid grid-cols-1 gap-3 shadow-xl">
 			<div class="text-center">
-				<div>Collection User Management</div>
+				<div>Collection User Management TODO These users go the wrong way</div>
 				<div>{{$collection->name}}</div>
 			</div>
 			@foreach ($shared_with_me as $user)

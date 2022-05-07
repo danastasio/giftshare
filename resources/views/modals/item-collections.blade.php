@@ -6,9 +6,6 @@
 				<div>Item Collection Management</div>
 				<div>{{ $item->name }}</div>
 			</div>
-			@foreach ($collections as $collection)
-				<livewire:item-collections :item=$item :collection="$collection">
-			@endforeach
 		</div>
 	</div>
 </div>

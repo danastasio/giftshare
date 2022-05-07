@@ -41,10 +41,4 @@ class ItemRequest extends FormRequest
         ];
     }
 
-    public function validationData()
-    {
-    	return array_merge($this->all(), [
-            'owner_id' => $this->user()->id,
-        ]);
-    }
 }

@@ -15,6 +15,10 @@ class CreateItemUserTable extends Migration
     {
         Schema::create('item_user', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

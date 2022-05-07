@@ -61,6 +61,7 @@ class ItemController extends Controller
 	{
 		$item = new Item($request->validated());
 		$item->save();
+		$item->owner()->attach(auth()->user());
 		foreach($request['collections'] as $collection_id) {
 			// TODO validate that the owner is the user before attaching
 			$collection = Collection::find($collection_id);
