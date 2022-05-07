@@ -71,7 +71,7 @@ class ItemPolicy
      */
     public function delete(User $user = null, Item $item = null)
     {
-        if (Auth::check() && $user->is($item->owner)) {
+        if (Auth::check() && $user->is($item->owner()->first())) {
             return Response::allow();
         } else {
             return Response::deny();
