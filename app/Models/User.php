@@ -98,7 +98,13 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function claims()
     {
-        return $this->hasMany(UserItems::class, 'claimant_id');
+        return $this->belongsToMany(Item::class, 'user_item_claims', 'claimant_id');
+    }
+
+    public function remote_claims()
+    {
+    	return $this->belongsToMany(Item::class, 'user_item_claims', 'owner_id')
+    		->wherePivot('claimant_id', auth()->user()->id);
     }
 
 	public function collections()
@@ -124,7 +130,8 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function shares()
 	{
-		return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id');
+		return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id')
+			->wherePivot('owner_id', auth()->user()->id);
 	}
 
 	public function shared_with_user()

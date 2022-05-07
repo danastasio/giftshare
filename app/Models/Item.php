@@ -48,6 +48,11 @@ class Item extends Model
         return $this->belongsToMany(User::class);
     }
 
+	public function claimant()
+	{
+		return $this->belongsToMany(User::class, 'user_item_claims', 'item_id', 'claimant_id');
+	}
+
 	public static function own_items(int $user_id)
 	{
 		return Item::where('owner_id', $user_id)->get();
