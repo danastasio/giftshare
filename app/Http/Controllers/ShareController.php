@@ -30,7 +30,7 @@ class ShareController extends Controller
 {
     public function index()
     {
-        return view('sharing')->with([
+        return view('sharing.index')->with([
         	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
         	'shared_with_me' 	 => auth()->user()->shared_with_user()->get(),
         ]);
@@ -38,16 +38,16 @@ class ShareController extends Controller
 
     public function create()
     {
-        //
+        return view('sharing.create');
     }
 
 	public function store(ShareRequest $request)
     {
     	if (count(User::where('email', $request['email'])->get()) == 0 ) {
-    		return redirect('share')->with(['error' => 'User not found']);
+    		return redirect('share/create')->with(['error' => 'User not found']);
     	}
         if (count(auth()->user()->shares()->where('email', $request['email'])->get()) != 0) {
-        	return redirect('share')->with(['error' => 'Share already exists between you']);
+        	return redirect('share/create')->with(['error' => 'Share already exists between you']);
         }
 		auth()->user()->shares()->attach(User::where('email', $request['email'])->get());
         return view('sharing')->with([
