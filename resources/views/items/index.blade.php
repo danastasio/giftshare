@@ -105,7 +105,7 @@
 										</a>
 									</div>
 									<div class="grid grid-cols-3 my-2">
-										<button type="button" class="max-h-10" onclick="document.getElementById('edit_item_collections_item_{{ $item->id }}').classList.remove('invisible')" title="Edit Collections">
+										<button type="button" class="max-h-10" onclick="document.getElementById('edit_item_collections_{{ $item->id }}').classList.remove('invisible')" title="Edit Collections">
 											<!-- Collection SVG -->
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 												<path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
