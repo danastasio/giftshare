@@ -81,7 +81,7 @@ class ItemController extends Controller
 	{
 		$item = Item::find($request['id']);
 		$item->delete();
-		return redirect('list')->with(['info', 'Item deleted']);
+		return redirect('items')->with(['info', 'Item deleted']);
 	}
 	/**
 		* Display the specified resource.
