@@ -23,14 +23,13 @@ class ClaimItem extends Component
 
     public function claim()
     {
-        $user_item = Item::find($this->item_id);
-        if (!$user_item->claimed === true) {
-            $user_item->claimed = true;
-            $user_item->claimant_id = auth()->user()->id;
-            $user_item->save();
-            $this->claimed = true;
-            $this->claimant_id = auth()->user()->id;
-            $this->emit('toggle_claim', $this->item_id);
+        $item = Item::find($this->item_id);
+        if ($item->claimed === false) {
+        	auth()->user()->claims()->attach($item);
+        	$item->claimed = true;
+        	$item->save();
+            $this->claimed = auth()->user()->claims()->get()->contains($item);
+            //$this->emit('toggle_claim', $this->item_id);
         } else {
         	$this->label = "Item was claimed while you were on this page";
         }
@@ -38,14 +37,12 @@ class ClaimItem extends Component
 
     public function unclaim()
     {
-        $user_item = Item::find($this->item_id);
-        $user_item->claimed = false;
-        $user_item->claimant_id = null;
-        $user_item->purchased = false;
-        $user_item->save();
-        $this->claimed = false;
-        $this->claimant_id = null;
-        $this->emit('toggle_claim', $this->item_id);
+    	$item = Item::find($this->item_id);
+    	auth()->user()->claims()->detach($item);
+    	$item->claimed = false;
+    	$item->save();
+        $this->claimed = auth()->user()->claims()->get()->contains($item);
+        //$this->emit('toggle_claim', $this->item_id);
     }
 
     public function render()
