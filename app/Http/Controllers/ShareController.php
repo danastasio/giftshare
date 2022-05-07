@@ -33,6 +33,7 @@ class ShareController extends Controller
         return view('sharing.index')->with([
         	'shared_with_others' => auth()->user()->shares()->withPivot('id')->get(),
         	'shared_with_me' 	 => auth()->user()->shared_with_user()->get(),
+        	'collections' => auth()->user()->collections()->with('users')->get(),
         ]);
     }
 
