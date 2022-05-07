@@ -62,26 +62,6 @@
         @stack('modals')
         @livewireScripts
 		<script>
-			if (localStorage.theme === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				document.documentElement.classList.add('dark');
-				document.getElementById("checkbox").checked = true;
-			} else {
-				document.documentElement.classList.remove('dark');
-				document.getElementById("checkbox").checked = false;
-			}
-			function toggleDarkMode() {
-				if (localStorage.theme === 'light' || 'theme' in localStorage === false) {
-					localStorage.theme = "dark";
-	  				document.documentElement.classList.add('dark')
-	  				var result = true;
-				} else {
-					localStorage.theme = "light";
-	  				document.documentElement.classList.remove('dark')
-	  				var result = false;
-				}
-				return result;
-			}
-
 			function copyToClipboard(divid) {
 				/* Get the text field */
 				var copyText = document.getElementById(divid);
