@@ -82,32 +82,6 @@
 						</div>
 					</x-jet-nav-link>
 				</div>
-				<div class="flex items-end justify-end mx-auto my-auto ml-5">
-					<div class="flex justify-end items-center space-x-2 mx-auto relative">
-						<span class="text-xs font-extralight dark:text-gray-200">Light </span>
-						<div>
-							<input type="checkbox" name="" id="checkbox" class="hidden" />
-							<label for="checkbox" class="cursor-pointer" onclick="toggleDarkMode();">
-								<div class="w-9 h-5 flex items-center bg-gray-300 rounded-full p2 switch z-0 relative">
-									<span class="ml-0.5 absolute">
-										<!-- Sun SVG -->
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-										</svg>
-									</span>
-									<span class="absolute ml-5">
-										<!-- Moon SVG -->
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-										</svg>
-									</span>
-								<div class="w-4 h-4 bg-white rounded-full shadow switch-ball ml-0.5 relative z-10"></div>
-								</div>
-							</label>
-						</div>
-						<span class="text-xs font-bold dark:text-gray-200">Dark</span>
-					</div>
-				</div>
 			</div>
 
 			<!-- Settings Dropdown -->
