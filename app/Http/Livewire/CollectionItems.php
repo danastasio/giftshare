@@ -4,13 +4,13 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class ItemCollections extends Component
+class CollectionItems extends Component
 {
 	public function mount($item, $collection)
 	{
 		$this->item = $item;
 		$this->collection = $collection;
-		$this->in_collection = $collection->items()->get()->contains($item);
+		$this->in_collection = $item->collections()->get()->contains($collection);
 	}
 
 	public function add_to_collection()
@@ -27,6 +27,6 @@ class ItemCollections extends Component
 
     public function render()
     {
-        return view('livewire.item-collections');
+        return view('livewire.collection-items');
     }
 }

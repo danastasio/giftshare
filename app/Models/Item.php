@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Collection;
 
 class Item extends Model
 {
@@ -36,6 +37,11 @@ class Item extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+	public function collections()
+	{
+		return $this->belongsToMany(Collection::class, 'collection_item');
+	}
 
     public function owner()
     {
