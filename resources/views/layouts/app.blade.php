@@ -62,6 +62,18 @@
         @stack('modals')
         @livewireScripts
 		<script>
+			function toggle_collection_name(collection_id) {
+				$input_field = document.getElementById("".concat("edit_collection_name_", collection_id));
+				$plain_cname = document.getElementById("".concat("collection_name_", collection_id));
+				if ($input_field.classList.contains('hidden')) {
+					$input_field.classList.remove('hidden');
+					$plain_cname.classList.add('hidden');
+				} else {
+					$input_field.classList.add('hidden');
+					$plain_cname.classList.remove('hidden');
+				}
+			}
+
 			function copyToClipboard(divid) {
 				/* Get the text field */
 				var copyText = document.getElementById(divid);
