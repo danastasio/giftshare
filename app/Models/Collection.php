@@ -21,7 +21,7 @@ class Collection extends Model
 
     public function items()
     {
-		return $this->belongsToMany(Item::class);
+		return $this->belongsToMany(Item::class)->orderBy('id');
     }
 
 	public function owner()
@@ -31,6 +31,6 @@ class Collection extends Model
 
 	public function users()
 	{
-		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'sharee_id');
+		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'sharee_id')->orderBy('id');
 	}
 }
