@@ -87,10 +87,16 @@
 							<div class="grid grid-cols-3 gap-5">
 							@foreach ($collection->items as $item)
 								<div class="grid grid-cols-1 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2 w-full">
-									<div class="text-center text-2xl md:text-lg font-bold">
-										{{ $item->name }}
+									<div class="w-full flex">
+										<div class="text-center text-2xl md:text-lg font-bold">
+											{{ $item->name }}
+										</div>
+										<div class="flex-grow"></div>
+										<div class="flex">
+											<livewire:item-priority :item=$item>
+										</div>
 									</div>
-									<div class="text-center text-lg align-center">
+									<div class="text-lg align-center">
 										<em>{{ $item->description ?? "No Description Provided"}}</em>
 									</div>
 									<div class="flex w-full">
@@ -103,16 +109,6 @@
 												</svg>
 											</button>
 										</a>
-									</div>
-									<div class="my-2 w-full mx-auto text-center">
-										<div>
-											<!-- TODO: This should be a livewire component -->
-											<select class="border p-1 w-full rounded-lg">
-												<option>Low</option>
-												<option>Medium</option>
-												<option>High</option>
-											</select>
-										</div>
 									</div>
 									<div class="grid grid-cols-3 my-2">
 										<button type="button" class="max-h-10" onclick="document.getElementById('edit_item_collections_{{ $item->id }}').classList.remove('invisible')" title="Edit Collections">
