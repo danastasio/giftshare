@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
 	Route::get('/items', [ItemController::class, 'owned_items'])->name('list');
 	Route::get('/deleted', [ItemController::class, 'deleted'])->name('deleted');
+	Route::get('/qr', [ShareController::class, 'store']);
 });
 
 // below routes are for email verification

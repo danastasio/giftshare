@@ -42,7 +42,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full x-auto">
+		<div class="w-full mx-auto">
+			<div class="flex-none bg-white shadow-xl rounded-lg text-center pb-2">
+				<div class="w-full text-2xl">
+					Unique Sharing QR Code
+				</div>
+				<div class="w-full">
+					<img class="mx-auto" src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chld=H&chl=https://gifts.danastas.io/qr?email= {{ auth()->user()->email }}">
+				</div>
+				Share this code with others to easily set up a share with them!
+			</div>
+		</div>
+		<div class="w-full mx-auto">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex text-2xl mb-4 w-full">
 					<span class="basis-5/6">Users you are sharing with</span>

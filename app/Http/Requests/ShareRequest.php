@@ -17,10 +17,11 @@ class ShareRequest extends FormRequest
     public function authorize()
     {
     	$request = $this->request->all();
-    	return match ($this->route()->action['as']) {
+    	return match ($this->route()->action['as'] ?? $this->route()->uri) {
     		"share.index"	=> \Auth::check(),
     		"share.store"	=> \Auth::check(),
     		"share.destroy"	=> \Auth::check(),
+    		"qr"			=> \Auth::check(),
     		default			=> false,
     	};
     }
@@ -32,13 +33,16 @@ class ShareRequest extends FormRequest
      */
     public function rules()
     {
-    	return match ($this->route()->action['as']) {
+    	return match ($this->route()->action['as'] ?? $this->route()->uri) {
         	"share.store"	=> [
         		'email' => 'required|max:255|exists:App\Models\User,email|not_in:' . $this->user()->email
         	],
         	"share.destroy" => [
-        		'id' => 'required'
+        		'id' => 'required',
         	],
+        	"qr"			=> [
+        		'email' => 'required',
+        	]
         };
     }
 

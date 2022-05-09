@@ -9,7 +9,6 @@
 	@else
 		<div class="py-8">
 	@endif
-		TODO Qr code?
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 md:mx-0">
 				<div class="flex">
