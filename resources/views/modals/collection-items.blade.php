@@ -6,7 +6,7 @@
 				<div>Collection Item Management</div>
 				<div>{{ $collection->name }}</div>
 			</div>
-			@foreach (auth()->user()->items()->get() as $item)
+			@foreach ($items as $item)
 				<livewire:collection-items :item=$item :collection="$collection">
 			@endforeach
 		</div>

@@ -62,24 +62,14 @@
 							<div class="grid grid-cols-3 gap-5">
 							@foreach ($collection->items as $item)
 								<div class="grid grid-cols-1 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2 w-full">
-									<div class="w-full flex">
-										<div class="text-center text-2xl md:text-lg font-bold">
-											{{ $item->name }}
-										</div>
-										<div class="flex-grow"></div>
-
+									<div class="text-center text-2xl md:text-lg font-bold">
+										{{ $item->name }}
 									</div>
-									<div class="text-lg align-center">
+									<div class="text-lg text-center">
 										<em>{{ $item->description ?? "No Description Provided"}}</em>
-									</div class="flex">
-									<div class="flex">
-										<div>
-											Priority Level
-										</div>
-										<div class="flex-grow"></div>
-										<div>
-											<livewire:item-priority :item=$item>
-										</div>
+									</div>
+									<div class="flex w-full">
+										<livewire:item-priority :item=$item>
 									</div>
 									<div class="flex w-full">
 										<input type="text" value="{{ $item->url }}" disabled class="w-full bg-gray-200 max-h-10 rounded-l-lg hidden sm:block truncate" id="item{{ $item->id }}">

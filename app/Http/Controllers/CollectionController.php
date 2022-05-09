@@ -17,10 +17,12 @@ class CollectionController extends Controller
      */
     public function index()
     {
+    	// only showing items in collection. needs to show all
         return view('collections.index')->with([
         	'shares' => auth()->user()->shares()->get(),
-        	'collections' => auth()->user()->collections()->get(),
-        	'shared_with_me' => auth()->user()->shared_with_user()->get()
+        	'collections' => auth()->user()->collections()->with('items')->get(),
+        	'shared_with_me' => auth()->user()->shared_with_user()->get(),
+        	'items'			 => auth()->user()->items()->get(),
         ]);
     }
 

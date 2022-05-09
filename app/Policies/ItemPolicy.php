@@ -55,7 +55,7 @@ class ItemPolicy
      */
     public function update(User $user = null, Item $item = null)
     {
-        if ($user->is($item->owner)) {
+        if (Auth::check() && $user->items()->get()->contains($item)) {
             return Response::allow();
         } else {
             return Response::deny();
@@ -69,9 +69,9 @@ class ItemPolicy
      * @param  \App\Models\Item  $item
      * @return mixed
      */
-    public function delete(User $user = null, Item $item = null)
+    public function delete(User $user, Item $item = null)
     {
-        if (Auth::check() && $user->is($item->owner()->first())) {
+        if (Auth::check() && $user->items()->get()->contains($item)) {
             return Response::allow();
         } else {
             return Response::deny();

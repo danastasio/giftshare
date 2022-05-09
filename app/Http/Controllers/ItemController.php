@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ItemRequest;
 use App\Models\ItemCollection;
 use App\Models\Collection;
+use App\Models\User;
 
 class ItemController extends Controller
 {
@@ -65,8 +66,8 @@ class ItemController extends Controller
 	public function store(ItemRequest $request)
 	{
 		$item = new Item($request->validated());
+		$item->owner()->associate(User::find(auth()->user()->id));
 		$item->save();
-		$item->owner()->associate(auth()->user());
 		foreach($request['collections'] as $collection_id) {
 			// TODO validate that the owner is the user before attaching
 			$collection = Collection::find($collection_id);

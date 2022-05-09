@@ -1,4 +1,5 @@
 <x-app-layout>
+	<!-- TODO: Save and add another -->
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
 		<div class="grid grid-cols-1 gap-3 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 			<form action="{{ route("item.store") }}" method="post">
