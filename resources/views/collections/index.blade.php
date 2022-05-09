@@ -1,17 +1,16 @@
 <x-app-layout>
 	<div class="bg-white rounded-lg max-w-7xl mx-auto mt-5 p-4">
-	<h2 class="font-bold">Add Collection</h2>
-	<form action="{{ route('collection.store') }}" method="post" class="mt-5">
-		@csrf
-		<div>
-			<label for="name" class="w-full">Collection Name</label>
-			<input type="text" name="name" id="name" class="w-full">
+		<div class="flex w-full text-lg font-bold">
+			<div>Collection Management</div>
+			<div class="flex-grow"></div>
+			<div>
+				<a href="{{ route('collection.create') }}">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</a>
+			</div>
 		</div>
-		<button>bubmit button</button>
-	</form>
-	</div>
-	<div class="bg-white rounded-lg max-w-7xl mx-auto mt-5 p-4">
-		<div class="text-lg font-bold">Collection Management</div>
 		<div class="grid md:grid-cols-3 gap-3 mt-5">
 			@foreach ($collections as $collection)
 				<div class="grid grid-cols-1 gap-3 border-2 rounded-lg p-2">

@@ -33,11 +33,6 @@ class Item extends Model
     protected $dates = ['deleted_at'];
     protected $casts = ['claimed' => 'boolean'];
 
-    public function items()
-    {
-        return $this->belongsTo(User::class);
-    }
-
 	public function collections()
 	{
 		return $this->belongsToMany(Collection::class, 'collection_item');
@@ -45,12 +40,12 @@ class Item extends Model
 
     public function owner()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
 	public function claimant()
 	{
-		return $this->belongsToMany(User::class, 'user_item_claims', 'item_id', 'claimant_id');
+		return $this->belongsTo(User::class, 'claimant_id');
 	}
 
 	public static function own_items(int $user_id)

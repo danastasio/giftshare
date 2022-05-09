@@ -18,39 +18,6 @@
 ?>
 
 <x-app-layout>
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
-		<div class="grid grid-cols-1 gap-3 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
-			<form action="{{ route("item.store") }}" method="post">
-			@csrf
-
-			<div class="text-2xl mb-4">Add a new item</div>
-			<div>
-				<label for="name" required>Item Name: <span class="text-red-700">*</span></label>
-				<input type="text" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="name" id="name" value="{{ request()->name }}">
-			</div>
-			<div class="mt-4">
-				<label for="url">Item Link:</label>
-				<input type="url" placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="url" id="url" value="{{ request()->url }}">
-			</div>
-			<div class="mt-4">
-				<label for="description">Item Details:</label>
-				<textarea placeholder="(optional)" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none dark:bg-gray-400 dark:text-gray-200" name="description" id="description">{{ request()->description }}</textarea>
-			</div>
-			<div class="mt-4">
-				<div class="w-full"><label for="lists">Item belongs to collections:</label></div>
-				<select name="collections[]" id="collections" multiple>
-					@foreach( $collections as $collection)
-						<option value="{{ $collection->id }}">{{ $collection->name }}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="flex">
-				<button type=submit class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 dark:bg-blue-800">Submit</button>
-			</div>
-			</form>
-		</div>
-	</div>
-
 @if ( $collections->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -67,7 +34,15 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 darkoverflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 				<div class="flex-none md:flex">
-					<div class="text-2xl font-semibold mb-5">Your current list</div>
+					<div class="flex w-full text-2xl font-semibold mb-5">
+						<div>Your current items</div>
+						<div class="flex-grow"></div>
+						<a href="{{ route('item.create') }}">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</a>
+					</div>
 					@if($availability_warning)
 						<div class="ml-0 mt-2 md:mt-0 md:ml-4 flex" title="A significant number of your items have been claimed. You may want to consider adding more!">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -38,7 +38,10 @@ class ItemController extends Controller
 	public function index()
 	{
 		return view('dashboard')->with([
-			'shared_items' => auth()->user()->shared_with_user()->with(['visible_collections', 'visible_collections.items'])->get(),
+			'shared_items' => auth()->user()->shared_with_user()->with([
+				'visible_collections',
+				'visible_collections.items'
+			])->get(),
 		]);
 	}
 
@@ -49,7 +52,9 @@ class ItemController extends Controller
 		*/
 	public function create()
 	{
-		//
+		return view('items.create')->with([
+			'collections' => auth()->user()->collections()->get(),
+		]);
 	}
 
 	/**
@@ -61,7 +66,7 @@ class ItemController extends Controller
 	{
 		$item = new Item($request->validated());
 		$item->save();
-		$item->owner()->attach(auth()->user());
+		$item->owner()->associate(auth()->user());
 		foreach($request['collections'] as $collection_id) {
 			// TODO validate that the owner is the user before attaching
 			$collection = Collection::find($collection_id);

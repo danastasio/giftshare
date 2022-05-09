@@ -94,25 +94,24 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function items()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->hasMany(Item::class, 'owner_id');
     }
 
     public function claims()
     {
-        return $this->belongsToMany(Item::class, 'user_item_claims', 'claimant_id');
+        return $this->hasMany(Item::class, 'claimant_id');
     }
 
     public function remote_claims()
     {
-    	return $this->belongsToMany(Item::class, 'user_item_claims', 'owner_id')
-    		->wherePivot('claimant_id', auth()->user()->id);
+    	return $this->hasMany(Item::class, 'owner_id')
+    		->where('claimant_id', auth()->user()->id);
     }
 
 	public function collections()
 	{
 		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
-			->wherePivot('access_type', '2')
-			->withPivot('access_type');
+			->wherePivot('access_type', '2');
 	}
 
 	public function visible_collections()
