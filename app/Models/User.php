@@ -91,6 +91,19 @@ class User extends Authenticatable //implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return mixed
+     */
+    protected function authenticated(Request $request)
+    {
+        $variable = 7;
+        return redirect('/?variable='.$variable);
+    }
+
     public function items()
     {
         return $this->belongsToMany(Item::class);

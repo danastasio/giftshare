@@ -92,12 +92,19 @@
 											{{ $item->name }}
 										</div>
 										<div class="flex-grow"></div>
-										<div class="flex">
-											<livewire:item-priority :item=$item>
-										</div>
+
 									</div>
 									<div class="text-lg align-center">
 										<em>{{ $item->description ?? "No Description Provided"}}</em>
+									</div class="flex">
+									<div class="flex">
+										<div>
+											Priority Level
+										</div>
+										<div class="flex-grow"></div>
+										<div>
+											<livewire:item-priority :item=$item>
+										</div>
 									</div>
 									<div class="flex w-full">
 										<input type="text" value="{{ $item->url }}" disabled class="w-full bg-gray-200 max-h-10 rounded-l-lg hidden sm:block truncate" id="item{{ $item->id }}">
