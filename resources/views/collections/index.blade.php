@@ -25,7 +25,7 @@
 							Users
 						</button>
 
-						<button>
+						<button onclick="document.getElementById('delete_collection_{{ $collection->id }}').classList.remove('hidden');">
 							<!-- Delete SVG -->
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-red-600 dark:text-red-800 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				  				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -39,6 +39,31 @@
 							</svg>
 							Items
 						</button>
+					</div>
+					<div class="hidden" id="delete_collection_{{ $collection->id }}">
+						<hr>
+						<div class="flex px-5 mt-2">
+							<div class="p-1 text-red-600 font-semibold">
+								Really delete collection?
+							</div>
+							<div class="flex-grow"></div>
+							<div class="flex">
+								<div class="mr-2">
+									<form method="POST" action="{{ route('collection.destroy', $collection->id) }}">
+										@csrf
+										@method('DELETE')
+										<button class="text-red-600 bg-white border-2 border-red-600 p-1 px-3 rounded-lg font-semibold hover:text-white hover:bg-red-600">
+											Yes
+										</button>
+									</form>
+								</div>
+								<div>
+									<button class="bg-emerald-600 text-white p-1 rounded-lg px-4 border-2 border-emerald-600" onclick="document.getElementById('delete_collection_{{ $collection->id }}').classList.add('hidden');">
+										No
+									</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			@endforeach

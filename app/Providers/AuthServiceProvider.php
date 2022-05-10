@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Policies\SharePolicy;
 use App\Policies\ClaimPolicy;
 use App\Policies\ItemPolicy;
+use App\Policies\CollectionPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -33,5 +34,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-claim', [ClaimPolicy::class, 'delete']);
         Gate::define('delete-item', [ItemPolicy::class, 'delete']);
         Gate::define('update-item', [ItemPolicy::class, 'update']);
+        Gate::define('delete-collection', [CollectionPolicy::class, 'delete']);
     }
 }

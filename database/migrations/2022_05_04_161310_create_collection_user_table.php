@@ -21,7 +21,7 @@ class CreateCollectionUserTable extends Migration
             $table->string('access_type');
             $table->foreign('owner_id')->references('id')->on('users');
             $table->foreign('sharee_id')->references('id')->on('users');
-            $table->foreign('collection_id')->references('id')->on('collections');
+            $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -48,11 +48,12 @@ class CollectionController extends Controller
         $collection->status = true;
         $collection->save();
         auth()->user()->collections()->attach($collection, ['access_type' => 2]);
-        return view('collections.index')->with([
+        return redirect('collection')->with(['success' => 'Collection Added']);
+        /* return view('collections.index')->with([
         	'success' => 'Collection added successfully',
         	'collections' => auth()->user()->collections()->get(),
         	'shared_with_me' => auth()->user()->shared_with_user()->get(),
-        ]);
+        ]);*/
     }
 
     /**
@@ -95,8 +96,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CollectionRequest $request)
     {
-        //
+    	auth()->user()->collections()->where('collections.id', $request->id)->delete();
+    	return redirect('collection')->with(['success' => 'Collection was deleted']);
     }
 }
