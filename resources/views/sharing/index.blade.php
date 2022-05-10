@@ -56,12 +56,14 @@
 		<div class="w-full mx-auto">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex text-2xl mb-4 w-full">
-					<span class="basis-5/6">Users you are sharing with</span>
-					<span class="my-auto basis-1/6">
-						<a href="{{ route('share.create') }}">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<span>Users you are sharing with</span>
+					<div class="flex-grow"></div>
+					<span class="my-auto">
+						<a href="{{ route('share.create') }}" class="flex bg-green-600 rounded-lg px-2 text-white">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
 							</svg>
+							<span class="text-md">Create Share</span>
 						</a>
 					</span>
 				</div>
@@ -69,8 +71,6 @@
 					<div class="invisible md:visible">Name</div>
 					<div class="invisible md:visible">Revoke Access</div>
 					<div class="col-span-2"><hr></div>
-
-
 					@foreach( $shared_with_others as $share )
 						<div>
 							{{ $share->name }}

@@ -38,31 +38,34 @@
 		<div class="py-4">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 				<div class="mx-2 rounded-md bg-gray-100 md:bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="flex">
-				<div class="flex-none">
-					<button type="button" class="my-auto" onclick="toggleSection('{{ $user->id }}')" id="name{{ $user->id}}">
-						<div class="flex">
-							<div class="mr-4 my-auto">
-								<!-- Carrat SVG -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 dark:text-gray-200 my-auto transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="chevron{{ $user->id }}">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-								</svg>
-							</div>
-							<div>
-								@if ($user->profile_photo_path)
-									<img alt="profile picture" src="{{ url('/storage/' . $user->profile_photo_path) }}" class="w-8 rounded-full mr-3">
-								@else
-									<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $user->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
-								@endif
-							</div>
-							<div class="text-2xl dark:text-gray-200">
-								{{ $user->name }}
-							</div>
+					<div class="flex">
+						<div class="flex-none">
+							<button type="button" class="my-auto" onclick="toggleSection('{{ $user->id }}')" id="name{{ $user->id}}">
+								<div class="flex">
+									<div class="mr-4 my-auto">
+										<!-- Carrat SVG -->
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 dark:text-gray-200 my-auto transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="chevron{{ $user->id }}">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+										</svg>
+									</div>
+									<div>
+										@if ($user->profile_photo_path)
+											<img alt="profile picture" src="{{ url('/storage/' . $user->profile_photo_path) }}" class="w-8 rounded-full mr-3">
+										@else
+											<img alt="generated profile picture" src="{{ url('https://ui-avatars.com/api/?name=' . $user->name . '&background=random&length=1&size=128') }}" class="w-8 rounded-full mr-3">
+										@endif
+									</div>
+									<div class="text-2xl dark:text-gray-200">
+										{{ $user->name }}
+									</div>
+								</div>
+							</button>
 						</div>
-					</button>
+						<!-- TODO: Add an indicator for the number of claimed gifts / total gifts -->
 					</div>
-					<!-- TODO: Add an indicator for the number of claimed gifts / total gifts -->
-					</div>
+					@if($user->visible_collections->isEmpty())
+						<span class="mt-10">{{ $user->name }} has not shared any collections with you yet. When they do, this is where they will appear.</span>
+					@endif
 					@foreach($user->visible_collections as $collection)
 						<div class="p-4">
 							<div class="p-4 border rounded-xl">
