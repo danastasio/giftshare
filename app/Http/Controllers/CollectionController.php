@@ -45,6 +45,9 @@ class CollectionController extends Controller
     public function store(CollectionRequest $request, User $user)
     {
         $collection = new Collection($request->validated());
+        if (strtolower($collection->name) === "default collection") {
+        	return redirect('collection')->with(['error' => "'Default Collection' is a reserved name. Please choose a different name"]);
+        }
         $collection->status = true;
         $collection->save();
         auth()->user()->collections()->attach($collection, ['access_type' => 2]);

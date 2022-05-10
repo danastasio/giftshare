@@ -17,8 +17,8 @@ class CollectionRequest extends FormRequest
     {
 		return match ($this->method()) {
     		'GET', 'POST'	=> \Auth::check(),
-    		'PUT'			=> Collection::find($this->id)->owner()->id(auth()->user()),
-    		'DELETE'		=> Collection::find($this->id)->owner()->is(auth()->user()),
+    		'PUT'			=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
+    		'DELETE'		=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
     		default			=> false,
     	};
     }

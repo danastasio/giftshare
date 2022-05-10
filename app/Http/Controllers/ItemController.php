@@ -69,11 +69,17 @@ class ItemController extends Controller
 		$item = new Item($request->validated());
 		$item->owner()->associate(User::find(auth()->user()->id));
 		$item->save();
-		foreach($request['collections'] as $collection_id) {
-			// TODO validate that the owner is the user before attaching
-			$collection = Collection::find($collection_id);
-			$collection->items()->attach($item);
-			$collection->save();
+		if (empty($request['collections'])) {
+			$default_collection = auth()->user()->default_collection()->first();
+			$default_collection->items()->attach($item);
+			$default_collection->save();
+		} else {
+			foreach($request['collections'] as $collection_id) {
+				// TODO validate that the owner is the user before attaching
+				$collection = Collection::find($collection_id);
+				$collection->items()->attach($item);
+				$collection->save();
+			}
 		}
 		return redirect('items')->with(['success', 'Item added']);
 	}

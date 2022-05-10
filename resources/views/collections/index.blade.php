@@ -42,27 +42,33 @@
 					</div>
 					<div class="hidden" id="delete_collection_{{ $collection->id }}">
 						<hr>
-						<div class="flex px-5 mt-2">
-							<div class="p-1 text-red-600 font-semibold">
-								Really delete collection?
-							</div>
-							<div class="flex-grow"></div>
-							<div class="flex">
-								<div class="mr-2">
-									<form method="POST" action="{{ route('collection.destroy', $collection->id) }}">
-										@csrf
-										@method('DELETE')
-										<button class="text-red-600 bg-white border-2 border-red-600 p-1 px-3 rounded-lg font-semibold hover:text-white hover:bg-red-600">
-											Yes
+						<div class="flex px-5 mt-2 text-center">
+							@if($collection->name === "Default Collection")
+								<div class="w-full p-1 text-red-600 font-semibold">
+									Cannot delete Default Collection
+								</div>
+							@else
+								<div class="p-1 text-red-600 font-semibold">
+									Really delete collection?
+								</div>
+								<div class="flex-grow"></div>
+								<div class="flex">
+									<div class="mr-2">
+										<form method="POST" action="{{ route('collection.destroy', $collection->id) }}">
+											@csrf
+											@method('DELETE')
+											<button class="text-red-600 bg-white border-2 border-red-600 p-1 px-3 rounded-lg font-semibold hover:text-white hover:bg-red-600">
+												Yes
+											</button>
+										</form>
+									</div>
+									<div>
+										<button class="bg-emerald-600 text-white p-1 rounded-lg px-4 border-2 border-emerald-600" onclick="document.getElementById('delete_collection_{{ $collection->id }}').classList.add('hidden');">
+											No
 										</button>
-									</form>
+									</div>
 								</div>
-								<div>
-									<button class="bg-emerald-600 text-white p-1 rounded-lg px-4 border-2 border-emerald-600" onclick="document.getElementById('delete_collection_{{ $collection->id }}').classList.add('hidden');">
-										No
-									</button>
-								</div>
-							</div>
+							@endif
 						</div>
 					</div>
 				</div>

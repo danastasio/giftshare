@@ -22,6 +22,8 @@ class CollectionName extends Component
 	{
 		if (!$this->new_name) {
 			return redirect('collection')->with(['error' => 'New name cannot be blank.']);
+		} elseif (strtolower($this->new_name) === 'default collection') {
+			return redirect('collection')->with(['error' => "'Default Collection' is a reserved name. Please choose another"]);
 		} else {
 			$this->collection->name = $this->new_name;
 			$this->collection->save();

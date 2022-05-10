@@ -37,7 +37,6 @@ class ItemRequest extends FormRequest
 				'name' => 'required',
 				'url'  => 'url|nullable',
 				'description' => 'nullable|string|max:256',
-				'collections' => 'required',
 			],
 			"PUT"	=> [
 				'name' => 'required',
