@@ -15,7 +15,6 @@ class CollectionRequest extends FormRequest
      */
     public function authorize()
     {
-    	dd($this);
 		return match ($this->method()) {
     		'GET', 'POST'	=> \Auth::check(),
     		'PUT'			=> Collection::find($this->id)->owner()->id(auth()->user()),
@@ -31,7 +30,6 @@ class CollectionRequest extends FormRequest
      */
     public function rules()
     {
-    	dd("You are here");
     	return match($this->method()) {
     		'DELETE', => [
 				'id' => 'required',
