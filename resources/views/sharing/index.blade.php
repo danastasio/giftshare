@@ -18,11 +18,18 @@
 ?>
 
 <x-app-layout>
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-7xl mx-3 md:mx-auto pb-3 mt-5">
-		<div class="grid grid-cols-1 gap-2">
-			<div class="w-full mx-auto">
+	<div class="flex-none max-w-5xl mx-3 md:mx-auto pb-3 mt-5">
+		<div class="flex gap-2 w-full">
+			<div class="w-1/2">
+				<div class="text-2xl">
+					Collection User Management
+				</div>
+				<div class="mt-3">
+					Add and remove users to and from your collections
+				</div>
+			</div>
+			<div class="w-1/2 mx-auto">
 				<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
-					<div class="text-center text-2xl mb-4">Collection User Management</div>
 					@foreach( $collections as $collection )
 						<div class="flex w-full py-auto mt-3">
 							<div class="my-auto">
@@ -42,21 +49,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full mx-auto">
-			<div class="flex-none bg-white shadow-xl rounded-lg text-center pb-2">
-				<div class="w-full text-2xl">
+		<div class="flex w-full mx-auto mt-5">
+			<div class="w-1/2">
+				<div class="text-2xl">
 					Unique Sharing QR Code
 				</div>
-				<div class="w-full">
-					<img class="mx-auto" src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chld=H&chl=https://gifts.danastas.io/qr?email= {{ auth()->user()->email }}">
+				<div class="mt-3 pr-2">
+					Have someone else scan this QR code and you will create a share with them!
 				</div>
-				Share this code with others to easily set up a share with them!
+			</div>
+			<div class="w-1/2 flex-none bg-white shadow-xl rounded-lg p-5">
+				<img class="mx-auto" src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chld=H&chl=https://gifts.danastas.io/qr?email= {{ auth()->user()->email }}">
 			</div>
 		</div>
-		<div class="w-full mx-auto">
-			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
+		<div class="flex w-full mx-auto mt-5">
+			<div class="w-1/2">
+				<div class="text-2xl">
+					Users you are sharing with
+				</div>
+				<div class="mt-3 pr-2">
+					The users to the left can be added to one or more of your collections.
+				</div>
+			</div>
+			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex text-2xl mb-4 w-full">
-					<span>Users you are sharing with</span>
 					<div class="flex-grow"></div>
 					<span class="my-auto">
 						<a href="{{ route('share.create') }}" class="flex bg-green-600 rounded-lg px-2 text-white">
@@ -96,9 +112,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full mx-auto">
-			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="text-center text-2xl mb-4">Currently sharing with you</div>
+		<div class="flex w-full mx-auto mt-5">
+			<div class="w-1/2">
+				<div class="text-2xl">
+					Users who are sharing with you
+				</div>
+				<div class="mt-3 pr-2">
+					The users to the left have added you to their account and can share their collections with you.
+				</div>
+			</div>
+			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="text-2xl mb-4">Currently sharing with you</div>
 				<div class="grid grid-cols-2 gap-5">
 					<div>Name</div>
 					<div>Email</div>
