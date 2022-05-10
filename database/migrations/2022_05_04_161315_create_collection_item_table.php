@@ -17,7 +17,7 @@ class CreateCollectionItemTable extends Migration
             $table->id();
             $table->unsignedBigInteger('collection_id');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('collection_id')->references('id')->on('collections');
+            $table->foreign('collection_id')->references('id')->on('collections')->onDelete('CASCADE');
             $table->foreign('item_id')->references('id')->on('items');
             $table->timestamps();
         });

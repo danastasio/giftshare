@@ -6,7 +6,7 @@
 				<div>Collection User Management</div>
 				<div>{{$collection->name}}</div>
 			</div>
-			@foreach ($shared_with_me as $user)
+			@foreach ($shares as $user)
 				<livewire:collection-user :user=$user :collection="$collection">
 			@endforeach
 		</div>

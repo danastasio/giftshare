@@ -110,13 +110,13 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function collections()
 	{
-		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
+		return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
 			->wherePivot('access_type', '2');
 	}
 
 	public function visible_collections()
 	{
-		return $this->belongstomany(collection::class, 'collection_user', 'owner_id')
+		return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
 			->wherePivot('sharee_id', auth()->user()->id)
 			->withPivot('access_type');
 	}

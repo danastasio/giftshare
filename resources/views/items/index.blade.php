@@ -54,8 +54,7 @@
 				</div>
 
 				<div class="grid grid-cols-1 gap-2">
-					@foreach (  $collections as $collection )
-						<div class="border p-5">
+					@foreach (  $collections as $collection )						<div class="border p-5">
 							<div class="text-xl mb-2 ml-1">
 								{{ $collection->name }}
 							</div>

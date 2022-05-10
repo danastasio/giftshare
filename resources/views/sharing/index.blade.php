@@ -113,7 +113,7 @@
 	</div>
 	<div id="modals">
 		@foreach( $collections as $collection )
-			@component('modals.collection-users', ['collection' => $collection, 'shared_with_me' => $shared_with_me])
+			@component('modals.collection-users', ['collection' => $collection, 'shares' => $shares])
 			@endcomponent
 		@endforeach
 	</div>

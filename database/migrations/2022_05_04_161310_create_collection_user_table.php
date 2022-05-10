@@ -19,8 +19,8 @@ class CreateCollectionUserTable extends Migration
             $table->unsignedBigInteger('sharee_id')->nullable()->default(null);
             $table->unsignedBigInteger('collection_id');
             $table->string('access_type');
-            $table->foreign('owner_id')->references('id')->on('users');
-            $table->foreign('sharee_id')->references('id')->on('users');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('sharee_id')->references('id')->on('users')->onDelete('no action');
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
             $table->timestamps();
         });
