@@ -13,11 +13,11 @@ class UserCollection extends Model
 
     public function owner()
     {
-		return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function collection()
     {
-		return $this->belongsTo(Collection::class);
+        return $this->belongsTo(Collection::class);
     }
 }

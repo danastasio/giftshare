@@ -43,7 +43,7 @@ class SharePolicy
      */
     public function create(User $user = null)
     {
-		//
+        //
     }
 
     /**

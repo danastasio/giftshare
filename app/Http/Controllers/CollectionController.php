@@ -17,12 +17,12 @@ class CollectionController extends Controller
      */
     public function index()
     {
-    	// only showing items in collection. needs to show all
+        // only showing items in collection. needs to show all
         return view('collections.index')->with([
-        	'shares' => auth()->user()->shares()->get(),
-        	'collections' => auth()->user()->collections()->with('items')->get(),
-        	'shared_with_me' => auth()->user()->shared_with_user()->get(),
-        	'items'			 => auth()->user()->items()->get(),
+            'shares' => auth()->user()->shares()->get(),
+            'collections' => auth()->user()->collections()->with('items')->get(),
+            'shared_with_me' => auth()->user()->shared_with_user()->get(),
+            'items'			 => auth()->user()->items()->get(),
         ]);
     }
 
@@ -46,7 +46,7 @@ class CollectionController extends Controller
     {
         $collection = new Collection($request->validated());
         if (strtolower($collection->name) === "default collection") {
-        	return redirect('collection')->with(['error' => "'Default Collection' is a reserved name. Please choose a different name"]);
+            return redirect('collection')->with(['error' => "'Default Collection' is a reserved name. Please choose a different name"]);
         }
         $collection->status = true;
         $collection->save();
@@ -101,7 +101,7 @@ class CollectionController extends Controller
      */
     public function destroy(CollectionRequest $request)
     {
-    	auth()->user()->collections()->where('collections.id', $request->id)->delete();
-    	return redirect('collection')->with(['success' => 'Collection was deleted']);
+        auth()->user()->collections()->where('collections.id', $request->id)->delete();
+        return redirect('collection')->with(['success' => 'Collection was deleted']);
     }
 }

@@ -16,14 +16,14 @@ class ShareRequest extends FormRequest
      */
     public function authorize()
     {
-    	$request = $this->request->all();
-    	return match ($this->route()->action['as'] ?? $this->route()->uri) {
-    		"share.index"	=> \Auth::check(),
-    		"share.store"	=> \Auth::check(),
-    		"share.destroy"	=> \Auth::check(),
-    		"qr"			=> \Auth::check(),
-    		default			=> false,
-    	};
+        $request = $this->request->all();
+        return match ($this->route()->action['as'] ?? $this->route()->uri) {
+            "share.index"	=> \Auth::check(),
+            "share.store"	=> \Auth::check(),
+            "share.destroy"	=> \Auth::check(),
+            "qr"			=> \Auth::check(),
+            default			=> false,
+        };
     }
 
     /**
@@ -33,22 +33,22 @@ class ShareRequest extends FormRequest
      */
     public function rules()
     {
-    	return match ($this->route()->action['as'] ?? $this->route()->uri) {
-        	"share.store"	=> [
-        		'email' => 'required|max:255|exists:App\Models\User,email|not_in:' . $this->user()->email
-        	],
-        	"share.destroy" => [
-        		'id' => 'required',
-        	],
-        	"qr"			=> [
-        		'email' => 'required',
-        	]
+        return match ($this->route()->action['as'] ?? $this->route()->uri) {
+            "share.store"	=> [
+                'email' => 'required|max:255|exists:users,email|not_in:' . $this->user()->email
+            ],
+            "share.destroy" => [
+                'id' => 'required',
+            ],
+            "qr"			=> [
+                'email' => 'required',
+            ]
         };
     }
 
     public function vaidated()
     {
-    	return array_merge($this->all(), [
+        return array_merge($this->all(), [
             'owner_id'	=> $this->user()->id,
             'email'		=> strtolower($this->email),
             'id'		=> $this->id,
@@ -57,9 +57,9 @@ class ShareRequest extends FormRequest
 
     public function messages()
     {
-    	return [
-    		'email.exists' => "Email not found or user doesn't exist",
-    		'email.not_in' => "Cannot create a share with yourself",
-    	];
+        return [
+            'email.exists' => "Email not found or user doesn't exist",
+            'email.not_in' => "Cannot create a share with yourself",
+        ];
     }
 }

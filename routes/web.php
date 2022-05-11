@@ -24,38 +24,37 @@ use App\Http\Controllers\CollectionController;
 */
 
 Route::get('/', function () {
-	return view('auth/login');
+    return view('auth/login');
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-	Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
-	Route::get('/', [ItemController::class, 'index']);
+    Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
+    Route::get('/', [ItemController::class, 'index']);
 
-	Route::resource('item', ItemController::class);
-	Route::resource('share', ShareController::class);
-	Route::resource('claim', ClaimController::class);
-	Route::resource('admin', AdminPanel::class);
-	Route::resource('collection', CollectionController::class);
+    Route::resource('item', ItemController::class);
+    Route::resource('share', ShareController::class);
+    Route::resource('claim', ClaimController::class);
+    Route::resource('admin', AdminPanel::class);
+    Route::resource('collection', CollectionController::class);
 
-	Route::get('/items', [ItemController::class, 'owned_items'])->name('list');
-	Route::get('/deleted', [ItemController::class, 'deleted'])->name('deleted');
-	Route::get('/qr', [ShareController::class, 'store']);
+    Route::get('/items', [ItemController::class, 'owned_items'])->name('list');
+    Route::get('/deleted', [ItemController::class, 'deleted'])->name('deleted');
+    Route::get('/qr', [ShareController::class, 'store']);
 });
 
 // below routes are for email verification
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-	$request->fulfill();
-	return redirect('/dashboard');
+    $request->fulfill();
+    return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::get('/email/verify', function () {
-	return view('auth.verify-email');
+    return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
 
 Route::post('/email/verification-notification', function (Request $request) {
-	$request->user()->sendEmailVerificationNotification();
+    $request->user()->sendEmailVerificationNotification();
 
-	return back()->with('message', 'Verification link sent!');
+    return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-

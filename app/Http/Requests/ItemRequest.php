@@ -16,13 +16,13 @@ class ItemRequest extends FormRequest
      */
     public function authorize()
     {
-    	return match ($this->method()) {
-    		"GET"		=> \Auth::check(),
-    		"POST"		=> \Auth::check(),
-    		"PUT"		=> Item::find($this->route('item'))->owner()->is(auth()->user()),
-    		"DELETE"	=> Item::find($this->route('item'))->owner()->is(auth()->user()),
-    		default		=> false,
-    	};
+        return match ($this->method()) {
+            "GET"		=> \Auth::check(),
+            "POST"		=> \Auth::check(),
+            "PUT"		=> Item::find($this->route('item'))->owner()->is(auth()->user()),
+            "DELETE"	=> Item::find($this->route('item'))->owner()->is(auth()->user()),
+            default		=> false,
+        };
     }
 
     /**
@@ -32,27 +32,27 @@ class ItemRequest extends FormRequest
      */
     public function rules()
     {
-    	return match($this->method()) {
-    		"GET"	=> [],
-			"POST"	=> [
-				'name' => 'required',
-				'url'  => 'url|nullable',
-				'description' => 'nullable|string|max:256',
-			],
-			"PUT"	=> [
-				'name' => 'required',
-				'url'  => 'url|nullable',
-				'description' => 'nullable|string|max:256',
-			],
-			"DELETE"	=> [
-				'id' => 'required',
-			],
-    	};
+        return match ($this->method()) {
+            "GET"	=> [],
+            "POST"	=> [
+                'name' => 'required',
+                'url'  => 'url|nullable',
+                'description' => 'nullable|string|max:256',
+            ],
+            "PUT"	=> [
+                'name' => 'required',
+                'url'  => 'url|nullable',
+                'description' => 'nullable|string|max:256',
+            ],
+            "DELETE"	=> [
+                'id' => 'required',
+            ],
+        };
     }
-	public function prepareForValidation()
-	{
-		$this->merge([
-			'id' => $this->route('item'),
-		]);
-	}
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'id' => $this->route('item'),
+        ]);
+    }
 }

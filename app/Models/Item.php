@@ -28,44 +28,44 @@ use App\Enums\Priority;
 
 class Item extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = ['name','description','url','image_url', 'priority'];
     protected $dates = ['deleted_at'];
     protected $casts = [
-    	'claimed' => 'boolean',
-    	'priority' => Priority::class,
+        'claimed' => 'boolean',
+        'priority' => Priority::class,
     ];
 
-	public function collections()
-	{
-		return $this->belongsToMany(Collection::class, 'collection_item');
-	}
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class, 'collection_item');
+    }
 
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-	public function claimant()
-	{
-		return $this->belongsTo(User::class, 'claimant_id');
-	}
+    public function claimant()
+    {
+        return $this->belongsTo(User::class, 'claimant_id');
+    }
 
-	public static function own_items(int $user_id)
-	{
-		return Item::where('owner_id', $user_id)->get();
-	}
+    public static function own_items(int $user_id)
+    {
+        return Item::where('owner_id', $user_id)->get();
+    }
 
-	public static function low_availability_warning(int $user_id): bool
-	{
-		$my_total_items = Item::where('owner_id', $user_id)->count();
-		$my_claimed_items = Item::where('owner_id', $user_id)->where('claimed', true)->count();
-		if ($my_total_items === 0) {
-			return false;
-		} else {
-			$claimed_percentage = $my_claimed_items / $my_total_items;
-			return $claimed_percentage >= 0.8;
-		}
-	}
+    public static function low_availability_warning(int $user_id): bool
+    {
+        $my_total_items = Item::where('owner_id', $user_id)->count();
+        $my_claimed_items = Item::where('owner_id', $user_id)->where('claimed', true)->count();
+        if ($my_total_items === 0) {
+            return false;
+        } else {
+            $claimed_percentage = $my_claimed_items / $my_total_items;
+            return $claimed_percentage >= 0.8;
+        }
+    }
 }

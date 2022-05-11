@@ -15,12 +15,12 @@ class CollectionRequest extends FormRequest
      */
     public function authorize()
     {
-		return match ($this->method()) {
-    		'GET', 'POST'	=> \Auth::check(),
-    		'PUT'			=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
-    		'DELETE'		=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
-    		default			=> false,
-    	};
+        return match ($this->method()) {
+            'GET', 'POST'	=> \Auth::check(),
+            'PUT'			=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
+            'DELETE'		=> Collection::find($this->id)->owner()->first()->is(auth()->user()),
+            default			=> false,
+        };
     }
 
     /**
@@ -30,19 +30,18 @@ class CollectionRequest extends FormRequest
      */
     public function rules()
     {
-    	return match($this->method()) {
-    		'DELETE', => [
-				'id' => 'required',
-    		],
-    		'POST', 'PUT' => [
-    			'name' => 'required',
-    		],
-    	};
+        return match ($this->method()) {
+            'DELETE', => [
+                'id' => 'required',
+            ],
+            'POST', 'PUT' => [
+                'name' => 'required',
+            ],
+        };
     }
 
-	public function prepareForValidation()
-	{
-		$this->merge(['id' => $this->route('collection')]);
-	}
-
+    public function prepareForValidation()
+    {
+        $this->merge(['id' => $this->route('collection')]);
+    }
 }

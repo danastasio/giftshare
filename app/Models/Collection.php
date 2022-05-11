@@ -16,22 +16,22 @@ class Collection extends Model
 
     public function user_collections()
     {
-		return $this->belongsTo(UserCollection::class);
+        return $this->belongsTo(UserCollection::class);
     }
 
     public function items()
     {
-		return $this->belongsToMany(Item::class)->orderByDesc('priority');
+        return $this->belongsToMany(Item::class)->orderByDesc('priority');
     }
 
-	public function owner()
-	{
-		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'owner_id')
-			->where('access_type', '2');
-	}
+    public function owner()
+    {
+        return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'owner_id')
+            ->where('access_type', '2');
+    }
 
-	public function users()
-	{
-		return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'sharee_id')->orderBy('id');
-	}
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'collection_user', 'collection_id', 'sharee_id')->orderBy('id');
+    }
 }

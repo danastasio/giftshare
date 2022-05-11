@@ -32,159 +32,159 @@ use App\Enums\Priority;
 
 class ItemController extends Controller
 {
-	/**
-		* Get a list of all items shared with the logged in user based on what is shared with them.
-		*
-		* @return Response
-		*/
-	public function index()
-	{
-		return view('dashboard')->with([
-			'shared_items' => auth()->user()->shared_with_user()->with([
-				'visible_collections',
-				'visible_collections.items'
-			])->get(),
+    /**
+        * Get a list of all items shared with the logged in user based on what is shared with them.
+        *
+        * @return Response
+        */
+    public function index()
+    {
+        return view('dashboard')->with([
+            'shared_items' => auth()->user()->shared_with_user()->with([
+                'visible_collections',
+                'visible_collections.items'
+            ])->get(),
 
-		]);
-	}
+        ]);
+    }
 
-	/**
-		* Show the form for creating a new resource.
-		*
-		* @return Response
-		*/
-	public function create()
-	{
-		return view('items.create')->with([
-			'collections' => auth()->user()->collections()->get(),
-		]);
-	}
+    /**
+        * Show the form for creating a new resource.
+        *
+        * @return Response
+        */
+    public function create()
+    {
+        return view('items.create')->with([
+            'collections' => auth()->user()->collections()->get(),
+        ]);
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(ItemRequest $request)
-	{
-		$item = new Item($request->validated());
-		$item->priority = Priority::NORMAL;
-		$item->owner()->associate(User::find(auth()->user()->id));
-		$item->save();
-		if (!empty($request['collections'])) {
-			foreach($request['collections'] as $collection_id) {
-				// TODO validate that the owner is the user before attaching
-				$collection = Collection::find($collection_id);
-				$collection->items()->attach($item);
-				$collection->save();
-			}
-		}
-		return redirect('items')->with(['success', 'Item added']);
-	}
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(ItemRequest $request)
+    {
+        $item = new Item($request->validated());
+        $item->priority = Priority::NORMAL;
+        $item->owner()->associate(User::find(auth()->user()->id));
+        $item->save();
+        if (!empty($request['collections'])) {
+            foreach ($request['collections'] as $collection_id) {
+                // TODO validate that the owner is the user before attaching
+                $collection = Collection::find($collection_id);
+                $collection->items()->attach($item);
+                $collection->save();
+            }
+        }
+        return redirect('items')->with(['success', 'Item added']);
+    }
 
-	/**
-	 * Destroy an item from the DB
-	 *
-	 * @param ItemRequest $request
-	 * @returns Response
-	 */
-	public function destroy(ItemRequest $request)
-	{
-		$item = Item::find($request['id']);
-		$item->delete();
-		return redirect('items')->with(['info', 'Item deleted']);
-	}
-	/**
-		* Display the specified resource.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Destroy an item from the DB
+     *
+     * @param ItemRequest $request
+     * @returns Response
+     */
+    public function destroy(ItemRequest $request)
+    {
+        $item = Item::find($request['id']);
+        $item->delete();
+        return redirect('items')->with(['info', 'Item deleted']);
+    }
+    /**
+        * Display the specified resource.
+        *
+        * @param  int  $id
+        * @return Response
+        */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-		* Show the form for editing the specified resource.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
-	public function edit($id)
-	{
-		//
-	}
+    /**
+        * Show the form for editing the specified resource.
+        *
+        * @param  int  $id
+        * @return Response
+        */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-		* Update the specified resource in storage.
-		*
-		* @param  int  $id
-		* @return Response
-		*/
-	public function update(ItemRequest $request)
-	{
-		$item = Item::find($request['id']);
-		$item->update($request->validated());
-		return back();
-	}
+    /**
+        * Update the specified resource in storage.
+        *
+        * @param  int  $id
+        * @return Response
+        */
+    public function update(ItemRequest $request)
+    {
+        $item = Item::find($request['id']);
+        $item->update($request->validated());
+        return back();
+    }
 
-	/**
-	 * Show the list of items that I personally own. Used by the "My List" button
-	 */
-	public function owned_items(ItemRequest $request)
-	{
-		return view('items.index')->with([
-			'collections'			=> auth()->user()->collections()->with(['items'])->get(),
-			'availability_warning'	=> Item::low_availability_warning($request->user()->id),
-			'unassigned_items'		=> auth()->user()->unassigned_items()->get(),
-			'all_items'				=> auth()->user()->items()->get(),
-		]);
-	}
+    /**
+     * Show the list of items that I personally own. Used by the "My List" button
+     */
+    public function owned_items(ItemRequest $request)
+    {
+        return view('items.index')->with([
+            'collections'			=> auth()->user()->collections()->with(['items'])->get(),
+            'availability_warning'	=> Item::low_availability_warning($request->user()->id),
+            'unassigned_items'		=> auth()->user()->unassigned_items()->get(),
+            'all_items'				=> auth()->user()->items()->get(),
+        ]);
+    }
 
-	/**
-	 * Lists the currently deleted items for a user
-	 */
-	public function deleted()
-	{
-		$deleted_items = auth()->user()->deleted_items()->get();
-		return view('deleted-items')->with([
-			'deleted_items' => $deleted_items,
-			'deleted_shares', [],
-		]);
-	}
-	/**
-	 * Try and get an image from the items url. Only supports Amazon right now.
-	 */
-	private function get_image(string $url = null)
-	{
-		if (preg_match("/amazon.com|newegg.com|target.com|gamestop.com/", $url) === 1) {
-			$c = curl_init();
-			curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($c, CURLOPT_ENCODING, "");
-			curl_setopt($c, CURLOPT_URL, $url);
-			$string = curl_exec($c);
-			curl_close($c);
-			if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) { // Amazon
-				return $matches[1];
-			} elseif (preg_match('/class="product-view-img-original" src="(.*?)"/', $string, $matches) > 0) { // Newegg
-				return $matches[1];
-			} elseif (preg_match('/"primary_image_url":"(.*?)"/', $string, $matches) > 0) { // Target
-				return $matches[1];
-			} elseif (preg_match('/property="og:image" content="(.*?)"/', $string, $matches) > 0) { // GameStopg
-				return $matches[1];
-			} else {
-				dd($string);
-				return null;
-			}
-	   	} else {
-			return null;
-		}
-	}
+    /**
+     * Lists the currently deleted items for a user
+     */
+    public function deleted()
+    {
+        $deleted_items = auth()->user()->deleted_items()->get();
+        return view('deleted-items')->with([
+            'deleted_items' => $deleted_items,
+            'deleted_shares', [],
+        ]);
+    }
+    /**
+     * Try and get an image from the items url. Only supports Amazon right now.
+     */
+    private function get_image(string $url = null)
+    {
+        if (preg_match("/amazon.com|newegg.com|target.com|gamestop.com/", $url) === 1) {
+            $c = curl_init();
+            curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($c, CURLOPT_ENCODING, "");
+            curl_setopt($c, CURLOPT_URL, $url);
+            $string = curl_exec($c);
+            curl_close($c);
+            if (preg_match('/"landingImageUrl":"(.*)"/', $string, $matches) > 0) { // Amazon
+                return $matches[1];
+            } elseif (preg_match('/class="product-view-img-original" src="(.*?)"/', $string, $matches) > 0) { // Newegg
+                return $matches[1];
+            } elseif (preg_match('/"primary_image_url":"(.*?)"/', $string, $matches) > 0) { // Target
+                return $matches[1];
+            } elseif (preg_match('/property="og:image" content="(.*?)"/', $string, $matches) > 0) { // GameStopg
+                return $matches[1];
+            } else {
+                dd($string);
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
-	public function restore(Item $item)
-	{
-		$item->restore();
-	}
+    public function restore(Item $item)
+    {
+        $item->restore();
+    }
 }

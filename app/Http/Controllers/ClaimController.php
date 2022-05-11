@@ -36,8 +36,8 @@ class ClaimController extends Controller
     */
     public function index()
     {
-    	//return auth()->user()->shared_with_user()->with(['remote_claims'])->get();
-		return view('claims')->with(['shares' => auth()->user()->shared_with_user()->with(['remote_claims'])->get()]);
+        //return auth()->user()->shared_with_user()->with(['remote_claims'])->get();
+        return view('claims')->with(['shares' => auth()->user()->shared_with_user()->with(['remote_claims'])->get()]);
     }
 
     /**

@@ -104,52 +104,51 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function remote_claims()
     {
-    	return $this->hasMany(Item::class, 'owner_id')
-    		->where('claimant_id', auth()->user()->id);
+        return $this->hasMany(Item::class, 'owner_id')
+            ->where('claimant_id', auth()->user()->id);
     }
 
-	public function collections()
-	{
-		return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
-			->wherePivot('access_type', '2');
-	}
+    public function collections()
+    {
+        return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
+            ->wherePivot('access_type', '2');
+    }
 
-	public function default_collection()
-	{
-		return $this->belongsToMany(Collection::class, 'collection_user', 'owner_id')
-			->where('collections.name', 'Default Collection')
-			->wherePivot('access_type', '2');
-	}
+    public function default_collection()
+    {
+        return $this->belongsToMany(Collection::class, 'collection_user', 'owner_id')
+            ->where('collections.name', 'Default Collection')
+            ->wherePivot('access_type', '2');
+    }
 
-	public function visible_collections()
-	{
-		return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
-			->wherePivot('sharee_id', auth()->user()->id)
-			->withPivot('access_type');
-	}
+    public function visible_collections()
+    {
+        return $this->belongstomany(Collection::class, 'collection_user', 'owner_id')
+            ->wherePivot('sharee_id', auth()->user()->id)
+            ->withPivot('access_type');
+    }
 
 
-	public function shared_collections()
-	{
-		return $this->belongsToMany(Collection::class, 'collection_user', 'sharee_id')
-			->wherePivot('access_type', '1');
-	}
+    public function shared_collections()
+    {
+        return $this->belongsToMany(Collection::class, 'collection_user', 'sharee_id')
+            ->wherePivot('access_type', '1');
+    }
 
-	public function shares()
-	{
-		return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id')
-			->wherePivot('owner_id', auth()->user()->id);
-	}
+    public function shares()
+    {
+        return $this->belongsToMany(User::class, 'user_user', 'owner_id', 'sharee_id')
+            ->wherePivot('owner_id', auth()->user()->id);
+    }
 
-	public function shared_with_user()
-	{
-		return $this->belongsToMany(User::class, 'user_user', 'sharee_id', 'owner_id')
-			->wherePivot('sharee_id', auth()->user()->id);
-	}
+    public function shared_with_user()
+    {
+        return $this->belongsToMany(User::class, 'user_user', 'sharee_id', 'owner_id')
+            ->wherePivot('sharee_id', auth()->user()->id);
+    }
 
-	public function unassigned_items()
-	{
-		return $this->hasMany(Item::class, 'owner_id')->has('collections', '<', 1);
-	}
-
+    public function unassigned_items()
+    {
+        return $this->hasMany(Item::class, 'owner_id')->has('collections', '<', 1);
+    }
 }

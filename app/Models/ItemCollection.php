@@ -13,7 +13,6 @@ class ItemCollection extends Model
 
     public function collection()
     {
-    	return $this->belongsTo(Collection::class);
+        return $this->belongsTo(Collection::class);
     }
-
 }
