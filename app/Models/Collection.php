@@ -21,7 +21,7 @@ class Collection extends Model
 
     public function items()
     {
-		return $this->belongsToMany(Item::class)->orderBy('id');
+		return $this->belongsToMany(Item::class)->orderByDesc('priority');
     }
 
 	public function owner()

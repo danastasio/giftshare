@@ -143,8 +143,13 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function shared_with_user()
 	{
-
 		return $this->belongsToMany(User::class, 'user_user', 'sharee_id', 'owner_id')
 			->wherePivot('sharee_id', auth()->user()->id);
 	}
+
+	public function unassigned_items()
+	{
+		return $this->hasMany(Item::class, 'owner_id')->has('collections', '<', 1);
+	}
+
 }

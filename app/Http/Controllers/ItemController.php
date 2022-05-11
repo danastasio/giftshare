@@ -38,12 +38,12 @@ class ItemController extends Controller
 		*/
 	public function index()
 	{
-		//return auth()->user()->shared_with_user()->with(['visible_collections', 'visible_collections.items'])->get();
 		return view('dashboard')->with([
 			'shared_items' => auth()->user()->shared_with_user()->with([
 				'visible_collections',
 				'visible_collections.items'
 			])->get(),
+
 		]);
 	}
 
@@ -69,11 +69,7 @@ class ItemController extends Controller
 		$item = new Item($request->validated());
 		$item->owner()->associate(User::find(auth()->user()->id));
 		$item->save();
-		if (empty($request['collections'])) {
-			$default_collection = auth()->user()->default_collection()->first();
-			$default_collection->items()->attach($item);
-			$default_collection->save();
-		} else {
+		if (!empty($request['collections'])) {
 			foreach($request['collections'] as $collection_id) {
 				// TODO validate that the owner is the user before attaching
 				$collection = Collection::find($collection_id);
@@ -137,8 +133,10 @@ class ItemController extends Controller
 	public function owned_items(ItemRequest $request)
 	{
 		return view('items.index')->with([
-			'collections' => auth()->user()->collections()->with(['items'])->get(),
-			'availability_warning' => Item::low_availability_warning($request->user()->id),
+			'collections'			=> auth()->user()->collections()->with(['items'])->get(),
+			'availability_warning'	=> Item::low_availability_warning($request->user()->id),
+			'unassigned_items'		=> auth()->user()->unassigned_items()->get(),
+			'all_items'				=> auth()->user()->items()->get(),
 		]);
 	}
 
