@@ -19,7 +19,7 @@ class CreateItemTable extends Migration
             $table->text('description')->nullable();
             $table->text('url')->nullable();
             $table->boolean('claimed')->default(0);
-            $table->text('priority')->default(1);
+            $table->unsignedBigInteger('priority')->default(1);
             $table->unsignedBigInteger('owner_id')->nullable();
             $table->unsignedBigInteger('claimant_id')->nullable();
             $table->text('image_url')->nullable()->default(null);

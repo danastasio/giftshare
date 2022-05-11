@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Item;
+use App\Enums\Priority;
 use Illuminate\Support\Facades\Gate;
 
 class ItemRequest extends FormRequest
@@ -50,6 +51,8 @@ class ItemRequest extends FormRequest
     }
 	public function prepareForValidation()
 	{
-		$this->merge(['id' => $this->route('item')]);
+		$this->merge([
+			'id' => $this->route('item'),
+		]);
 	}
 }

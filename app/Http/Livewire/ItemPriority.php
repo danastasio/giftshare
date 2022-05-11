@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Enums\Priority;
 
 class ItemPriority extends Component
 {
@@ -14,23 +15,23 @@ class ItemPriority extends Component
 
 	public function make_high_priority()
 	{
-		$this->item->priority = 2;
+		$this->item->priority = Priority::HIGH;
 		$this->item->save();
-		$this->priority = 2;
+		$this->priority = Priority::HIGH;
 	}
 
 	public function make_normal_priority()
 	{
-		$this->item->priority = 1;
+		$this->item->priority = Priority::NORMAL;
 		$this->item->save();
-		$this->priority = 1;
+		$this->priority = Priority::NORMAL;
 	}
 
 	public function make_low_priority()
 	{
-		$this->item->priority = 0;
+		$this->item->priority = Priority::LOW;
 		$this->item->save();
-		$this->priority = 0;
+		$this->priority = Priority::LOW;
 	}
 
     public function render()

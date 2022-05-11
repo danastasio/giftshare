@@ -24,14 +24,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Collection;
+use App\Enums\Priority;
 
 class Item extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['name','description','url','image_url'];
+    protected $fillable = ['name','description','url','image_url', 'priority'];
     protected $dates = ['deleted_at'];
-    protected $casts = ['claimed' => 'boolean'];
+    protected $casts = [
+    	'claimed' => 'boolean',
+    	'priority' => Priority::class,
+    ];
 
 	public function collections()
 	{

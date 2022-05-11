@@ -55,7 +55,7 @@
 					</x-jet-nav-link>
 				</div>
 				<div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-					<x-jet-nav-link href="{{ route('collection.index') }}" :active="request()->routeIs('claim.index')" class="dark:text-gray-200">
+					<x-jet-nav-link href="{{ route('collection.index') }}" :active="request()->routeIs('clollection.index')" class="dark:text-gray-200">
 						<div class="flex">
 							<div class="my-auto mr-1">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

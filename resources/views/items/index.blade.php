@@ -61,7 +61,7 @@
 						</div>
 						<div class="flex flex-wrap">
 							@foreach ($unassigned_items as $item)
-								<div class="flex-none w-1/3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2">
+								<div class="flex-none max-w-1/3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2">
 									<div class="text-2xl md:text-lg font-bold">
 										{{ $item->name }}
 									</div>

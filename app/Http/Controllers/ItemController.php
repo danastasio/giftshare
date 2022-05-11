@@ -28,6 +28,7 @@ use App\Http\Requests\ItemRequest;
 use App\Models\ItemCollection;
 use App\Models\Collection;
 use App\Models\User;
+use App\Enums\Priority;
 
 class ItemController extends Controller
 {
@@ -67,6 +68,7 @@ class ItemController extends Controller
 	public function store(ItemRequest $request)
 	{
 		$item = new Item($request->validated());
+		$item->priority = Priority::NORMAL;
 		$item->owner()->associate(User::find(auth()->user()->id));
 		$item->save();
 		if (!empty($request['collections'])) {

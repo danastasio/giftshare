@@ -1,5 +1,5 @@
 <div class="flex w-full">
-	@if($this->priority == 0) <!-- low priority -->
+	@if($this->priority == \App\Enums\Priority::LOW) <!-- low priority -->
     	<!-- Fire SVG -->
     	<div class="flex-none w-full mt-1">
 	    	<button wire:click="make_high_priority" title="Click to make high priority" class="text-left flex">
@@ -17,7 +17,7 @@
 				Low Priority
 			</button>
 		</div>
-	@elseif($this->priority == 1) <!--  normal priority -->
+	@elseif($this->priority == \App\Enums\Priority::NORMAL) <!--  normal priority -->
     	<!-- Fire SVG -->
     	<div class="flex-none w-full mt-1">
 			<button wire:click="make_high_priority" title="Click to make high priority" class="text-left flex">
@@ -35,7 +35,7 @@
 				Low Priority
 			</button>
 		</div>
-	@elseif($this->priority == 2) <!--  high priority -->
+	@elseif($this->priority == \App\Enums\Priority::HIGH) <!--  high priority -->
     	<!-- Fire SVG -->
     	<div class="flex-none w-full mt-1">
     		<button wire:click="make_normal_priority" title="Click to make normal priority" class="w-full flex">
