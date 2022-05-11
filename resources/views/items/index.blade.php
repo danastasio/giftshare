@@ -21,11 +21,19 @@
 @if ( $collections->isEmpty() && $unassigned_items->isEmpty() )
 	<div class="py-8">
 		<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
-				<div class="flex">
-					<div class="flex-auto text-2xl mb-4 text-center">You have not added any items yet</div>
+			<div class="flex-none bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5 m-3 rounded-lg md:rounded-sm">
+					<div class="w-full text-2xl mb-4 text-center">You have not added any items yet</div>
+					<div class="w-full text-lg mb-4 text-center">Once you start adding items, they will show up here.</div>
+					<div class="flex">
+					<div class="flex-grow"></div>
+					<a href="{{ route('item.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+						</svg>
+						<span>Create a new item</span>
+					</a>
+					<div class="flex-grow"></div>
 				</div>
-				<div class="flex-auto text-lg mb-4 text-center">Once you start adding items, they will show up here.</div>
 			</div>
 		</div>
 	</div>
