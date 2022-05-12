@@ -70,6 +70,7 @@
 						</div>
 						<div class="flex flex-wrap">
 							@foreach ($unassigned_items as $item)
+								<!-- Item Card -->
 								@component('items.card', ['item' => $item])
 								@endcomponent
 							@endforeach
@@ -79,37 +80,21 @@
 				<div class="grid grid-cols-1 gap-2">
 					@foreach (  $collections as $collection )
 						<div class="border p-5">
-							<div class="text-xl mb-2 ml-1">
+							<div class="text-2xl mb-2 ml-1 font-bold">
 								{{ $collection->name }}
 							</div>
 							<div class="grid grid-cols-3 gap-5">
-							@foreach ($collection->items as $item)
-								@component('items.card', ['item' => $item])
-								@endcomponent
-							@endforeach
+								@foreach ($collection->items as $item)
+									<!-- Item Card -->
+									@component('items.card', ['item' => $item])
+									@endcomponent
+								@endforeach
+							</div>
 						</div>
-					</div>
+					@endforeach
 				</div>
-				@endforeach
 				@foreach ($all_items as $item)
 					<div id="modals">
-						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id, "modal_id" => "edit" . $item->id ])
-							<x-slot name="modal_header">
-								<div class="font-bold text-center align-center my-auto">
-									Edit Item
-								</div>
-							</x-slot>
-							<x-slot name="modal_content">
-								<div class="grid grid-cols-1 gap-3">
-									<div><label for="name">Name</label></div>
-									<div class="-mt-3"><input type="text" value="{{ $item->name }}" name="name" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
-									<div class="mt-1"><label for="url">URL</label></div>
-									<div class="-mt-3"><input type="url" value="{{ $item->url }}" name="url" class="rounded w-full border-blue-400 dark:bg-gray-200 dark:text-gray-800"></div>
-									<div class="mt-1"><label for="description">Description</label></div>
-									<div class="-mt-3"><textarea name="description" class="w-full rounded border-blue-400 dark:bg-gray-200 dark:text-gray-800">{{ $item->description }}</textarea></div>
-								</div>
-							</x-slot>
-						@endcomponent
 						@component("modals.item-collections", ["collections" => $collections, "item" => $item])
 						@endcomponent
 					</div>
