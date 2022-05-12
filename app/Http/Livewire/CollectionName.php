@@ -3,10 +3,18 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Http\Requests\CollectionRequest;
 
 class CollectionName extends Component
 {
     public $new_name;
+
+    protected function rules()
+    {
+    	return [
+    		'new_name' => 'required',
+    	];
+	}
 
     public function mount($collection)
     {

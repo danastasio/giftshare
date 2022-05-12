@@ -1,7 +1,7 @@
 <div>
 	<div class="hidden w-full" id="edit_collection_name_{{ $collection->id }}">
 		<div class="flex justify-center">
-				<input wire:keydown.enter="submit" type="text" class="rounded-l-xl text-center" placeholder="{{ $this->collection->name }}" wire:model.defer="new_name">
+				<input wire:keydown.enter="submit" type="text" class="rounded-l-xl text-center" value="{{ $this->collection->name }}" wire:model.defer="new_name">
 				<button wire:click="submit" type="submit" class="rounded-r-xl bg-emerald-600 py-auto p-2" onclick="toggle_collection_name('{{ $collection->id }}')">
 					<!-- Check SVG -->
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
