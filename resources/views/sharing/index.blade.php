@@ -80,7 +80,7 @@
 					Users you are sharing with
 				</div>
 				<div class="mt-3 pr-2">
-					The users to the left can be added to one or more of your collections.
+					The users to the right can be added to one or more of your collections.
 				</div>
 			</div>
 			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
@@ -96,42 +96,44 @@
 						</a>
 					</span>
 				</div>
-				<div class="grid grid-cols-2 gap-5 border-2 rounded-lg p-2">
+				<div class="grid grid-cols-2 gap-5 border-2 rounded-lg p-2 pb-0">
 					<div class="invisible md:visible">Name</div>
 					<div class="invisible md:visible">Revoke Access</div>
-					<div class="col-span-2 relative"><hr></div>
-					@foreach( $shared_with_others as $share )
-						<div class="col-span-2 flex relative p-2">
-							<div class="w-1/2">
-								{{ $share->name }}
-							</div>
-							<div>
-								<button type="button" class="flex w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete_share_{{ $share->id }}').classList.remove('hidden');">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
-									</svg>
-									Revoke
-								</button>
-							</div>
-							<div id="delete_share_{{ $share->id }}" class="hidden absolute inset-0 bg-white rounded-lg flex justify-center border-2">
-								<div class="text-red-600 font-semibold my-auto">
-									Really Revoke Share?
+					<div class="col-span-2"><hr></div>
+					<div id="shares" class="col-span-2 overflow-auto max-h-96">
+						@foreach( $shared_with_others as $share )
+							<div class="col-span-2 flex relative p-2">
+								<div class="w-1/2 my-auto">
+									{{ $share->name }}
 								</div>
-								<div class="flex my-auto">
-									<button class="bg-green-600 text-white px-2 py-1 rounded-md mx-2" onclick="document.getElementById('delete_share_{{ $share->id }}').classList.add('hidden');">
-										Cancel
+								<div>
+									<button type="button" class="flex w-full p-12 py-2 dark:bg-red-800 dark:text-gray-200 bg-red-500 hover:bg-red-700 text-white font-bold text-center align-middle rounded" onclick="document.getElementById('delete_share_{{ $share->id }}').classList.remove('hidden');">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+										</svg>
+										Revoke
 									</button>
-									<form method="POST" action="{{ route('share.destroy', $share->id) }}">
-										@csrf
-										@method('DELETE')
-										<button class="bg-red-600 text-white px-2 py-1 rounded-md">
-											Submit
+								</div>
+								<div id="delete_share_{{ $share->id }}" class="hidden absolute inset-0 bg-white rounded-lg flex justify-center border-2">
+									<div class="text-red-600 font-semibold my-auto">
+										Really Revoke Share?
+									</div>
+									<div class="flex my-auto">
+										<button class="bg-green-600 text-white px-2 py-1 rounded-md mx-2" onclick="document.getElementById('delete_share_{{ $share->id }}').classList.add('hidden');">
+											Cancel
 										</button>
-									</form>
+										<form method="POST" action="{{ route('share.destroy', $share->id) }}">
+											@csrf
+											@method('DELETE')
+											<button class="bg-red-600 text-white px-2 py-1 rounded-md">
+												Submit
+											</button>
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
-					@endforeach
+						@endforeach
+					</div>
 				</div>
 			</div>
 		</div>
