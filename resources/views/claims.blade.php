@@ -39,50 +39,10 @@
 							{{ $share->name }}
 						</div>
 					</button>
-				<div class="flex-none" id="item-grid{{ $share->id }}">
+				<div class="flex" id="item-grid{{ $share->id }}">
 					@foreach($share->remote_claims as $item)
-						@php($status = null)
-						@php($textcolor = "text-gray-300")
-						@if($item->deleted_at === null)
-							@php($textcolor = "text-black")
-							@php($status = "hidden")
-						@endif
-						<div class="flex-none md:grid md:grid-cols-1 md:grid-cols-4 gap-3 dark:bg-gray-400 dark:text-gray-900 rounded-md p-2 mb-2 {{ $textcolor }}">
-							<div class="flex-none md:flex my-auto">
-								<div class="mx-auto">
-									<div class="mr-3 {{ $status }}" title="Item has been deleted">
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-800 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-										</svg>
-									</div>
-								</div>
-								<div class="w-full text-center md:text-left text-2xl md:text-lg font-bold md:font-normal mb-1">
-									{{ $item->name }}
-								</div>
-							</div>
-							<div class="w-full text-center md:text-left text-lg align-center my-auto">
-								<em>{{ $item->description ?? "No Description Provided"}}</em>
-							</div>
-							<div class="flex ml-auto w-full my-1">
-								<div class="w-full p-2 h-10 bg-gray-200 border border-gray-400 max-h-10 rounded-l-lg overflow-hidden" id="item{{ $item->id }}">
-									{{ $item->url }}
-								</div>
-								<a href="{{ $item->url }}" target="_blank" class="p-1 h-10 md:mr-2 bg-gray-600 text-gray-300 bg-gray-400 dark:text-gray-800 rounded-r-lg justify-center">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto sm:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-	  									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-									</svg>
-								</a>
-								<div class="flex-grow"></div>
-							</div>
-							<div class="flex">
-								<div class="w-1/2 mr-2">
-										<livewire:toggle-purchase :item="$item">
-								</div>
-								<div class="w-1/2 rounded-lg overflow-hidden">
-									<livewire:claim-item :item="$item" class="rounded-l-lg">
-								</div>
-							</div>
-						</div>
+						@component('items.claimed-item', ['item' => $item])
+						@endcomponent
 					@endforeach
 				</div>
 			</div>
