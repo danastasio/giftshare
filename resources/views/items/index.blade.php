@@ -26,7 +26,7 @@
 					<div class="w-full text-lg mb-4 text-center">Once you start adding items, they will show up here.</div>
 					<div class="flex">
 					<div class="flex-grow"></div>
-					<a href="{{ route('item.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white">
+					<a href="{{ route('item.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white font-normal">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 						</svg>
@@ -43,12 +43,13 @@
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 darkoverflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 				<div class="flex-none md:flex">
 					<div class="flex w-full text-2xl font-semibold mb-5">
-						<div>Your current items</div>
+						<div class="my-auto">Your current items</div>
 						<div class="flex-grow"></div>
-						<a href="{{ route('item.create') }}">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+						<a href="{{ route('item.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white font-normal">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 							</svg>
+							<span>Create a new item</span>
 						</a>
 					</div>
 					@if($availability_warning)
