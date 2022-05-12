@@ -72,11 +72,8 @@ class ShareController extends Controller
         $share = auth()->user()->shares()->wherePivot('id', $request['id'])->withPivot('id')->get();
         auth()->user()->shares()->detach($share);
 
-        return view('sharing.index')->with([
-            'info' => 'List revoked from user',
-            'shared_with_others' => auth()->user()->shares()->get(),
-            'shared_with_me' => auth()->user()->shared_with_user()->get(),
-            'collections' => auth()->user()->collections()->with('users')->get(),
+        return redirect('share')->with([
+        	'success' => 'Share revoked from user',
         ]);
     }
 }
