@@ -62,4 +62,11 @@ class ShareRequest extends FormRequest
             'email.not_in' => "Cannot create a share with yourself",
         ];
     }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'id' => $this->route('share'),
+        ]);
+    }
 }
