@@ -25,23 +25,21 @@ class ClaimItem extends Component
     public function claim()
     {
         $item = Item::find($this->item_id);
-
         if ($item->claimed === false) {
-            auth()->user()->claims()->attach($item, ['owner_id' => $item->owner()->first()->id, 'claimant_id' => auth()->user()->id]);
+        	$item->claimant()->associate(auth()->user());
             $item->claimed = true;
             $item->save();
             $this->claimed = auth()->user()->claims()->get()->contains($item);
-            //$this->emit('toggle_claim', $this->item_id);
             $this->claimant_id = $item->claimant()->first()->id;
         } else {
             $this->label = "Item was claimed while you were on this page";
         }
     }
 
-    public function unclaim()
+    public function unclaim(User $user)
     {
         $item = Item::find($this->item_id);
-        auth()->user()->claims()->detach($item);
+        $item->claimant()->dissociate($user);
         $item->claimed = false;
         $item->save();
         $this->claimed = auth()->user()->claims()->get()->contains($item);

@@ -96,7 +96,7 @@
 						</a>
 					</span>
 				</div>
-				<div class="grid grid-cols-2 gap-5">
+				<div class="grid grid-cols-2 gap-5 border-2 rounded-lg p-2">
 					<div class="invisible md:visible">Name</div>
 					<div class="invisible md:visible">Revoke Access</div>
 					<div class="col-span-2"><hr></div>
@@ -135,7 +135,6 @@
 				</div>
 			</div>
 			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
-				<div class="text-2xl mb-4">Currently sharing with you</div>
 				<div class="grid grid-cols-2 gap-5">
 					<div>Name</div>
 					<div>Email</div>
