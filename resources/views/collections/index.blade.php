@@ -12,10 +12,8 @@
 		</div>
 		<div class="grid md:grid-cols-3 gap-3 mt-5">
 			@foreach ($collections as $collection)
-				<div class="grid grid-cols-1 gap-3 border-2 rounded-lg p-2">
-					<div class="font-semibold text-center mx-auto mb-2">
-						<livewire:collection-name :collection=$collection />
-					</div>
+				<div class="relative flex-none border-2 rounded-lg p-2">
+					<livewire:collection-name :collection=$collection />
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-5">
 						<button type="button" onclick="document.getElementById('edit_collection_users_{{ $collection->id }}').classList.remove('invisible');">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -23,7 +21,6 @@
 							</svg>
 							Users
 						</button>
-
 						<button onclick="document.getElementById('delete_collection_{{ $collection->id }}').classList.remove('hidden');">
 							<!-- Delete SVG -->
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-red-600 dark:text-red-800 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,14 +36,13 @@
 							Items
 						</button>
 					</div>
-					<div class="hidden" id="delete_collection_{{ $collection->id }}">
-						<hr>
-						<div class="flex px-5 mt-2 text-center">
-							<div class="py-1 my-auto text-red-600 font-semibold">
+					<div class="hidden absolute inset-0 bg-white w-full rounded-lg bg-opacity-95 mt-1" id="delete_collection_{{ $collection->id }}">
+						<div class="flex-none px-5 my-2 text-center">
+							<div class="py-1 my-auto text-red-600 font-semibold w-full">
 								Really delete collection?
 							</div>
-							<div class="flex-grow"></div>
-							<div class="flex">
+							<div class="flex mt-2">
+								<div class="flex-grow"></div>
 								<div class="mr-2">
 									<form method="POST" action="{{ route('collection.destroy', $collection->id) }}">
 										@csrf
@@ -61,6 +57,7 @@
 										No
 									</button>
 								</div>
+								<div class="flex-grow"></div>
 							</div>
 						</div>
 					</div>
