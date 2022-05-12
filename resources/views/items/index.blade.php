@@ -70,7 +70,7 @@
 						</div>
 						<div class="flex flex-wrap">
 							@foreach ($unassigned_items as $item)
-								<div class="flex-none max-w-1/3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2">
+								<div class="relative flex-none max-w-1/3 gap-3 mb-2 dark:bg-gray-400 dark:text-gray-900 rounded-md p-4 mx-auto border-2">
 									<div class="text-2xl md:text-lg font-bold">
 										{{ $item->name }}
 									</div>
@@ -106,7 +106,7 @@
 											</svg>
 											Edit
 										</button>
-										<button type="button" class="max-h-10" onclick="document.getElementById('delete{{ $item->id }}').classList.remove('invisible');" title="Delete Item">
+										<button type="button" class="max-h-10" onclick="document.getElementById('delete_item_{{ $item->id }}').classList.remove('hidden');" title="Delete Item">
 											<!-- Delete SVG -->
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto stroke-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 		  										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -114,6 +114,19 @@
 											Delete
 										</button>
 									</div>
+									<form method="post" id="delete_item_{{ $item->id }}" action="{{ route('item.destroy', $item->id) }}" class="hidden absolute flex flex-col inset-0 bg-white bg-opacity-95 rounded-lg">
+										@csrf
+										@method("DELETE")
+										<div class="flex-grow"></div>
+										<div id="content" class="text-center text-red-600 font-semibold w-full">
+											Really delete item?
+										</div>
+										<div class="flex mt-3 justify-center">
+											<button class="p-1 px-2 mr-2 text-red-600 hover:text-white dark:bg-red-800 dark:text-gray-200 bg-white hover:bg-red-600 dark:border-red-800 hover:bg-red-600 border-2 border-red-600 rounded-lg">Delete</button>
+											<button type="button" class="p-1 px-2 text-white border-2 border-green-600 bg-green-600 dark:bg-green-800 dark:border-green-800 font-bold rounded-lg" onclick="document.getElementById('delete_item_{{ $item->id }}').classList.add('hidden');">Cancel</button>
+										</div>
+										<div class="flex-grow"></div>
+									</form>
 								</div>
 						@endforeach
 					</div>
@@ -179,15 +192,6 @@
 				@endforeach
 				@foreach ($all_items as $item)
 					<div id="modals">
-						@component("modals.delete-item", ["name" => "delete".$item->id,"id" => $item->id, "route" => "item.destroy", "modal_id" => "delete" . $item->id])
-							<x-slot name="modal_header">
-								DELETE ITEM
-							</x-slot>
-							<x-slot name="modal_content">
-								<input type="hidden" name="id" value="{{ $item->id}}">
-								You are about to delete this item. Confirm?
-							</x-slot>
-						@endcomponent
 						@component("modals.edit-item", ["name" => "edit".$item->id, "id" => $item->id, "modal_id" => "edit" . $item->id ])
 							<x-slot name="modal_header">
 								<div class="font-bold text-center align-center my-auto">

@@ -41,8 +41,7 @@
 							<div class="py-1 my-auto text-red-600 font-semibold w-full">
 								Really delete collection?
 							</div>
-							<div class="flex mt-2">
-								<div class="flex-grow"></div>
+							<div class="flex mt-2 justify-center">
 								<div class="mr-2">
 									<form method="POST" action="{{ route('collection.destroy', $collection->id) }}">
 										@csrf
@@ -57,7 +56,6 @@
 										No
 									</button>
 								</div>
-								<div class="flex-grow"></div>
 							</div>
 						</div>
 					</div>
