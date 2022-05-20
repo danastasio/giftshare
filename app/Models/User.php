@@ -147,6 +147,10 @@ class User extends Authenticatable //implements MustVerifyEmail
 
 	public function claimed_item_percentage()
 	{
-		return 100 * (1 - ($this->hasMany(Item::class, 'owner_id')->where('claimant_id', '!=', Null)->count() / $this->hasMany(Item::class, 'owner_id')->count()));
+		try {
+			return 100 * (1 - ($this->hasMany(Item::class, 'owner_id')->where('claimant_id', '!=', Null)->count() / $this->hasMany(Item::class, 'owner_id')->has('collections', '>=', 1)->count()));
+		} catch (\DivisionByZeroError) {
+			return 0;
+		}
 	}
 }

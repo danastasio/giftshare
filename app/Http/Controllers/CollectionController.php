@@ -20,7 +20,7 @@ class CollectionController extends Controller
         // only showing items in collection. needs to show all
         return view('collections.index')->with([
             'shares' => auth()->user()->shares()->get(),
-            'collections' => auth()->user()->collections()->with('items')->get(),
+            'collections' => auth()->user()->collections()->with('items', 'users')->get(),
             'shared_with_me' => auth()->user()->shared_with_user()->get(),
             'items'			 => auth()->user()->items()->get(),
         ]);

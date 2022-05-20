@@ -61,14 +61,13 @@
 								</div>
 							</button>
 						</div>
-						<!-- TODO: Add an indicator for the number of claimed gifts / total gifts -->
 					</div>
 						<div class="flex mx-auto mt-5 px-4">
 							<div class="relative w-full rounded-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500">
-								<div class="absolute top-0 right-0 w-[{{ $claimed_item_percentage }}%] rounded-r-full bg-gray-200 h-full">
+								<div class="absolute top-0 right-0 w-[{{ $user->claimed_item_percentage() }}%] rounded-r-full bg-gray-200 h-full">
 								</div>
-								<div class="w-[{{ 100 - $claimed_item_percentage }}%] text-center my-auto font-bold">
-									{{ 100 - round($claimed_item_percentage, 2) }}% Claimed
+								<div class="w-[{{ 100 - $user->claimed_item_percentage() }}%] text-center my-auto font-bold">
+									{{ 100 - round($user->claimed_item_percentage(), 2) }}% Claimed
 								</div>
 							</div>
 						</div>

@@ -14,6 +14,11 @@
 			@foreach ($collections as $collection)
 				<div class="relative flex-none border-2 rounded-lg p-2">
 					<livewire:collection-name :collection=$collection />
+					@if ($collection->users->count() === 0)
+						<div class="rounded-lg bg-red-600 text-white text-center p-1 mb-4 -mt-2">
+							there are no users assigned to this collection
+						</div>
+					@endif
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-5">
 						<button type="button" onclick="document.getElementById('edit_collection_users_{{ $collection->id }}').classList.remove('invisible');">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
