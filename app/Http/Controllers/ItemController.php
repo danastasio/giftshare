@@ -44,7 +44,7 @@ class ItemController extends Controller
                 'visible_collections',
                 'visible_collections.items'
             ])->get(),
-
+            'claimed_item_percentage' => auth()->user()->claimed_item_percentage(),
         ]);
     }
 

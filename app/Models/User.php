@@ -144,4 +144,9 @@ class User extends Authenticatable //implements MustVerifyEmail
     {
         return $this->hasMany(Item::class, 'owner_id')->has('collections', '<', 1);
     }
+
+	public function claimed_item_percentage()
+	{
+		return 100 * (1 - ($this->hasMany(Item::class, 'owner_id')->where('claimant_id', '!=', Null)->count() / $this->hasMany(Item::class, 'owner_id')->count()));
+	}
 }
