@@ -1,8 +1,8 @@
 <x-app-layout>
-	<div class="bg-white rounded-lg max-w-7xl mx-auto mt-5 p-4">
-		<div class="flex w-full text-lg font-bold">
-			<div>Collection Management</div>
-			<div class="flex-grow"></div>
+	<div class="bg-white rounded-lg max-w-7xl mx-auto mt-5 p-4 dark:text-gray-200 dark:bg-gray-600">
+		<div class="flex flex-wrap w-full text-lg font-bold">
+			<div class="text-center md:text-left md:w-auto w-full mb-2 md:mb-0">Collection Management</div>
+			<div class="md:flex-grow"></div>
 			<a href="{{ route('collection.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white font-normal">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -12,7 +12,7 @@
 		</div>
 		<div class="grid md:grid-cols-3 gap-3 mt-5">
 			@foreach ($collections as $collection)
-				<div class="relative flex-none border-2 rounded-lg p-2">
+				<div class="relative flex-none border-2 rounded-lg p-2 dark:bg-gray-400">
 					<livewire:collection-name :collection=$collection />
 					@if ($collection->users->count() === 0)
 						<div class="rounded-lg bg-red-600 text-white text-center p-1 mb-4 -mt-2">

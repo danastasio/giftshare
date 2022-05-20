@@ -35,9 +35,9 @@
 	</div>
 @else
 	@foreach ( $shared_items as $user )
-		<div class="py-4">
+		<div class="py-4 dark:text-gray-200">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-				<div class="mx-2 rounded-md bg-gray-100 md:bg-white dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
+				<div class="mx-2 rounded-md bg-gray-100 dark:bg-gray-600 overflow-hidden shadow-xl sm:rounded-lg p-5">
 					<div class="flex">
 						<div class="flex-none">
 							<button type="button" class="my-auto" onclick="toggleSection('{{ $user->id }}')" id="name{{ $user->id}}">
@@ -75,7 +75,7 @@
 						<span class="mt-10">{{ $user->name }} has not shared any collections with you yet. When they do, this is where they will appear.</span>
 					@endif
 					@foreach($user->visible_collections as $collection)
-						<div class="p-4">
+						<div class="mt-2">
 							<div class="p-4 border rounded-xl">
 								<div class="ml-1 text-xl font-semibold dark:test-gray-200">
 									{{ $collection->name }}
@@ -83,7 +83,7 @@
 								@if ($collection->items->isEmpty())
 									There are no items in this collection. When {{ $user->name }} adds some, this is where they will appear!
 								@else
-									<div class="grid grid-cols-3 gap-4 mt-5">
+									<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
 										@foreach($collection->items as $item)
 											<div id="{{ $item->id }}" class="relative user{{ $collection->id }} claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 												<div class="absolute top-1 right-1">

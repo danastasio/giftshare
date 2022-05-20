@@ -39,7 +39,7 @@
 							{{ $share->name }}
 						</div>
 					</button>
-				<div class="flex" id="item-grid{{ $share->id }}">
+				<div class="grid grid-cols-3 gap-5" id="item-grid{{ $share->id }}">
 					@foreach($share->remote_claims as $item)
 						@component('items.claimed-item', ['item' => $item])
 						@endcomponent

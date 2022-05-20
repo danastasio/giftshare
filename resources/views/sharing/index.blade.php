@@ -18,9 +18,9 @@
 ?>
 
 <x-app-layout>
-	<div class="flex-none max-w-5xl mx-3 md:mx-auto pb-3 mt-5">
-		<div class="flex gap-2 w-full">
-			<div class="w-1/2">
+	<div class="flex-none max-w-5xl mx-3 md:mx-auto pb-3 mt-5 dark:text-gray-200">
+		<div class="flex-none md:flex gap-2 w-full">
+			<div class="w-full md:w-1/2">
 				<div class="text-2xl">
 					Collection User Management
 				</div>
@@ -28,7 +28,7 @@
 					Add and remove users to and from your collections
 				</div>
 			</div>
-			<div class="w-1/2 mx-auto">
+			<div class="w-full md:w-1/2 mx-auto">
 				<div class="bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 					@if($collections->isEmpty())
 						<div class="flex">
@@ -61,8 +61,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex w-full mx-auto mt-5">
-			<div class="w-1/2">
+		<div class="flex-none md:flex w-full mx-auto mt-5">
+			<div class="w-full md:w-1/2">
 				<div class="text-2xl">
 					Unique Sharing QR Code
 				</div>
@@ -70,12 +70,12 @@
 					Have someone else scan this QR code and you will create a share with them!
 				</div>
 			</div>
-			<div class="w-1/2 flex-none bg-white shadow-xl rounded-lg p-5">
+			<div class="w-full md:w-1/2 flex-none bg-white dark:bg-gray-600 shadow-xl rounded-lg p-5">
 				<img class="mx-auto" src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chld=H&chl=https://gifts.danastas.io/qr?email= {{ auth()->user()->email }}">
 			</div>
 		</div>
-		<div class="flex w-full mx-auto mt-5">
-			<div class="w-1/2">
+		<div class="flex-none md:flex w-full mx-auto mt-5">
+			<div class="w-full md:w-1/2">
 				<div class="text-2xl">
 					Users you are sharing with
 				</div>
@@ -83,7 +83,7 @@
 					The users to the right can be added to one or more of your collections.
 				</div>
 			</div>
-			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<div class="w-full md:w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="flex text-2xl mb-4 w-full">
 					<div class="flex-grow"></div>
 					<span class="my-auto">
@@ -103,7 +103,7 @@
 					<div id="shares" class="col-span-2 overflow-auto max-h-96">
 						@foreach( $shared_with_others as $share )
 							<div class="col-span-2 flex relative p-2">
-								<div class="w-1/2 my-auto">
+								<div class="w-full md:w-1/2 my-auto">
 									{{ $share->name }}
 								</div>
 								<div>
@@ -137,8 +137,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex w-full mx-auto mt-5">
-			<div class="w-1/2">
+		<div class="flex-none md:flex w-full mx-auto mt-5">
+			<div class="w-full md:w-1/2">
 				<div class="text-2xl">
 					Users who are sharing with you
 				</div>
@@ -146,14 +146,14 @@
 					The users to the left have added you to their account and can share their collections with you.
 				</div>
 			</div>
-			<div class="w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<div class="w-full md:w-1/2 bg-white dark:bg-gray-600 dark:text-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-5">
 				<div class="grid grid-cols-2 gap-5">
 					<div>Name</div>
 					<div>Email</div>
 					<hr class="col-span-2">
 					@foreach ( $shared_with_me as $share )
 						<div>{{ $share->name }}</div>
-						<div>{{ $share->email }}</div>
+						<div class="truncate">{{ $share->email }}</div>
 					@endforeach
 				</div>
 			</div>

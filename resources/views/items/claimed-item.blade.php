@@ -1,4 +1,4 @@
-<div id="{{ $item->id }}" class="w-1/3 mr-3 claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
+<div id="{{ $item->id }}" class="claimed{{$item->claimed}} grid grid-cols-1 justify-between bg-white overflow-hidden shadow-2xl rounded-2xl border dark:border-gray-500 dark:bg-gray-500 dark:text-gray-200">
 	<div class="absolute top-1 right-1">
 		@if($item->priority == '2')
 			<!-- Fire SVG -->

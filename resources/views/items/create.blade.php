@@ -20,7 +20,7 @@
 			</div>
 			<div class="mt-4">
 				<div class="w-full"><label for="lists">Item belongs to collections:</label></div>
-				<select name="collections[]" id="collections" multiple>
+				<select name="collections[]" id="collections" multiple class="w-1/3 dark:bg-gray-400 rounded-lg dark:text-gray-700">
 					@foreach( $collections as $collection)
 						<option value="{{ $collection->id }}">{{ $collection->name }}</option>
 					@endforeach

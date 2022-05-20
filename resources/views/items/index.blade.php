@@ -42,24 +42,25 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-5">
 			<div class="bg-white dark:bg-gray-600 dark:text-gray-200 darkoverflow-hidden shadow-xl sm:rounded-lg p-5 mx-3 rounded-md">
 				<div class="flex-none md:flex">
-					<div class="flex w-full text-2xl font-semibold mb-5">
-						<div class="my-auto">Your current items</div>
+					<div class="flex flex-wrap w-full text-2xl font-semibold mb-5">
+						<div class="my-auto mb-2 md:mb-0">Your current items</div>
 						<div class="flex-grow"></div>
+						@if($availability_warning)
+							<div class="ml-0 mt-2 md:mt-0 md:ml-4 flex border-2 border-yellow-600 rounded-lg mr-2 px-2 animate-pulse" title="A significant number of your items have been claimed. You may want to consider adding more!">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+								</svg>
+								<span class="ml-2 text-yellow-600 my-auto font-normal">Low Item Availability</span>
+							</div>
+						@endif
 						<a href="{{ route('item.create') }}" class="flex mx-auto p-2 rounded-lg bg-green-600 text-white font-normal">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 							</svg>
-							<span>Create a new item</span>
+							<span>Add new item</span>
 						</a>
 					</div>
-					@if($availability_warning)
-						<div class="ml-0 mt-2 md:mt-0 md:ml-4 flex" title="A significant number of your items have been claimed. You may want to consider adding more!">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-							</svg>
-							<span class="ml-2 text-yellow-600">Low Item Availability</span>
-						</div>
-					@endif
+
 				</div>
 
 				@if (!$unassigned_items->isEmpty())
@@ -68,7 +69,7 @@
 							<div class="text-xl text-red-600 font-bold">Unassigned Items</div>
 							<div class="text-red-600 font-semibold mt-2">These items have not been assigned to a collection. Other users won't be able to see them until they are added to a collection</div>
 						</div>
-						<div class="flex flex-wrap">
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 							@foreach ($unassigned_items as $item)
 								<!-- Item Card -->
 								@component('items.card', ['item' => $item])
@@ -83,7 +84,7 @@
 							<div class="text-2xl mb-2 ml-1 font-bold">
 								{{ $collection->name }}
 							</div>
-							<div class="grid grid-cols-3 gap-5">
+							<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 								@foreach ($collection->items as $item)
 									<!-- Item Card -->
 									@component('items.card', ['item' => $item])
