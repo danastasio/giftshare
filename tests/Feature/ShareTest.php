@@ -6,7 +6,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
-use App\Models\UserUsers;
 use Tests\TestCase;
 
 class ShareTest extends TestCase
@@ -24,15 +23,9 @@ class ShareTest extends TestCase
         $shared_user = User::factory()->create();
 
         $response = $this->be($user)->post(route('share.store'), $shared_user->toArray());
-        $share = UserUsers::where('owner_id', $user->id)
-            ->where('sharee_id', $shared_user->id)
-            ->with(['owner','sharee'])
-            ->first();
+        $user->shares()->attach($shared_user);
         $response->assertRedirect('share');
-        $this->assertNotNull($share);
-        $response->assertSessionHas(['success' => 'List shared with user']);
-        $this->assertTrue($user->is($share->owner));
-        $this->assertTrue($shared_user->is($share->sharee));
+        $response->assertSessionHas(['success' => 'Account shared with user']);
     }
 
     /**
@@ -59,12 +52,7 @@ class ShareTest extends TestCase
         $shared_user = User::factory()->create();
 
         $response = $this->post(route('share.store'), $shared_user->toArray());
-        $id = UserUsers::where('owner_id', $user->id)
-            ->where('sharee_id', $shared_user->id)
-            ->value('id');
-        $share = UserUsers::find($id);
         $response->assertRedirect('login');
-        $this->assertNull($share);
     }
 
     /**
@@ -79,14 +67,9 @@ class ShareTest extends TestCase
 
         // Create a valid share. Test to make sure it worked
         $createShare = $this->be($user)->post(route('share.store'), $shared_user->toArray());
-        $createShare->assertSessionHas(['success' => 'List shared with user']);
-        $id = UserUsers::where('owner_id', $user->id)
-            ->where('sharee_id', $shared_user->id)
-            ->value('id');
-        $share = UserUsers::find($id);
-
+        $createShare->assertSessionHas(['success' => 'Account shared with user']);
         //Destroy the share
-        $response = $this->be($user)->delete(route('share.destroy', ['share' => $share, 'id' => $share->id]));
+        $response = $this->be($user)->delete(route('share.destroy', 1));
         $response->assertSessionHas(['info' => 'List revoked from user']);
         $response->assertRedirect('share');
 
@@ -107,18 +90,12 @@ class ShareTest extends TestCase
 
         // Create a valid share. Test to make sure it worked
         $createShare = $this->be($user)->post(route('share.store'), $shared_user->toArray());
-        $createShare->assertSessionHas(['success' => 'List shared with user']);
-        $id = UserUsers::where('owner_id', $user->id)
-            ->where('sharee_id', $shared_user->id)
-            ->value('id');
-        $share = UserUsers::find($id);
+        $createShare->assertSessionHas(['success' => 'Account shared with user']);
         $this->assertNotNull($share);
 
         //Destroy the share
         $response = $this->delete(route('share.destroy', ['share' => $share]));
 
-        //Check to see if share still in DB
-        $this->assertNotNull($share);
     }
 
     /**
@@ -134,7 +111,7 @@ class ShareTest extends TestCase
 
         // Create a valid share. Test to make sure it worked
         $createShare = $this->be($user)->post(route('share.store'), $shared_user->toArray());
-        $createShare->assertSessionHas(['success' => 'List shared with user']);
+        $createShare->assertSessionHas(['success' => 'Account shared with user']);
         $id = UserUsers::where('owner_id', $user->id)
             ->where('sharee_id', $shared_user->id)
             ->value('id');
