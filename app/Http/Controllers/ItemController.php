@@ -21,7 +21,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use Illuminate\Database\Eloquent\Model;
-use App\Models\UserUsers;
 use App\Models\Item;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ItemRequest;
